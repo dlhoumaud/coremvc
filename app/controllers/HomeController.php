@@ -3,24 +3,27 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 12:01:04
+ * @ Modified time: 2024-11-19 16:05:25
  * @ Description:
  */
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Helpers\Session;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $data = ['title' => 'Bienvenue sur CoreMVC'];
+        Session::set('title', 'Bienvenue sur CoreMVC');
+        $data = ['title' => Session::get('title')];
         $this->view('home', $data);
     }
 
     public function about()
     {
-        $data = ['title' => 'À propos de CoreMVC'];
+        Session::set('title', 'À propos de CoreMVC');
+        $data = ['title' => Session::get('title')];
         $this->view('about', $data);
     }
 }

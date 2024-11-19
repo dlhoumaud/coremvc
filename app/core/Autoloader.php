@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 13:53:43
+ * @ Modified time: 2024-11-19 15:24:42
  * @ Description: Auto-chargements des classes
  */
 
@@ -42,8 +42,9 @@ class Autoloader
         $directories = [
             'App\\Core\\'        => '../app/core/',
             'App\\Controllers\\' => '../app/controllers/',
-            'App\\Services\\'    => '../app/services/',
+            'App\\Helpers\\'    =>  '../app/helpers/',
             'App\\Models\\'      => '../app/models/',
+            'App\\Services\\'    => '../app/services/',
         ];
         if(self::searchClass($class, $directories)) {
             return;
@@ -52,8 +53,9 @@ class Autoloader
         $directories = [
             'App\\Core\\'        => 'app/core/',
             'App\\Controllers\\' => 'app/controllers/',
-            'App\\Services\\'    => 'app/services/',
+            'App\\Helpers\\'    =>  'app/helpers/',
             'App\\Models\\'      => 'app/models/',
+            'App\\Services\\'    => 'app/services/',
         ];
 
         if(!self::searchClass($class, $directories)) {
