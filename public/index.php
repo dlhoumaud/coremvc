@@ -3,13 +3,13 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 14:05:40
+ * @ Modified time: 2024-11-19 16:00:02
  * @ Description: Script de démarrage de l'application
  */
 
 use App\Core\Autoloader;
 use App\Core\Router;
-
+use App\Helpers\Session;
 session_start();
 
 require_once '../config/config.php'; // Configurations de l'application
