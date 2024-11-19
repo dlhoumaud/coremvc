@@ -79,7 +79,18 @@ git clone https://github.com/dlhoumaud/coremvc.git
 
 ### 2. Configurer le fichier de configuration
 
-Le fichier de configuration `config/config.php` contient les paramètres de connexion à la base de données, les routes, et d'autres paramètres généraux pour l'application. Veuillez adapter ce fichier à vos besoins.
+Le fichier de configuration `.env` doit être configuré avec les informations de connexion à la base de données.
+
+```ini
+DB_HOST=xxx.xxx.x.xxx
+DB_PORT=3306
+DB_CHARSET=utf8
+DB_NAME=core_mvc
+DB_USER=xxx
+DB_PASS=xxx
+APP_ENV=development
+APP_DEBUG=true
+```
 
 ### 3. Lancer le serveur de développement
 
