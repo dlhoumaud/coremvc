@@ -1,0 +1,39 @@
+header {
+    border: solid 2px red;
+}
+
+main {
+    border: solid 2px blue;
+}
+
+footer {
+    border: solid 2px yellow;
+}
+
+img {
+    border: solid 2px green;
+}
+
+div {
+    border: solid 2px black;
+}
+
+span {
+    border: solid 2px #555;
+}
+
+nav, ul {
+    border: solid 2px rgb(42, 237, 68);
+}
+
+section {
+    border: solid 2px rgb(145, 14, 84);
+}
+
+article {
+    border: solid 2px rgb(76, 115, 183);
+}
+
+blockquote, figcaption {
+    border: solid 2px rgb(129, 201, 21);
+}

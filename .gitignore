@@ -1,0 +1,5 @@
+storage/cache/*.php
+storage/cache/database/migrate/*.php
+storage/cache/database/seeders/*.php
+storage/logs/*.log
+.env

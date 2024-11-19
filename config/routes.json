@@ -1,0 +1,18 @@
+{
+    "/": {
+        "controller": "HomeController",
+        "action": "index"
+    },
+    "/about": {
+        "controller": "HomeController",
+        "action": "about"
+    },
+    "/login": {
+        "controller": "UserController",
+        "action": "login"
+    },
+    "/user/{id}": {
+        "controller": "UserController",
+        "action": "show"
+    }
+}
