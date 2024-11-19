@@ -91,6 +91,17 @@ DB_PASS=xxx
 APP_ENV=development
 APP_DEBUG=true
 ```
+#### Crypter le fichier `.env`
+
+```bash
+php bin/core.php -e .env -k your_secret_key
+```
+
+#### Décrypter le fichier `.env`
+
+```bash
+php bin/core.php -d .env -k your_secret_key
+```
 
 ### 3. Lancer le serveur de développement
 
