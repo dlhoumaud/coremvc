@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-25 16:08:45
+ * @ Modified time: 2024-11-25 17:36:57
  * @ Description: Script de fonctionnalités
  */
 
@@ -39,13 +39,13 @@
          $parts = explode('=', $line, 2);
  
          if (count($parts) == 2) {
-             $key = trim($parts[0]);
-             $value = trim($parts[1]);
- 
-             // Définir la variable d'environnement
-             putenv("$key=$value");
-             $_ENV[$key] = $value;  // Optionnel
-             $envVars[$key] = $value;  // Conserver dans un tableau pour générer le cache
+            $key = trim($parts[0]);
+            $value = trim($parts[1]).($key=='VERSION'?'.'.time():'');
+
+            // Définir la variable d'environnement
+            putenv("$key=$value");
+            $_ENV[$key] = $value;  // Optionnel
+            $envVars[$key] = $value;  // Conserver dans un tableau pour générer le cache
          }
      }
  
