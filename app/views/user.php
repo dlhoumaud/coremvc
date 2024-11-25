@@ -3,4 +3,5 @@
       <h1 class="display-3 fw-bold"><?= $user['firstname']. ' ' . $user['lastname'] ?></h1>
       <h3 class="fw-normal text-muted mb-3"><?= $user['email'] ?></h3>
     </div>
-  </div>
+</div>
+<hello-coremvc></hello-coremvc>
