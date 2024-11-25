@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 13:52:11
+ * @ Modified time: 2024-11-25 16:39:28
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -33,7 +33,7 @@ Copyright (C) 2024  David Lhoumaud
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions.\n\n"
-    . "Utilisation : php bin/core.php [options]\n"
+    . "Utilisation : php bin/morty.php [options]\n"
     . "Options disponibles :\n"
     . "  -s, --server [adresse:port]     : Lance un serveur de développement PHP à l'adresse et au port spécifiés.\n"
     . "  -e, --encrypt [file]            : Chiffre un fichier spécifique.\n"

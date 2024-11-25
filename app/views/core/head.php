@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="/css/frameworks/fontawesome-free-6.6.0-web/css/all.css">
         <link rel="stylesheet" href="/css/frameworks/bootstrap-5.3.0/dist/css/bootstrap.min.css">
         <script type="text/javascript" src="/css/frameworks/bootstrap-5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/js/libraries/rick.js"></script>
         <script type="text/javascript" src="/js/frameworks/vue-3.5.13.global.prod.js"></script>
         <link rel="stylesheet" href="/css/style.css">
     </head>

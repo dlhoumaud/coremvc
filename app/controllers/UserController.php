@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-25 15:09:42
+ * @ Modified time: 2024-11-25 15:37:07
  * @ Description: Classe pour gérer les utilisateurs
  */
 
