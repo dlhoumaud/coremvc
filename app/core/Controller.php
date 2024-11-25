@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:38
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 13:54:03
+ * @ Modified time: 2024-11-25 14:22:44
  * @ Description: Controller class for handling HTTP requests and rendering views.
  */
 
@@ -27,8 +27,8 @@ class Controller
         require_once "../app/views/core/$head_view_core.php";
         if (!isset($header_view_layout)) $header_view_layout = 'header';
         require_once "../app/views/layout/$header_view_layout.php";
-        if (!isset($main_attributes)) echo '<main>';
-        else echo '<main '.$main_attributes.'>';
+        if (!isset($main_attributes)) echo '<main id="app">';
+        else echo '<main id="app" '.$main_attributes.'>';
         require_once "../app/views/$view.php";
         echo '</main>';
         if (!isset($footer_view_layout)) $footer_view_layout = 'footer';

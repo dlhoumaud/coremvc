@@ -3,8 +3,8 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 12:01:20
- * @ Description:
+ * @ Modified time: 2024-11-25 15:09:42
+ * @ Description: Classe pour gérer les utilisateurs
  */
 
 namespace App\Controllers;
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function login()
     {
         $data = [
-            'title' => 'Connexion à CoreMVC', 
+            'head_title' => 'Connexion à CoreMVC', 
             'main_attributes' => 'class="form-signin col-8 col-sm-6 col-md-4 col-lg-3 m-auto"'
         ];
 
