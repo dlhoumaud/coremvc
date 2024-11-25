@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 13:55:27
+ * @ Modified time: 2024-11-25 16:22:06
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -44,7 +44,15 @@ class UserService
             // Si l'utilisateur existe, transmettre les données à la vue
             return [
                 'title' => 'Utilisateur ' . $user['firstname'] . ' ' . $user['lastname'],
-                'user' => $user // Passer l'utilisateur à la vue
+                'vue_datas' => '
+                    firstname : "'.$user['firstname'].'",
+                    lastname : "'.$user['lastname'].'",
+                    email : "'.$user['email'].'",
+                ',
+                'vue_methods' => '
+                    mouseEnter : '.inject('js/controllers/user/alert.js', ['user' => $user, 'hover'=> true ]).',
+                    mouseLeave : '.inject('js/controllers/user/alert.js', ['user' => $user, 'hoverOut'=> true ]).',
+                    click : '.inject('js/controllers/user/alert.js', ['user' => $user])
             ];
         } 
         // Si l'utilisateur n'existe pas, afficher une erreur ou rediriger

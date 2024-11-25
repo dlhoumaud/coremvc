@@ -2,7 +2,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:46:30
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-25 15:04:41
+ * @ Modified time: 2024-11-25 16:36:20
  * @ Description: Scripts for the application
  */
 
