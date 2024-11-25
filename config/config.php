@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 14:07:07
+ * @ Modified time: 2024-11-25 16:08:45
  * @ Description: Script de fonctionnalités
  */
 
@@ -173,4 +173,12 @@ function scanDirectory($directory)
     $files = array_diff($files, ['.', '..']);
 
     return $files; // Renvoie le tableau de fichiers/dossiers
+}
+
+function inject($filename, $data) {
+    if (!file_exists($filename)) return '';
+    extract($data);
+    ob_start(); // Démarre la capture de sortie
+    include $filename; // Inclut et exécute le fichier
+    return ob_get_clean(); // Capture et nettoie le tampon
 }

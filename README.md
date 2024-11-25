@@ -94,13 +94,13 @@ APP_DEBUG=true
 #### Crypter le fichier `.env`
 
 ```bash
-php bin/core.php -e .env -k your_secret_key
+php bin/morty.php -e .env -k your_secret_key
 ```
 
 #### Décrypter le fichier `.env`
 
 ```bash
-php bin/core.php -d .env -k your_secret_key
+php bin/morty.php -d .env -k your_secret_key
 ```
 
 ### 3. Lancer le serveur de développement
@@ -108,7 +108,7 @@ php bin/core.php -d .env -k your_secret_key
 Vous pouvez lancer un serveur de développement PHP avec le fichier `http.php` inclus dans le projet :
 
 ```bash
-php bin/core.php -s localhost:8000
+php bin/morty.php -s localhost:8000
 ```
 
 Cela démarrera un serveur PHP intégré à l'adresse `http://localhost:8000`.
