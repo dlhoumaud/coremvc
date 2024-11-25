@@ -175,6 +175,19 @@ class HomeController extends Controller
 }
 ```
 
+#### variables des vues `app/views/`
+
+- `head_title` : Titre de la page
+- `head_description` : Description de la page
+- `head_keywords` : Mots-clés de la page
+- `head_author` : Auteur de la page
+- `head_viewport` : Vueport de la page
+- `main_attributes` : Attributs HTML pour la balise `<main>`
+- `vue_datas` : Données à passer à Vue.js
+- `vue_methods` : Methodes Vue.js à injecter dans les vues
+- `vue_components` : Composants Vue.js à injecter dans les vues
+
+
 ### 5. Exemple de modèle
 
 Un modèle simple `User.php` qui pourrait être utilisé pour interagir avec la base de données.

@@ -7,21 +7,21 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="assets/images/slides/000.png" class="d-block w-100" alt="...">
+                        <img src="/assets/images/slides/000.png" class="d-block w-100" alt="...">
                         <figcaption class="carousel-caption d-none d-md-block">
                             <h5>Bienvenue sur CoreMVC</h5>
                             <p>Un framework pour tous.</p>
                         </figcaption>
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/images/slides/001.png" class="d-block w-100" alt="...">
+                        <img src="/assets/images/slides/001.png" class="d-block w-100" alt="...">
                         <figcaption class="carousel-caption d-none d-md-block">
                             <h5>Framework MVC en PHP</h5>
                             <p>Développer facilement.</p>
                         </figcaption>
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/images/slides/002.png" class="d-block w-100" alt="...">
+                        <img src="/assets/images/slides/002.png" class="d-block w-100" alt="...">
                         <figcaption class="carousel-caption d-none d-md-block">
                             <h5>Un framework sans dépendance</h5>
                             <p>Aucun contrainte lié à composer</p>
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
                         <article class="card">
-                            <img src="assets/images/bg.png" class="card-img-top" alt="...">
+                            <img src="/assets/images/bg.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">CoreMVC</h5>
                                 <p class="card-text">Est un framework PHP facile d'utilisation.</p>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
                         <article class="card">
-                            <img src="assets/images/bg.png" class="card-img-top" alt="...">
+                            <img src="/assets/images/bg.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Objectifs</h5>
                                 <div class="card-text">
@@ -66,7 +66,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
                         <article class="card">
-                            <img src="assets/images/bg.png" class="card-img-top" alt="...">
+                            <img src="/assets/images/bg.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Titre carte</h5>
                                 <p class="card-text">Petit exemple de contenu pour la carte.</p>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
                         <article class="card">
-                            <img src="assets/images/bg.png" class="card-img-top" alt="...">
+                            <img src="/assets/images/bg.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Titre carte</h5>
                                 <p class="card-text">Petit exemple de contenu pour la carte.</p>
@@ -87,3 +87,4 @@
                 </div>
                 <!-- END CARDS-->
             </div>
+            <hello-coremvc></hello-coremvc>
