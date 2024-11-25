@@ -1,5 +1,14 @@
-@import "_variables";
-@import "_colors";
-@import "_typo";
-@import "_mixins";
-@import "_extends";
+/**
+* @ Author: David Lhoumaud
+* @ Create Time: 2024-11-12 11:34:38
+* @ Modified by: David Lhoumaud
+* @ Modified time: 2024-11-25 22:40:20
+* @ Description: CSS de base pour CoreMVC
+*/
+
+@use "sass:map";
+@use "_variables"   as v;
+@use "_colors"      as c;
+@use "_typo"        as t;
+@use "_mixins"      as m;
+@use "_extends"     as e;
