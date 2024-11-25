@@ -18,14 +18,13 @@
         <meta name="twitter:image" content="https://<?= $_SERVER['HTTP_HOST'] ?>/assets/images/favicon.png">
         <title><?= $head_title??'CoreMVC' ?></title>
         <link rel="icon" href="/assets/images/favicon.png" alt="CoreMVC Logo">
-        <link rel="stylesheet" href="/css/normalize.css?v=<?= getenv('VERSION') ?>">
-        <!-- <link rel="stylesheet" href="/css/zoning.css?v=<?= getenv('VERSION') ?>"> -->
-
-        <link rel="stylesheet" href="/css/frameworks/fontawesome-free-6.6.0-web/css/all.css?v=<?= getenv('VERSION') ?>">
-        <link rel="stylesheet" href="/css/frameworks/bootstrap-5.3.0/dist/css/bootstrap.min.css?v=<?= getenv('VERSION') ?>">
-        <link rel="stylesheet" href="/css/style.css?v=<?= getenv('VERSION') ?>">
-        <script src="/js/frameworks/vue-3.5.13.global.prod.js?v=<?= getenv('VERSION') ?>"></script>
-        <script src="/css/frameworks/bootstrap-5.3.0/dist/js/bootstrap.bundle.min.js?v=<?= getenv('VERSION') ?>" defer></script>
-        <script src="/js/libraries/rick.js?v=<?= getenv('VERSION') ?>" defer></script>
+        <link rel="stylesheet" href="/css/normalize.min.css?v=<?= getenv('VERSION') ?>">
+        <!-- <link rel="stylesheet" href="/css/zoning.min.css?v=<?= getenv('VERSION') ?>"> -->
+        <link rel="stylesheet" href="/css/frameworks/fontawesome.min.css?v=<?= getenv('VERSION') ?>">
+        <link rel="stylesheet" href="/css/frameworks/bootstrap.min.css?v=<?= getenv('VERSION') ?>">
+        <link rel="stylesheet" href="/css/style.min.css?v=<?= getenv('VERSION') ?>">
+        <script src="/js/frameworks/vue.global.prod.js?v=<?= getenv('VERSION') ?>"></script>
+        <script src="/js/frameworks/bootstrap.bundle.min.js?v=<?= getenv('VERSION') ?>" defer></script>
+        <script src="/js/frameworks/rick.min.js?v=<?= getenv('VERSION') ?>" defer></script>
     </head>
     <body>

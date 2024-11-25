@@ -251,19 +251,33 @@ sass --watch public/scss/:public/css/
 ```
 
 ```bash
+sass public/scss/normalize.scss public/css/normalize.min.css --style compressed
+sass public/scss/zoning.scss public/css/zoning.min.css --style compressed
 sass public/scss/style.scss public/css/style.min.css --style compressed
 ```
 
 Cela créera un fichier `style.min.css` minifié, optimisé pour une utilisation en production.
+
+## Minifier les fichiers JavaScript
+
+Avec Terser (plus moderne) :
+
+`npm install -g terser`
+
+Minifiez un fichier :
+
+```bash
+terser public/js/frameworks/rick.js -o public/js/frameworks/rick.min.js
+```
 
 ## Contribution
 
 Si vous souhaitez contribuer à ce projet, vous pouvez suivre ces étapes :
 
 1. Forkez le projet.
-2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-fonctionnalite`).
+2. Créez une branche pour votre fonctionnalité (`git checkout -b features/ma-fonctionnalite`).
 3. Committez vos modifications (`git commit -am 'Ajout d'une nouvelle fonctionnalité'`).
-4. Poussez sur votre branche (`git push origin feature/ma-fonctionnalite`).
+4. Poussez sur votre branche (`git push origin features/ma-fonctionnalite`).
 5. Ouvrez une Pull Request.
 
 ## Licence
