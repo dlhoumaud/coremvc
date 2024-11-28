@@ -254,6 +254,7 @@ sass --watch public/scss/:public/css/
 sass public/scss/normalize.scss public/css/normalize.min.css --style compressed
 sass public/scss/zoning.scss public/css/zoning.min.css --style compressed
 sass public/scss/style.scss public/css/style.min.css --style compressed
+sass public/scss/views/:public/css/views/ --style compressed
 ```
 
 Cela créera un fichier `style.min.css` minifié, optimisé pour une utilisation en production.

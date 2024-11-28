@@ -1,5 +1,5 @@
             <!-- CARROUSEL-->
-            <div id="HomeCarousel" class="carousel slide">
+            <div id="HomeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="true">
                 <carousel-indicators :count="3" id="HomeCarousel"></carousel-indicators>
                 <div class="carousel-inner">
                     <carousel-item
@@ -7,6 +7,7 @@
                         imgalt="Bienvenue sur CoreMVC"
                         title="Bienvenue sur CoreMVC"
                         text="Un framework pour tous.."
+                        interval="10000"
                         :active="true">
                     </carousel-item>
                     <carousel-item
@@ -14,6 +15,7 @@
                         imgalt="Framework MVC en PHP"
                         title="Framework MVC en PHP"
                         text="Développer facilement."
+                        interval="10000"
                         :active="false">
                     </carousel-item>
                     <carousel-item
@@ -21,6 +23,7 @@
                         imgalt="Un framework sans dépendance"
                         title="Un framework sans dépendance"
                         text="Aucun contrainte lié à composer"
+                        interval="10000"
                         :active="false">
                     </carousel-item>
                 </div>
@@ -44,7 +47,8 @@
                             title='CoreMVC'
                             text="Est un framework PHP facile d'utilisation."
                             btntext='Voir plus'
-                            btnlink='#'>
+                            btnlink='#'
+                            btnclass='btn-primary'>
                         </card-img-top>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
@@ -53,7 +57,8 @@
                             imgalt='Image de la carte'
                             title='Objectifs'
                             btntext='Voir plus'
-                            btnlink='#'>
+                            btnlink='#'
+                            btnclass='btn-primary'>
                             <template #text>
                                 <p>Développer facilement</p>
                                 <p>Développer proprement</p>
@@ -67,7 +72,8 @@
                             title='Titre carte'
                             text='Petit exemple de contenu pour la carte.'
                             btntext='Voir plus'
-                            btnlink='#'>
+                            btnlink='#'
+                            btnclass='btn-primary'>
                         </card-img-top>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
@@ -76,7 +82,8 @@
                             imgalt='Image de la carte'
                             title='Titre carte'
                             btntext='Voir plus'
-                            btnlink='#'>
+                            btnlink='#'
+                            btnclass='btn-primary'>
                             <template #text>
                                 <hello-coremvc></hello-coremvc>
                             </template>
