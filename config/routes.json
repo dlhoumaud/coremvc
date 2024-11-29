@@ -14,5 +14,17 @@
     "/user/{id}": {
         "controller": "UserController",
         "action": "show"
+    },
+    "/set-cookie-consent": {
+        "controller": "CookieController",
+        "action": "setCookieConsent"
+    },
+    "/privacy-policy": {
+        "controller": "PrivacyPolicyController",
+        "action": "show"
+    },
+    "/cookies-policy": {
+        "controller": "CookiesPolicyController",
+        "action": "show"
     }
 }

@@ -30,4 +30,4 @@
         <script src="/js/frameworks/bootstrap.bundle.min.js?v=<?= getenv('VERSION') ?>" defer></script>
         <script src="/js/frameworks/rick.min.js?v=<?= getenv('VERSION') ?>" defer></script>
     </head>
-    <body>
+    <body id="app">
