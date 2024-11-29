@@ -7,12 +7,17 @@
 </div>
 
 <div class="d-flex justify-content-center mt-2">
-    <div class="card shadow-lg" style="width: 18rem;">
-        <img src="/assets/images/CoreMVC.png" class="card-img-top" alt="Profile Image">
-        <div class="card-body">
-            <h5 class="card-title text-center">À propos de moi</h5>
-            <p class="card-text">Je suis un développeur Web passionné par la création d'applications et de solutions logicielles. Mon expertise inclut le développement front-end et back-end, ainsi que la conception de frameworks MVC comme CoreMVC.</p>
-            <a href="#" @click="click" @mouseenter="mouseEnter" @mouseleave="mouseLeave" class="btn btn-primary w-100">Voir plus</a>
-        </div>
-    </div>
+    <card-img-top
+        cardclass='shadow-lg'
+        cardstyle='width:18rem;'
+        imgsrc='/assets/images/CoreMVC.png'
+        imgalt='À propos de moi'
+        title='À propos de moi'
+        text="Je suis un développeur Web passionné par la création d'applications et de solutions logicielles. Mon expertise inclut le développement front-end et back-end, ainsi que la conception de frameworks MVC comme CoreMVC."
+        btntext='Voir plus'
+        btnclass='btn-primary w-100'
+        :btnclick='click'
+        :btnmouseenter='mouseEnter'
+        :btnmouseleave='mouseLeave'>
+    </card-img-top>
 </div>

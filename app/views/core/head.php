@@ -23,8 +23,11 @@
         <link rel="stylesheet" href="/css/frameworks/fontawesome.min.css?v=<?= getenv('VERSION') ?>">
         <link rel="stylesheet" href="/css/frameworks/bootstrap.min.css?v=<?= getenv('VERSION') ?>">
         <link rel="stylesheet" href="/css/style.min.css?v=<?= getenv('VERSION') ?>">
+        <?php if (file_exists('css/views/'.$view.'.css')) : ?>
+            <link rel="stylesheet" href="/css/views/<?= $view ?>.css?v=<?= getenv('VERSION') ?>">
+        <?php endif; ?>
         <script src="/js/frameworks/vue.global.prod.js?v=<?= getenv('VERSION') ?>"></script>
         <script src="/js/frameworks/bootstrap.bundle.min.js?v=<?= getenv('VERSION') ?>" defer></script>
         <script src="/js/frameworks/rick.min.js?v=<?= getenv('VERSION') ?>" defer></script>
     </head>
-    <body>
+    <body id="app">

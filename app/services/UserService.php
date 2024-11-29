@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-25 16:22:06
+ * @ Modified time: 2024-11-28 13:53:45
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -44,27 +44,31 @@ class UserService
             // Si l'utilisateur existe, transmettre les données à la vue
             return [
                 'title' => 'Utilisateur ' . $user['firstname'] . ' ' . $user['lastname'],
-                'vue_datas' => '
-                    firstname : "'.$user['firstname'].'",
-                    lastname : "'.$user['lastname'].'",
-                    email : "'.$user['email'].'",
-                ',
+                'vue_datas' => json_encode(
+                    [
+                        'firstname' => $user['firstname'],
+                        'lastname'  => $user['lastname'],
+                        'email'     => $user['email']
+                    ]
+                ),
                 'vue_methods' => '
-                    mouseEnter : '.inject('js/controllers/user/alert.js', ['user' => $user, 'hover'=> true ]).',
-                    mouseLeave : '.inject('js/controllers/user/alert.js', ['user' => $user, 'hoverOut'=> true ]).',
-                    click : '.inject('js/controllers/user/alert.js', ['user' => $user])
+                    mouseEnter : '.inject('js/methods/user/alert.js', ['user' => $user, 'hover'   => true ]).',
+                    mouseLeave : '.inject('js/methods/user/alert.js', ['user' => $user, 'hoverOut'=> true ]).',
+                    click : '     .inject('js/methods/user/alert.js', ['user' => $user]),
+                'vue_components' => inject('js/components/card/img-top.js')
             ];
         } 
         // Si l'utilisateur n'existe pas, afficher une erreur ou rediriger
         return [
             'title' => 'Utilisateur introuvable',
             'message' => 'L\'utilisateur avec l\'ID ' . $id . ' n\'existe pas.',
-            'user' => [
-                'id' => $id,
-                'firstname' => 'Utilisateur',
-                'lastname' => 'Inconnu',
-                'email' => 'utilisateur@inconnu.com'
-            ]
+            'vue_datas' => json_encode(
+                [
+                    'firstname' => 'Utilisateur',
+                    'lastname' => 'Inconnu',
+                    'email' => 'utilisateur@inconnu.com'
+                ]
+            )
         ];
     }
 }
