@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-28 13:53:45
+ * @ Modified time: 2024-11-29 13:04:38
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -44,13 +44,11 @@ class UserService
             // Si l'utilisateur existe, transmettre les données à la vue
             return [
                 'title' => 'Utilisateur ' . $user['firstname'] . ' ' . $user['lastname'],
-                'vue_datas' => json_encode(
-                    [
-                        'firstname' => $user['firstname'],
-                        'lastname'  => $user['lastname'],
-                        'email'     => $user['email']
-                    ]
-                ),
+                'vue_datas' => [
+                    'firstname' => $user['firstname'],
+                    'lastname'  => $user['lastname'],
+                    'email'     => $user['email']
+                ],
                 'vue_methods' => '
                     mouseEnter : '.inject('js/methods/user/alert.js', ['user' => $user, 'hover'   => true ]).',
                     mouseLeave : '.inject('js/methods/user/alert.js', ['user' => $user, 'hoverOut'=> true ]).',
@@ -62,13 +60,11 @@ class UserService
         return [
             'title' => 'Utilisateur introuvable',
             'message' => 'L\'utilisateur avec l\'ID ' . $id . ' n\'existe pas.',
-            'vue_datas' => json_encode(
-                [
-                    'firstname' => 'Utilisateur',
-                    'lastname' => 'Inconnu',
-                    'email' => 'utilisateur@inconnu.com'
-                ]
-            )
+            'vue_datas' => [
+                'firstname' => 'Utilisateur',
+                'lastname' => 'Inconnu',
+                'email' => 'utilisateur@inconnu.com'
+            ]
         ];
     }
 }

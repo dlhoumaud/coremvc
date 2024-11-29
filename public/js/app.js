@@ -2,14 +2,14 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:46:30
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-29 12:28:48
+ * @ Modified time: 2024-11-29 13:03:54
  * @ Description: Scripts for the application Vue.js
  */
 
 // Définition de l'élément HTML où sera montée l'application Vue.js
 const app = Vue.createApp({
     data() {
-        return <?= $vue_datas??'' ?>;
+        return <?= json_encode($vue_datas??'{}') ?>;
     },
     methods: {<?= $vue_methods??'' ?>}
 });

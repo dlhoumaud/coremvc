@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-28 14:49:11
+ * @ Modified time: 2024-11-29 13:11:46
  * @ Description: Controller pour la page d'accueil
  */
 namespace App\Controllers;
@@ -21,13 +21,13 @@ class HomeController extends Controller
             'head_title' => Session::get('title'),
             'vue_components' => HomeService::getVueComponents()
         ];
-        $this->view('home', $data);
+        self::view('home', $data);
     }
 
     public function about()
     {
         Session::set('title', 'À propos de CoreMVC');
         $data = ['head_title' => Session::get('title')];
-        $this->view('about', $data);
+        self::view('about', $data);
     }
 }

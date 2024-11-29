@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:38
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-29 12:26:11
+ * @ Modified time: 2024-11-29 13:10:49
  * @ Description: Controller class for handling HTTP requests and rendering views.
  */
 
@@ -19,7 +19,7 @@ class Controller
      * @param string $view The name of the view file to load, without the .php extension.
      * @param array $data An optional array of data to pass to the view.
      */
-    protected function view($view, $data = [])
+    static protected function view($view, $data = [])
     {
         // Extraire les variables de $data
         extract($data);
