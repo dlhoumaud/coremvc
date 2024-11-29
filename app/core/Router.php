@@ -3,13 +3,13 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:24
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 13:55:09
+ * @ Modified time: 2024-11-29 13:09:34
  * @ Description: Class responsible for handling routing and URL parsing.
  */
 
 namespace App\Core;
 
-use App\Controllers\ErrorController;
+use App\Controllers\ErrorController as Error;
 
 class Router
 {
@@ -80,7 +80,6 @@ class Router
                 }
             }
         }
-        $controller = new ErrorController();
-        $controller->e404();
+        Error::e404();
     }
 }
