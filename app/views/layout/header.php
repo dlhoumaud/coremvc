@@ -29,9 +29,19 @@
                     <a class="nav-link disabled" aria-disabled="true">Désactivé</a>
                 </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Recherche..." aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i class="fas fa-magnifying-glass"></i></button>
+                <form class="d-flex align-items-center" role="search" method="POST">
+                    <div class="input-group">
+                        <input 
+                            class="form-control shadow-sm" 
+                            type="search" 
+                            placeholder="Recherche..." 
+                            aria-label="Search">
+                        <button 
+                            class="btn btn-success shadow-sm" 
+                            type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
