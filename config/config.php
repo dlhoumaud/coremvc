@@ -187,24 +187,3 @@ function inject($filename, $data=[]) {
     include $filename; // Inclut et exécute le fichier
     return ob_get_clean(); // Capture et nettoie le tampon
 }
-
-function injectJS($filename, $data=[]) {
-    if (!file_exists($filename)) return '';
-    $content = ''; 
-    foreach ($data as $key => $value) {
-        if (is_array($value)) {
-            $value = json_encode($value);
-        } else if (is_bool($value)) {
-            $value = $value ? 'true' : 'false';
-        } else if (is_null($value)) {
-            $value = 'null';
-        } else if (is_numeric($value)) {
-            $value = $value;
-        } else {
-            $value = "'".str_replace("'", "\'", $value)."'";
-        }
-        $content .= "const $key = $value;\n";
-    }
-    $content .= file_get_contents($filename);
-    return $content; 
-}
