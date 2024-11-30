@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-30 13:29:28
+ * @ Modified time: 2024-11-29 13:04:38
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -49,12 +49,11 @@ class UserService
                     'lastname'  => $user['lastname'],
                     'email'     => $user['email']
                 ],
-                'vue_methods' => [
-                    'mouseEnter' => inject('js/methods/user/btn-card.js', ['user' => $user, 'hover'   => true ]),
-                    'mouseLeave' => inject('js/methods/user/btn-card.js', ['user' => $user, 'hoverOut'=> true ]),
-                    'click'      => inject('js/methods/user/btn-card.js', ['user' => $user]),
-                ],
-                'vue_components' => ['card/img-top']
+                'vue_methods' => '
+                    mouseEnter : '.inject('js/methods/user/alert.js', ['user' => $user, 'hover'   => true ]).',
+                    mouseLeave : '.inject('js/methods/user/alert.js', ['user' => $user, 'hoverOut'=> true ]).',
+                    click : '     .inject('js/methods/user/alert.js', ['user' => $user]),
+                'vue_components' => inject('js/components/card/img-top.js')
             ];
         } 
         // Si l'utilisateur n'existe pas, afficher une erreur ou rediriger
