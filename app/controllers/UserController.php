@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-25 15:37:07
+ * @ Modified time: 2024-11-29 13:12:14
  * @ Description: Classe pour gérer les utilisateurs
  */
 
@@ -43,12 +43,12 @@ class UserController extends Controller
             }
         }
 
-        $this->view('login', $data);
+        self::view('login', $data);
     }
 
     public function show($id)
     {
         $data = $this->userService->getUser($id);
-        $this->view('user', $data);
+        self::view('user', $data);
     }
 }
