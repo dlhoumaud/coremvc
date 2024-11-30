@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../scss/_typo.scss"],"names":[],"mappings":"AAAA,WACI,kBACA","file":"style.min.css"}
+{"version":3,"sourceRoot":"","sources":["../scss/_typo.scss","../scss/style.scss"],"names":[],"mappings":"AAAA,WACI,kBACA,wCCaJ,YACI,uCAGJ,eACI,sCAGJ,aACI,yCAGJ,cACI","file":"style.min.css"}

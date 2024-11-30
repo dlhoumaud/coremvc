@@ -12,3 +12,19 @@
 @use "_typo"        as t;
 @use "_mixins"      as m;
 @use "_extends"     as e;
+
+.shadow-top {
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.075);
+}
+
+.shadow-bottom {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.075);
+}
+
+.shadow-left {
+    box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.075);
+}
+
+.shadow-right {
+    box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.075);
+}
