@@ -24,12 +24,21 @@ Voici un aperçu de la structure du répertoire du projet :
                 footer.php          # Pied de page
             home.php                # Vue de l'accueil
         /core
+            Autoloader              # Classe de chargement des classes
             Router.php              # Classe de routage
             Controller.php          # Classe de base pour les contrôleurs
+            Database.php            # Classe de base pour la base de données
             Model.php               # Classe de base pour les modèles
+        /services
+            HomeService.php         # Service de l'accueil
+            UserService.php         # Service de l'utilisateur
     /config
         config.php                  # Configuration de l'application
         routes.json                 # Configurations des routes
+    /database
+        /migrate                    # Scripts de migration
+        /seeders                    # Scripts de seeders
+    /docs                           # Documentations du projet
     /public
         /assets
             /images
@@ -39,15 +48,25 @@ Voici un aperçu de la structure du répertoire du projet :
             /frameworks
                 /bootstrap
                 /fontawesome
-            normalize.css           # CSS de normalisation
-            style.css               # Fuille de style du site
-            zoning.css              # CSS de zoning pour le developpement
+            /views
+                home.css
+            normalize.min.css           # CSS de normalisation
+            style.min.css               # Fuille de style du site
+            zoning.min.css              # CSS de zoning pour le developpement
         /fonts
         /js
+            /components
+                /card
+                    img-top.js
+                /carousel
+                    indicators.js
+                    item.js
             /frameworks
                 vue.js
-            /libraries
-                jquery.js
+                rick.min.js
+            /methods
+                /user
+                    alert.js
             app.js                  # Fichier JavaScript
         /scss
             _colors.scss
@@ -55,9 +74,15 @@ Voici un aperçu de la structure du répertoire du projet :
             _mixins.scss
             _typo.scss
             _variables.scss
-            style.scss              # Fichier SCSS
+            zoning.scss             # SCSS de zoning pour le developpement
+            normalize.scss          # CSS de normalisation
+            style.scss              # style global SCSS
         index.php                   # Point d'entrée de l'application
     /storage
+        /cache
+            /database
+                /migrate
+                /seeders
         /logs                       # Dossier pour les logs
     .htaccess                       # Configuration Apache pour réécriture d'URL
 ```
@@ -130,6 +155,7 @@ Le modèle, la vue et le contrôleur sont organisés comme suit :
 - **Modèle (`app/models`)** : Contient la logique métier et la gestion des données.
 - **Vue (`app/views`)** : Gère l'affichage des informations à l'utilisateur.
 - **Contrôleur (`app/controllers`)** : Gère la logique de traitement et redirige l'utilisateur vers la vue appropriée.
+- **Helpers (`app/helpers`)** : Contient des fonctions utilitaires.
 
 ### 2. Routeur
 
@@ -159,18 +185,29 @@ Le fichier `Autoloader.php` permet de charger automatiquement les classes à la 
 Un exemple de contrôleur `HomeController.php` qui gère les actions de la page d'accueil et de la page "À propos".
 
 ```php
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Helpers\Session;
+use App\Services\HomeService;
+
 class HomeController extends Controller
 {
     public function index()
     {
-        $data = ['title' => 'Bienvenue sur mon site'];
-        $this->view('home', $data);
+        Session::set('title', 'Bienvenue sur CoreMVC');
+        $data = [
+            'head_title' => Session::get('title'),
+            'vue_components' => HomeService::getVueComponents()
+        ];
+        self::view('home', $data);
     }
 
     public function about()
     {
-        $data = ['title' => 'À propos'];
-        $this->view('about', $data);
+        Session::set('title', 'À propos de CoreMVC');
+        $data = ['head_title' => Session::get('title')];
+        self::view('about', $data);
     }
 }
 ```
@@ -195,12 +232,23 @@ Un modèle simple `User.php` qui pourrait être utilisé pour interagir avec la 
 ```php
 class User extends Model
 {
+    protected $table = 'users';
+
     public function getAllUsers()
     {
-        $db = $this->dbConnect();
-        $query = $db->query("SELECT * FROM users");
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        return $this->get();
     }
+
+    public function getUser($id)
+    {
+        return $this->where('id', '=', $id)->get(0);
+    }
+
+    public function deleteUser($id)
+    {
+        return $this->where('id', '=', $id)->delete();
+    }
+
 }
 ```
 
@@ -250,6 +298,8 @@ Vous pouvez également surveiller un dossier entier :
 sass --watch public/scss/:public/css/
 ```
 
+Compiler la totalité des fichiers SCSS en mode production :
+
 ```bash
 sass public/scss/normalize.scss public/css/normalize.min.css --style compressed
 sass public/scss/zoning.scss public/css/zoning.min.css --style compressed
@@ -257,7 +307,7 @@ sass public/scss/style.scss public/css/style.min.css --style compressed
 sass public/scss/views/:public/css/views/ --style compressed
 ```
 
-Cela créera un fichier `style.min.css` minifié, optimisé pour une utilisation en production.
+Cela créera les fichiers `*.min.css` minifié, optimisé pour une utilisation en production.
 
 ## Minifier les fichiers JavaScript
 
@@ -265,10 +315,12 @@ Avec Terser (plus moderne) :
 
 `npm install -g terser`
 
-Minifiez un fichier :
+Minifiez les scripts JS :
 
 ```bash
+terser public/js/app.js -o public/js/app.min.js
 terser public/js/frameworks/rick.js -o public/js/frameworks/rick.min.js
+find public/js/components -type f -name "*.js" -exec sh -c 'terser "$0" -o "${0%.js}.min.js"' {} \;
 ```
 
 ## Contribution
