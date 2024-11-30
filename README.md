@@ -69,12 +69,18 @@ Voici un aperçu de la structure du répertoire du projet :
 
 ## Installation
 
-### 1. Cloner le projet
+### 1. Cloner le projet et BDD
 
 Vous pouvez cloner ce projet dans votre répertoire local :
 
 ```bash
 git clone https://github.com/dlhoumaud/coremvc.git
+```
+
+création de la base de données :
+
+```sql
+CREATE DATABASE IF NOT EXISTS `core_mvc`
 ```
 
 ### 2. Configurer le fichier de configuration

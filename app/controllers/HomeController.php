@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-29 13:11:46
+ * @ Modified time: 2024-11-30 15:29:50
  * @ Description: Controller pour la page d'accueil
  */
 namespace App\Controllers;
