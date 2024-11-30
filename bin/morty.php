@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-25 16:39:28
+ * @ Modified time: 2024-11-30 15:14:22
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -11,9 +11,11 @@ namespace App\Bin;
 use App\Core\Autoloader;
 use App\Core\Router;
 use App\Core\Database;
+use App\Helpers\Log;
+use App\Helpers\LogTerminal;
 
 // Inclure les fichiers nécessaires
-require_once 'config/config.php'; // Configurations de l'application
+include_once 'config/config.php'; // Configurations de l'application
 
 loadEnvWithCache('.env', 'storage/cache/env.php');
 
@@ -22,6 +24,8 @@ require_once 'app/core/Autoloader.php';
 
 // Initialiser l'autoloader
 Autoloader::register();
+
+$terminal = new LogTerminal('cmd');
 
 // Définition des options
 $options = getopt("s:e:d:k:M:S:h", ["server:", "encrypt:", "decrypt:", "key:", "migrate:", "seed:", "help"]);
@@ -61,48 +65,48 @@ if (isset($options['s']) || isset($options['server'])) {
 
     // Vérifiez si le répertoire public existe avant de démarrer le serveur
     if (!is_dir($documentRoot)) {
+        $terminal->error("Le répertoire '$documentRoot' n'existe pas.");
         echo "Erreur : Le répertoire '$documentRoot' n'existe pas.\n";
         exit(1);
     }
 
     // Démarrer le serveur de développement PHP
-    echo "Lancement du serveur PHP sur http://$address\n";
+    $terminal->i("Lancement du serveur PHP sur http://$address");
+    // echo "Lancement du serveur PHP sur http://$address\n";
 
     // Si vous utilisez exec(), vous pouvez également capturer la sortie d'erreur
     exec("php -S $address -t $documentRoot", $output, $returnVar);
 
     // Si une erreur se produit avec exec(), afficher un message d'erreur
     if ($returnVar !== 0) {
-        echo "Erreur lors du démarrage du serveur PHP :\n";
+        $terminal->e("Erreur lors du démarrage du serveur PHP :");
         echo implode("\n", $output);
         exit(1);
     }
-
-    echo "Serveur PHP lancé avec succès !\n";
     exit(0);
 }
 
 if (isset($options['e']) || isset($options['encrypt'])) {
     $fileToEncrypt = $options['e'] ?? $options['encrypt'];
     if (!file_exists($fileToEncrypt)) {
-        echo "Erreur : aucun fichier spécifié pour le chiffrement.\n";
+        $terminal->e("aucun fichier spécifié pour le chiffrement.");
         exit(1);
     }
     // Chiffrement du fichier
     $encryptedContent = encryptFile($fileToEncrypt, $fileToEncrypt, $options['k'] ?? $options['key']);
-    echo "Le fichier a été chiffré avec succès.\n";
+    $terminal->o("Le fichier a été chiffré avec succès.");
     exit(0);
 }
 
 if (isset($options['d']) || isset($options['decrypt'])) {
     $fileToDecrypt = $options['d'] ?? $options['decrypt'];
     if (!file_exists($fileToDecrypt)) {
-        echo "Erreur : aucun fichier spécifié pour le déchiffrement.\n";
+        $terminal->e("aucun fichier spécifié pour le déchiffrement.");
         exit(1);
     }
     // Déchiffrement du fichier
     $decryptedContent = decryptFile($fileToDecrypt, $fileToDecrypt, $options['k'] ?? $options['key']);
-    echo "Le fichier a été déchiffré avec succès.\n";
+    $terminal->o("Le fichier a été déchiffré avec succès.");
     exit(0);
 }
 
@@ -142,14 +146,14 @@ if ((isset($options['M']) || isset($options['migrate'])) || (isset($options['S']
         // Exécution de la migration 'down' pour supprimer la table
         // runMigration($db, $migrationFile, 'down');
     } catch (Exception $e) {
-        echo "Erreur : " . $e->getMessage() . "\n";
+        $terminal->e($e->getMessage());
     }
     exit(0);
 }
 
 
 // Si aucune option valide n'est fournie
-echo "Erreur : aucune option valide fournie. Utilisez -h ou --help pour l'aide.\n";
+$terminal->e("aucune option valide fournie. Utilisez -h ou --help pour l'aide.");
 exit(1);
 
 ?>

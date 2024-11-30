@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-30 13:24:04
+ * @ Modified time: 2024-11-30 16:01:36
  * @ Description: Script de fonctionnalités
  */
 
@@ -122,7 +122,7 @@ function decryptFile($inputFile, $outputFile, $key)
 function runMigration($db, string $file, string $type = 'up', bool $is_seed = false)
 {
 
-    if (file_exists('storage/cache/'.$file)) {
+    if (file_exists('storage/cache/'.$file) && $type=='up') {
         return;
     }
     
@@ -148,11 +148,16 @@ function runMigration($db, string $file, string $type = 'up', bool $is_seed = fa
 
     // Exécute la requête de migration
     try {
+        if (!file_exists('storage/cache/'.$file) && $type=='down') return;
         $pdo = $db->getConnection();
         $pdo->exec($query);
         echo ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.\n";
-        file_put_contents('storage/cache/'.$file, '', FILE_APPEND);
-        if (getEnv('APP_DEBUG')) file_put_contents('storage/logs/database.log', date('Y-m-d H:i:s') . " - ".ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.\n", FILE_APPEND);
+        if ($type == 'up') {
+            file_put_contents('storage/cache/'.$file, '', FILE_APPEND);
+        } else {
+            unlink('storage/cache/'.$file);
+        }
+        if (getEnv('APP_DEBUG')) file_put_contents('storage/logs/database-'.($is_seed?'seed':'migrate').'.log', date("d-m-Y H:i:s")."\t".ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.\n", FILE_APPEND);
     } catch (PDOException $e) {
         throw new Exception("Erreur lors de l'exécution de la $type_file : " . $e->getMessage());
     }
