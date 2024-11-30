@@ -13,6 +13,38 @@
 @use "_mixins"      as m;
 @use "_extends"     as e;
 
+body {
+    >header {
+        >nav {
+            form {
+                .form-control {
+                    border: none;
+                    box-shadow: none !important; 
+                    border-radius: v.$rounded 0 0 v.$rounded;
+                }
+                
+                .btn-success {
+                    background-color: #28a745; /* Couleur du bouton */
+                    border: none; /* Supprime les bordures */
+                    border-radius: 0 v.$rounded v.$rounded 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .btn-success:hover {
+                    background-color: #218838; /* Couleur au survol */
+                    color: #fff;
+                }
+                
+                .btn-success i {
+                    font-size: 1rem; /* Taille de l'icône */
+                }
+            }
+        }
+    }
+}
+
 .shadow-top {
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.075);
 }
