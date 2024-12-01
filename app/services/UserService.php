@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-30 13:29:28
+ * @ Modified time: 2024-12-01 23:40:59
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -43,6 +43,7 @@ class UserService
         if ($user) {
             // Si l'utilisateur existe, transmettre les données à la vue
             return [
+                'head_title' => 'Utilisateur ' . $user['firstname'] . ' ' . $user['lastname'],
                 'title' => 'Utilisateur ' . $user['firstname'] . ' ' . $user['lastname'],
                 'vue_datas' => [
                     'firstname' => $user['firstname'],
@@ -59,6 +60,7 @@ class UserService
         } 
         // Si l'utilisateur n'existe pas, afficher une erreur ou rediriger
         return [
+            'head_title' => 'Utilisateur introuvable',
             'title' => 'Utilisateur introuvable',
             'message' => 'L\'utilisateur avec l\'ID ' . $id . ' n\'existe pas.',
             'vue_datas' => [

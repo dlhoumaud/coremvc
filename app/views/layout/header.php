@@ -20,13 +20,15 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/login">Connexion</a></li>
                         <li><a class="dropdown-item" href="/about">À propos</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item disabled" href="/contact" aria-disabled="true">Contactez-nou</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/about">À propos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Désactivé</a>
+                    <a class="nav-link" href="/contact">Contactez-nous</a>
                 </li>
                 </ul>
                 <form class="d-flex align-items-center" role="search" method="POST">
