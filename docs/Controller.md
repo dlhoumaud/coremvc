@@ -1,4 +1,4 @@
-# Documentation des Contrôleurs dans **CroreMVC**
+# Documentation des Contrôleurs
 
 Les contrôleurs dans **CroreMVC** sont responsables de gérer les requêtes HTTP, de préparer les données nécessaires à la vue, et de renvoyer la réponse au client. Ils héritent de la classe `App\Core\Controller`, qui fournit des méthodes utilitaires comme le rendu des vues.
 
