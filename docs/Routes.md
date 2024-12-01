@@ -1,4 +1,4 @@
-# Système de Routage dans CroreMVC
+# Système de Routage
 
 ## Fonctionnalités Principales
 1. **Chargement des routes** : Les routes sont définies dans un fichier `config/routes.json`.
