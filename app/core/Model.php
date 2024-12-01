@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:30:22
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 13:54:57
+ * @ Modified time: 2024-12-01 13:59:15
  * @ Description: Classe de base pour les modèles
  */
 
@@ -14,6 +14,7 @@ use PDOStatement;
 
 class Model extends Database
 {
+    protected PDO $pdo;
     protected $query;
     protected $select = '*';
     protected $where = [];
@@ -23,10 +24,12 @@ class Model extends Database
 
     public function __construct()
     {
-        parent::__construct();
 
-        // Initialise la table de base pour les requêtes si elle est définie
-        if ($this->table) {
+        // Utiliser l'instance PDO partagée
+        $this->pdo = self::getInstance();
+
+        // Initialiser la table, si définie
+        if (isset($this->table)) {
             $this->query = 'SELECT * FROM ' . $this->table;
         }
     }
@@ -122,6 +125,15 @@ class Model extends Database
         }
         return $results;
     }
+
+    public function paginate(int $limit, int $offset): array
+    {
+        $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where() . " LIMIT ? OFFSET ?";
+        $this->bindings[] = $limit;
+        $this->bindings[] = $offset;
+
+        return $this->stmt($query, true)->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 
     public function delete(): bool
@@ -158,12 +170,51 @@ class Model extends Database
         return '';
     }
 
+    public function insert(array $data): bool
+    {
+        $columns = implode(', ', array_keys($data));
+        $placeholders = implode(', ', array_fill(0, count($data), '?'));
+        $this->bindings = array_values($data);
+
+        $query = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
+        return $this->stmt($query);
+    }
+
+    // Définir une relation "hasMany"
+    public function hasMany(string $relatedModel, string $foreignKey, string $localKey = 'id'): array
+    {
+        // Charger l'instance du modèle associé (par exemple "Post")
+        $relatedModelInstance = new $relatedModel();
+
+        // Requête pour récupérer toutes les instances de l'autre modèle avec la condition de clé étrangère
+        return $relatedModelInstance
+            ->where($foreignKey, '=', $this->$localKey)
+            ->get();
+    }
+
+    // Définir une relation "belongsTo"
+    public function belongsTo(string $relatedModel, string $foreignKey, string $ownerKey = 'id')
+    {
+        // Charger l'instance du modèle associé (par exemple "User")
+        $relatedModelInstance = new $relatedModel();
+
+        // Requête pour récupérer l'instance associée (par exemple l'utilisateur pour un post)
+        return $relatedModelInstance
+            ->where($ownerKey, '=', $this->$foreignKey)
+            ->get(0); // Récupérer le premier élément (une seule ligne)
+    }
+
     private function stmt(string $query, bool $return_stmt = false): bool|PDOStatement
     {
-        $stmt = $this->pdo->prepare($query);
-        $result = $stmt->execute($this->bindings);
-        $this->reset();
-        return ($return_stmt?$stmt:$result);
+        try {
+            $stmt = $this->pdo->prepare($query);
+            $result = $stmt->execute($this->bindings);
+            $this->reset();
+            return ($return_stmt ? $stmt : $result);
+        } catch (\PDOException $e) {
+            // Log l'erreur ou lever une exception personnalisée
+            throw new \Exception("Erreur dans la requête SQL : " . $e->getMessage());
+        }
     }
 
     private function reset(): void

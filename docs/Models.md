@@ -1,4 +1,4 @@
-# Documentation des Modèles dans le Framework
+# Documentation des Modèles
 
 Les modèles permettent de gérer l'interaction avec la base de données en utilisant une approche orientée objet. Le système repose sur deux classes principales : **`Database`** pour la gestion des connexions à la base de données et **`Model`** pour fournir des fonctionnalités génériques pour les requêtes. Les modèles spécifiques héritent de la classe **`Model`** pour gérer des entités spécifiques (ex. : `User`).
 
@@ -170,3 +170,65 @@ $isDeleted = $userModel->deleteUser(1);
 - **Sécurité** : Utilisation de PDO et des requêtes préparées pour éviter les injections SQL.
 - **Flexibilité** : Système de construction de requêtes fluide pour gérer des besoins complexes.
 - **Simplicité** : Les modèles spécifiques (comme `User`) sont simples à écrire et étendre.
+
+
+## 5. **Contexte pour `hasMany()` : Un utilisateur a plusieurs articles (Blog)**
+
+Imaginons que vous ayez deux entités dans une application de blog : **User** (utilisateur) et **Post** (article). Chaque utilisateur peut créer plusieurs articles, mais chaque article appartient à un seul utilisateur. 
+
+- La relation entre **User** et **Post** est **"Un utilisateur a plusieurs articles"**, ce qui correspond à une relation de type `hasMany()`.
+
+### Exemples :
+- **Modèle `User`** (un utilisateur peut avoir plusieurs articles) :
+    ```php
+    $user = new User();
+    // Récupérer tous les articles écrits par cet utilisateur
+    $posts = $user->hasMany('Post', 'user_id'); // 'user_id' est la clé étrangère dans la table `Post`
+    ```
+
+- **Modèle `Post`** (chaque article appartient à un utilisateur) :
+    ```php
+    $post = new Post();
+    // Récupérer l'utilisateur qui a écrit cet article
+    $user = $post->belongsTo('User', 'user_id'); // 'user_id' est la clé étrangère dans la table `Post`
+    ```
+
+### Explication :
+- `hasMany('Post', 'user_id')` dans le modèle **User** récupère tous les **Post** associés à un utilisateur particulier (via `user_id` dans la table `Post`).
+- `belongsTo('User', 'user_id')` dans le modèle **Post** récupère l'**User** auquel appartient cet **Post** via la clé étrangère `user_id` dans la table `Post`.
+
+## 6. **Contexte pour `hasMany()` et `belongsTo()` : Une commande a plusieurs produits**
+
+Imaginons un autre scénario avec deux entités dans un système de commande : **Order** (commande) et **Product** (produit). 
+
+- Une **commande** peut avoir plusieurs produits.
+- Chaque **produit** appartient à une **commande** spécifique.
+
+Dans ce cas, il y a une relation **"Une commande a plusieurs produits"** et **"Un produit appartient à une commande"**.
+
+### Exemples :
+- **Modèle `Order`** (une commande peut avoir plusieurs produits) :
+    ```php
+    $order = new Order();
+    // Récupérer tous les produits associés à cette commande
+    $products = $order->hasMany('Product', 'order_id'); // 'order_id' est la clé étrangère dans la table `Product`
+    ```
+
+- **Modèle `Product`** (chaque produit appartient à une commande) :
+    ```php
+    $product = new Product();
+    // Récupérer la commande à laquelle ce produit appartient
+    $order = $product->belongsTo('Order', 'order_id'); // 'order_id' est la clé étrangère dans la table `Product`
+    ```
+
+### Explication :
+- `hasMany('Product', 'order_id')` dans le modèle **Order** récupère tous les **Product** associés à une commande particulière (via `order_id` dans la table `Product`).
+- `belongsTo('Order', 'order_id')` dans le modèle **Product** récupère l'**Order** auquel appartient ce **Product** via la clé étrangère `order_id` dans la table `Product`.
+
+## Résumé des Relations :
+- **`hasMany()`** : Utilisé dans le modèle "un" d'une relation "un à plusieurs". Exemple : **Un utilisateur a plusieurs articles**.
+- **`belongsTo()`** : Utilisé dans le modèle "plusieurs" d'une relation "un à plusieurs". Exemple : **Un article appartient à un utilisateur**.
+
+## Conclusion :
+- **`hasMany()`** est pour le côté "un" de la relation (ex. : Un utilisateur a plusieurs articles, une commande a plusieurs produits).
+- **`belongsTo()`** est pour le côté "plusieurs" de la relation (ex. : Un article appartient à un utilisateur, un produit appartient à une commande).
