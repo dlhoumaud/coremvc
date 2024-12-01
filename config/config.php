@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 14:49:21
+ * @ Modified time: 2024-12-01 22:28:45
  * @ Description: Script de fonctionnalités
  */
 
@@ -238,4 +238,92 @@ function injectJS($filename, $data=[]): string
     }
     $content .= file_get_contents($filename);
     return $content; 
+}
+
+/**
+ * Crée une nouvelle classe de contrôleur pour l'application.
+ *
+ * @param string $name Le nom du contrôleur à créer.
+ */
+function createController($name) {
+    $content = "<?php
+/**
+ * @ Author: 
+ * @ Create Time: ".date("Y-m-d H:i:s")."
+ * @ Modified by: 
+ * @ Modified time: ".date("Y-m-d H:i:s")."
+ * @ Description: 
+ */
+namespace App\Controllers;
+
+use App\Core\Controller;
+
+class ".ucfirst($name)."Controller extends Controller
+{
+    public function show()
+    {
+        \$data = [
+            'head_title' => 'Title de la page',
+            'head_description' => 'Description de la page',
+            'head_keywords' => 'Mots-clés de la page',
+            'head_author' => 'Auteur de la page',
+            'head_viewport' => '',
+            'main_attributes' => '',
+            'vue_datas' => [],
+            'vue_methods' => [],
+            'vue_components' => [],
+        ];
+        self::view('".strtolower($name)."', \$data);
+    }
+}";
+    file_put_contents('app/controllers/'.ucfirst($name).'Controller.php', $content);
+}
+
+/**
+ * Crée une nouvelle classe de service pour l'application.
+ *
+ * @param string $name Le nom du service à créer.
+ */
+function createService($name) {
+    $content = "<?php
+/**
+ * @ Author: 
+ * @ Create Time: ".date("Y-m-d H:i:s")."
+ * @ Modified by: 
+ * @ Modified time: ".date("Y-m-d H:i:s")."
+ * @ Description: 
+ */
+namespace App\Services;
+
+class ".ucfirst($name)."Service
+{
+    public function __construct()
+    {
+        /// Initialisation du service
+    }
+}";
+    file_put_contents('app/services/'.ucfirst($name).'Service.php', $content);
+}
+
+/**
+ * Crée une nouvelle classe de modèle pour l'application.
+ *
+ * @param string $name Le nom du modèle à créer.
+ */
+function createModel($name) {
+    $content = "<?php
+/**
+ * @ Author:
+ * @ Create Time: ".date("Y-m-d H:i:s")."
+ * @ Modified by:
+ * @ Modified time: ".date("Y-m-d H:i:s")."
+ * @ Description:
+ */
+use App\Core\Model;
+
+class ".ucfirst($name)." extends Model
+{
+    protected \$table = '".strtolower($name)."';
+}";
+    file_put_contents('app/models/'.ucfirst($name).'.php', $content);
 }

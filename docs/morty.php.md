@@ -115,6 +115,163 @@ php bin/morty.php -h
     php bin/morty.php -S up
     ```
 
+### Création de classes PHP
+
+Le script permet de créer des fichiers de classes PHP via une interface en ligne de commande (CLI). Les options passées en paramètre déterminent le type et le nom de la classe à générer.
+
+---
+
+#### **Options Disponibles**
+- `-c` ou `--create` : Spécifie le type de classe à créer (par exemple, `controller`, `model`, `service`).
+- `-n` ou `--name` : Spécifie le nom de la classe.
+
+> **Remarque :** Vous pouvez utiliser les versions courtes (`-c` et `-n`) ou longues (`--create` et `--name`) des options. Elles sont interchangeables.
+
+---
+
+#### **Commandes Pratiques**
+
+1. **Créer un contrôleur :**
+
+```bash
+php script.php -c controller -n Article
+# ou
+php script.php --create=controller --name=Article
+```
+
+**Résultat attendu :**
+- Un fichier `ArticleController.php` sera généré dans le répertoire `app/controllers/`.
+- Contenu du fichier :
+  ```php
+  <?php
+  /**
+   * @ Author: 
+   * @ Create Time: 2024-12-01 14:30:00
+   * @ Modified by: 
+   * @ Modified time: 2024-12-01 14:30:00
+   * @ Description: 
+   */
+  namespace App\Controllers;
+
+  use App\Core\Controller;
+
+  class ArticleController extends Controller
+  {
+      public function show()
+      {
+          $data = [
+              'head_title' => 'Title de la page',
+              'head_description' => 'Description de la page',
+              'head_keywords' => 'Mots-clés de la page',
+              'head_author' => 'Auteur de la page',
+              'head_viewport' => '',
+              'main_attributes' => '',
+              'vue_datas' => [],
+              'vue_methods' => [],
+              'vue_components' => [],
+          ];
+          self::view('article', $data);
+      }
+  }
+  ```
+
+---
+
+2. **Créer un modèle :**
+
+```bash
+php script.php -c model -n User
+# ou
+php script.php --create=model --name=User
+```
+
+**Résultat attendu :**
+- Un fichier `User.php` sera généré dans le répertoire `app/models/`.
+- Contenu du fichier :
+  ```php
+  <?php
+  /**
+   * @ Author: 
+   * @ Create Time: 2024-12-01 14:30:00
+   * @ Modified by: 
+   * @ Modified time: 2024-12-01 14:30:00
+   * @ Description: 
+   */
+  use App\Core\Model;
+
+  class User extends Model
+  {
+    protected $table = 'user';
+  }
+  ```
+
+---
+
+3. **Créer un service :**
+
+```bash
+php script.php -c service -n Email
+# ou
+php script.php --create=service --name=Email
+```
+
+**Résultat attendu :**
+- Un fichier `EmailService.php` sera généré dans le répertoire `app/services/`.
+- Contenu du fichier :
+  ```php
+  <?php
+  /**
+   * @ Author: 
+   * @ Create Time: 2024-12-01 14:30:00
+   * @ Modified by: 
+   * @ Modified time: 2024-12-01 14:30:00
+   * @ Description: 
+   */
+  namespace App\Services;
+
+  class EmailService
+  {
+      public function __construct()
+      {
+          /// Initialisation du service
+      }
+  }
+  ```
+
+---
+
+#### **Cas d'Erreur**
+- Si le type spécifié (`controller`, `model`, ou `service`) n'est pas reconnu :
+
+```bash
+php script.php -c invalidType -n Name
+```
+
+**Message d'erreur :**
+```
+Type de classe non valide.
+```
+
+- Si une option requise manque (par exemple, `--name` ou `--create`) :
+
+```bash
+php script.php -c controller
+```
+
+**Aucun fichier ne sera créé.**
+
+---
+
+#### **Résumé des Étapes :**
+
+1. Passer les options nécessaires (`-c`/`--create` et `-n`/`--name`).
+2. Le script identifie le type de classe à créer.
+3. Une fonction associée génère un fichier avec la structure pré-remplie.
+4. Les fichiers sont sauvegardés dans les répertoires appropriés :
+   - `app/controllers/`
+   - `app/models/`
+   - `app/services/`
+
 ## Gestion des erreurs
 Le script vérifie la validité des options passées en argument et renvoie des messages d'erreur en cas de problème, par exemple si un fichier n'existe pas pour les opérations de chiffrement ou déchiffrement, ou si le répertoire `./public` est manquant lors du lancement du serveur.
 
