@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 22:17:45
+ * @ Modified time: 2024-12-01 22:55:54
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -28,7 +28,7 @@ Autoloader::register();
 $terminal = new LogTerminal('cmd');
 
 // Définition des options
-$options = getopt("s:e:d:k:M:S:c:n:h", ["server:", "encrypt:", "decrypt:", "key:", "migrate:", "seed:", "create:", "name:", "help"]);
+$options = getopt("s:e:d:k:M:S:c:n:r:h", ["server:", "encrypt:", "decrypt:", "key:", "migrate:", "seed:", "create:", "name:", "route:", "help"]);
 
 // Affichage de l'aide si l'option -h ou --help est utilisée
 if (isset($options['h']) || isset($options['help'])) {
@@ -47,6 +47,7 @@ under certain conditions.\n\n"
     . "  -S, --seed [up|down|create]             : Exécute les seeders.\n"
     . "  -c, --create [controller|model|service] : Créer une classe.\n"
     . "  -n, --name [classname]                  : Nom de la classe.\n"
+    . "  -r, --route [/path:controller@action]   : Ajoute une route.\n"
     . "  -h, --help                              : Affiche ce message d'aide.\n";
     exit(0);
 }
@@ -170,6 +171,22 @@ if ((isset($options['c']) || isset($options['create'])) && (isset($options['n'])
             $terminal->e("Type de classe non valide.");
             exit(1);
     }
+    exit(0);
+}
+
+if (isset($options['r']) || isset($options['route'])) {
+    $route = explode("@", $options['r'] ?? $options['route']);
+    $pc = explode(":", $route[0]);
+    if (!isset($pc[1])) {
+        $terminal->e("Le controller n'est pas spécifié.");
+        exit(1);
+    }
+    $routes = json_decode(file_get_contents('config/routes.json'), true);
+    $routes[$pc[0]] = [
+        'controller' => $pc[1].'Controller',
+        'action' => $route[1]??'show',
+    ];
+    file_put_contents('config/routes.json', json_encode($routes, JSON_PRETTY_PRINT| JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     exit(0);
 }
 

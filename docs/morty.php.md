@@ -272,6 +272,112 @@ php script.php -c controller
    - `app/models/`
    - `app/services/`
 
+### Ajout d'une route
+
+La commande `-r` ou `--route` permet d’ajouter ou de modifier une route dans le fichier `routes.json` de configuration de votre application. Elle vérifie si le contrôleur est spécifié et, si ce n’est pas le cas, affiche une erreur. Par ailleurs, si l'action n’est pas spécifiée, elle prend par défaut la valeur `show`.
+
+---
+
+### Utilisation
+
+#### Syntaxe
+```
+php script.php -r "url:Controller@action"
+```
+OU
+```
+php script.php --route "url:Controller@action"
+```
+
+#### Paramètres
+- **`url`** : L'URL de la route.  
+  Exemple : `/about`, `/login`, `/user/{id}`.
+  
+- **`Controller`** : Le nom du contrôleur (sans le suffixe `Controller`), qui sera automatiquement ajouté.  
+  Exemple : `Home`, `User`.
+
+- **`action`** *(optionnel)* : La méthode du contrôleur à exécuter. Si elle n'est pas fournie, elle sera définie par défaut sur `show`.  
+  Exemple : `index`, `details`.
+
+---
+
+### Fonctionnement
+
+1. **Validation de l'entrée**  
+   - La chaîne est divisée en deux parties avec `:` et `@`.
+   - Si le contrôleur n'est pas spécifié (absence de `:` dans l'entrée avant `@`), une erreur est affichée :  
+     ```
+     Le controller n'est pas spécifié.
+     ```
+
+2. **Définition des valeurs par défaut**  
+   - Si l'action n'est pas fournie après `@`, elle est définie sur `show`.
+
+3. **Ajout du suffixe `Controller`**  
+   - Le nom du contrôleur est automatiquement complété avec le suffixe `Controller`.
+
+4. **Mise à jour de `routes.json`**  
+   - Le fichier `config/routes.json` est chargé.  
+   - La route est ajoutée ou mise à jour avec les informations fournies.
+
+5. **Écriture des modifications**  
+   - Les routes sont écrites dans le fichier avec un format JSON lisible et non échappé (`JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES`).
+
+---
+
+### Exemple d'utilisation
+
+#### Ajouter une nouvelle route
+Commande :  
+```bash
+php script.php -r "/about:Home@index"
+```
+
+Résultat dans `routes.json` :
+```json
+{
+    "/about": {
+        "controller": "HomeController",
+        "action": "index"
+    }
+}
+```
+
+#### Ajouter une route avec une action par défaut
+Commande :  
+```bash
+php script.php -r "/about:Home"
+```
+
+Résultat dans `routes.json` :
+```json
+{
+    "/about": {
+        "controller": "HomeController",
+        "action": "show"
+    }
+}
+```
+
+#### Erreur en cas de contrôleur manquant
+Commande :  
+```bash
+php script.php -r "/about"
+```
+
+Résultat en sortie :  
+```
+Le controller n'est pas spécifié.
+```
+
+---
+
+### Notes
+
+- **Suffixe `Controller` automatique** : Vous n'avez pas besoin d’inclure `Controller` dans le nom du contrôleur.
+- **Action par défaut** : Si l'action n'est pas précisée, elle sera définie sur `show`.
+
+
 ## Gestion des erreurs
 Le script vérifie la validité des options passées en argument et renvoie des messages d'erreur en cas de problème, par exemple si un fichier n'existe pas pour les opérations de chiffrement ou déchiffrement, ou si le répertoire `./public` est manquant lors du lancement du serveur.
 
