@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 22:55:54
+ * @ Modified time: 2024-12-01 23:49:30
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -28,7 +28,7 @@ Autoloader::register();
 $terminal = new LogTerminal('cmd');
 
 // Définition des options
-$options = getopt("s:e:d:k:M:S:c:n:r:h", ["server:", "encrypt:", "decrypt:", "key:", "migrate:", "seed:", "create:", "name:", "route:", "help"]);
+$options = getopt("s:e:d:k:M:S:c:n:r:v:h", ["server:", "encrypt:", "decrypt:", "key:", "migrate:", "seed:", "create:", "name:", "route:","view:", "help"]);
 
 // Affichage de l'aide si l'option -h ou --help est utilisée
 if (isset($options['h']) || isset($options['help'])) {
@@ -48,6 +48,7 @@ under certain conditions.\n\n"
     . "  -c, --create [controller|model|service] : Créer une classe.\n"
     . "  -n, --name [classname]                  : Nom de la classe.\n"
     . "  -r, --route [/path:controller@action]   : Ajoute une route.\n"
+    . "  -v, --view [path view]                  : Ajoute une vue.\n"
     . "  -h, --help                              : Affiche ce message d'aide.\n";
     exit(0);
 }
@@ -187,6 +188,13 @@ if (isset($options['r']) || isset($options['route'])) {
         'action' => $route[1]??'show',
     ];
     file_put_contents('config/routes.json', json_encode($routes, JSON_PRETTY_PRINT| JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    exit(0);
+}
+
+if (isset($options['v']) || isset($options['view'])) {
+    file_put_contents('app/views/'.($options['v'] ?? $options['view']).'.php', '<div class="container my-5">
+    
+</div>');
     exit(0);
 }
 

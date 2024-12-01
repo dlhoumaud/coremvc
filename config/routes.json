@@ -26,5 +26,9 @@
     "/cookies-policy": {
         "controller": "CookiesPolicyController",
         "action": "show"
+    },
+    "/contact": {
+        "controller": "ContactController",
+        "action": "show"
     }
 }
