@@ -115,6 +115,269 @@ php bin/morty.php -h
     php bin/morty.php -S up
     ```
 
+### Création de classes PHP
+
+Le script permet de créer des fichiers de classes PHP via une interface en ligne de commande (CLI). Les options passées en paramètre déterminent le type et le nom de la classe à générer.
+
+---
+
+#### **Options Disponibles**
+- `-c` ou `--create` : Spécifie le type de classe à créer (par exemple, `controller`, `model`, `service`).
+- `-n` ou `--name` : Spécifie le nom de la classe.
+
+> **Remarque :** Vous pouvez utiliser les versions courtes (`-c` et `-n`) ou longues (`--create` et `--name`) des options. Elles sont interchangeables.
+
+---
+
+#### **Commandes Pratiques**
+
+1. **Créer un contrôleur :**
+
+```bash
+php script.php -c controller -n Article
+# ou
+php script.php --create=controller --name=Article
+```
+
+**Résultat attendu :**
+- Un fichier `ArticleController.php` sera généré dans le répertoire `app/controllers/`.
+- Contenu du fichier :
+  ```php
+  <?php
+  /**
+   * @ Author: 
+   * @ Create Time: 2024-12-01 14:30:00
+   * @ Modified by: 
+   * @ Modified time: 2024-12-01 14:30:00
+   * @ Description: 
+   */
+  namespace App\Controllers;
+
+  use App\Core\Controller;
+
+  class ArticleController extends Controller
+  {
+      public function show()
+      {
+          $data = [
+              'head_title' => 'Title de la page',
+              'head_description' => 'Description de la page',
+              'head_keywords' => 'Mots-clés de la page',
+              'head_author' => 'Auteur de la page',
+              'head_viewport' => '',
+              'main_attributes' => '',
+              'vue_datas' => [],
+              'vue_methods' => [],
+              'vue_components' => [],
+          ];
+          self::view('article', $data);
+      }
+  }
+  ```
+
+---
+
+2. **Créer un modèle :**
+
+```bash
+php script.php -c model -n User
+# ou
+php script.php --create=model --name=User
+```
+
+**Résultat attendu :**
+- Un fichier `User.php` sera généré dans le répertoire `app/models/`.
+- Contenu du fichier :
+  ```php
+  <?php
+  /**
+   * @ Author: 
+   * @ Create Time: 2024-12-01 14:30:00
+   * @ Modified by: 
+   * @ Modified time: 2024-12-01 14:30:00
+   * @ Description: 
+   */
+  use App\Core\Model;
+
+  class User extends Model
+  {
+    protected $table = 'user';
+  }
+  ```
+
+---
+
+3. **Créer un service :**
+
+```bash
+php script.php -c service -n Email
+# ou
+php script.php --create=service --name=Email
+```
+
+**Résultat attendu :**
+- Un fichier `EmailService.php` sera généré dans le répertoire `app/services/`.
+- Contenu du fichier :
+  ```php
+  <?php
+  /**
+   * @ Author: 
+   * @ Create Time: 2024-12-01 14:30:00
+   * @ Modified by: 
+   * @ Modified time: 2024-12-01 14:30:00
+   * @ Description: 
+   */
+  namespace App\Services;
+
+  class EmailService
+  {
+      public function __construct()
+      {
+          /// Initialisation du service
+      }
+  }
+  ```
+
+---
+
+#### **Cas d'Erreur**
+- Si le type spécifié (`controller`, `model`, ou `service`) n'est pas reconnu :
+
+```bash
+php script.php -c invalidType -n Name
+```
+
+**Message d'erreur :**
+```
+Type de classe non valide.
+```
+
+- Si une option requise manque (par exemple, `--name` ou `--create`) :
+
+```bash
+php script.php -c controller
+```
+
+**Aucun fichier ne sera créé.**
+
+---
+
+#### **Résumé des Étapes :**
+
+1. Passer les options nécessaires (`-c`/`--create` et `-n`/`--name`).
+2. Le script identifie le type de classe à créer.
+3. Une fonction associée génère un fichier avec la structure pré-remplie.
+4. Les fichiers sont sauvegardés dans les répertoires appropriés :
+   - `app/controllers/`
+   - `app/models/`
+   - `app/services/`
+
+### Ajout d'une route
+
+La commande `-r` ou `--route` permet d’ajouter ou de modifier une route dans le fichier `routes.json` de configuration de votre application. Elle vérifie si le contrôleur est spécifié et, si ce n’est pas le cas, affiche une erreur. Par ailleurs, si l'action n’est pas spécifiée, elle prend par défaut la valeur `show`.
+
+---
+
+### Utilisation
+
+#### Syntaxe
+```
+php script.php -r "url:Controller@action"
+```
+OU
+```
+php script.php --route "url:Controller@action"
+```
+
+#### Paramètres
+- **`url`** : L'URL de la route.  
+  Exemple : `/about`, `/login`, `/user/{id}`.
+  
+- **`Controller`** : Le nom du contrôleur (sans le suffixe `Controller`), qui sera automatiquement ajouté.  
+  Exemple : `Home`, `User`.
+
+- **`action`** *(optionnel)* : La méthode du contrôleur à exécuter. Si elle n'est pas fournie, elle sera définie par défaut sur `show`.  
+  Exemple : `index`, `details`.
+
+---
+
+### Fonctionnement
+
+1. **Validation de l'entrée**  
+   - La chaîne est divisée en deux parties avec `:` et `@`.
+   - Si le contrôleur n'est pas spécifié (absence de `:` dans l'entrée avant `@`), une erreur est affichée :  
+     ```
+     Le controller n'est pas spécifié.
+     ```
+
+2. **Définition des valeurs par défaut**  
+   - Si l'action n'est pas fournie après `@`, elle est définie sur `show`.
+
+3. **Ajout du suffixe `Controller`**  
+   - Le nom du contrôleur est automatiquement complété avec le suffixe `Controller`.
+
+4. **Mise à jour de `routes.json`**  
+   - Le fichier `config/routes.json` est chargé.  
+   - La route est ajoutée ou mise à jour avec les informations fournies.
+
+5. **Écriture des modifications**  
+   - Les routes sont écrites dans le fichier avec un format JSON lisible et non échappé (`JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES`).
+
+---
+
+### Exemple d'utilisation
+
+#### Ajouter une nouvelle route
+Commande :  
+```bash
+php script.php -r "/about:Home@index"
+```
+
+Résultat dans `routes.json` :
+```json
+{
+    "/about": {
+        "controller": "HomeController",
+        "action": "index"
+    }
+}
+```
+
+#### Ajouter une route avec une action par défaut
+Commande :  
+```bash
+php script.php -r "/about:Home"
+```
+
+Résultat dans `routes.json` :
+```json
+{
+    "/about": {
+        "controller": "HomeController",
+        "action": "show"
+    }
+}
+```
+
+#### Erreur en cas de contrôleur manquant
+Commande :  
+```bash
+php script.php -r "/about"
+```
+
+Résultat en sortie :  
+```
+Le controller n'est pas spécifié.
+```
+
+---
+
+### Notes
+
+- **Suffixe `Controller` automatique** : Vous n'avez pas besoin d’inclure `Controller` dans le nom du contrôleur.
+- **Action par défaut** : Si l'action n'est pas précisée, elle sera définie sur `show`.
+
+
 ## Gestion des erreurs
 Le script vérifie la validité des options passées en argument et renvoie des messages d'erreur en cas de problème, par exemple si un fichier n'existe pas pour les opérations de chiffrement ou déchiffrement, ou si le répertoire `./public` est manquant lors du lancement du serveur.
 

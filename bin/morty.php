@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-30 15:14:22
+ * @ Modified time: 2024-12-01 22:55:54
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -28,7 +28,7 @@ Autoloader::register();
 $terminal = new LogTerminal('cmd');
 
 // Définition des options
-$options = getopt("s:e:d:k:M:S:h", ["server:", "encrypt:", "decrypt:", "key:", "migrate:", "seed:", "help"]);
+$options = getopt("s:e:d:k:M:S:c:n:r:h", ["server:", "encrypt:", "decrypt:", "key:", "migrate:", "seed:", "create:", "name:", "route:", "help"]);
 
 // Affichage de l'aide si l'option -h ou --help est utilisée
 if (isset($options['h']) || isset($options['help'])) {
@@ -39,13 +39,16 @@ This is free software, and you are welcome to redistribute it
 under certain conditions.\n\n"
     . "Utilisation : php bin/morty.php [options]\n"
     . "Options disponibles :\n"
-    . "  -s, --server [adresse:port]     : Lance un serveur de développement PHP à l'adresse et au port spécifiés.\n"
-    . "  -e, --encrypt [file]            : Chiffre un fichier spécifique.\n"
-    . "  -d, --decrypt [file]            : Déchiffre un fichier spécifique.\n"
-    . "  -k, --key [key]                 : Spécifiez une clé de chiffrement personnalisée.\n"
-    . "  -M, --migrate [up|down|create]  : Exécute les migrations.\n"
-    . "  -S, --seed [up|down|create]     : Exécute les seeders.\n"
-    . "  -h, --help                      : Affiche ce message d'aide.\n";
+    . "  -s, --server [adresse:port]             : Lance un serveur de développement PHP à l'adresse et au port spécifiés.\n"
+    . "  -e, --encrypt [file]                    : Chiffre un fichier spécifique.\n"
+    . "  -d, --decrypt [file]                    : Déchiffre un fichier spécifique.\n"
+    . "  -k, --key [key]                         : Spécifiez une clé de chiffrement personnalisée.\n"
+    . "  -M, --migrate [up|down|create]          : Exécute les migrations.\n"
+    . "  -S, --seed [up|down|create]             : Exécute les seeders.\n"
+    . "  -c, --create [controller|model|service] : Créer une classe.\n"
+    . "  -n, --name [classname]                  : Nom de la classe.\n"
+    . "  -r, --route [/path:controller@action]   : Ajoute une route.\n"
+    . "  -h, --help                              : Affiche ce message d'aide.\n";
     exit(0);
 }
 
@@ -151,6 +154,41 @@ if ((isset($options['M']) || isset($options['migrate'])) || (isset($options['S']
     exit(0);
 }
 
+if ((isset($options['c']) || isset($options['create'])) && (isset($options['n']) || isset($options['name']))) {
+    $type = $options['c'] ?? $options['create'];
+    $name = $options['n'] ?? $options['name'];
+    switch ($type) {
+        case 'controller':
+            createController($name);
+            break;
+        case 'model':
+            createModel($name);
+            break;
+        case 'service':
+            createService($name);
+            break;
+        default:
+            $terminal->e("Type de classe non valide.");
+            exit(1);
+    }
+    exit(0);
+}
+
+if (isset($options['r']) || isset($options['route'])) {
+    $route = explode("@", $options['r'] ?? $options['route']);
+    $pc = explode(":", $route[0]);
+    if (!isset($pc[1])) {
+        $terminal->e("Le controller n'est pas spécifié.");
+        exit(1);
+    }
+    $routes = json_decode(file_get_contents('config/routes.json'), true);
+    $routes[$pc[0]] = [
+        'controller' => $pc[1].'Controller',
+        'action' => $route[1]??'show',
+    ];
+    file_put_contents('config/routes.json', json_encode($routes, JSON_PRETTY_PRINT| JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    exit(0);
+}
 
 // Si aucune option valide n'est fournie
 $terminal->e("aucune option valide fournie. Utilisez -h ou --help pour l'aide.");
