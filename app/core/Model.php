@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:30:22
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 14:34:58
+ * @ Modified time: 2024-12-01 19:30:41
  * @ Description: Classe de base pour les modèles
  */
 
@@ -238,8 +238,7 @@ class Model extends Database
         $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where();
         if ($index >= 0) {
             // Si l'index est fourni, ajouter un LIMIT pour récupérer l'enregistrement à l'index donné
-            $query .= " LIMIT 1 OFFSET ?";
-            $this->bindings[] = $index; // Ajouter l'offset (index) aux bindings
+            $query .= " LIMIT 1 OFFSET $index";
             return $this->stmt($query, true)->fetch(PDO::FETCH_ASSOC);
         }
         return $this->stmt($query, true)->fetchAll(PDO::FETCH_ASSOC);
@@ -254,9 +253,7 @@ class Model extends Database
      */
     public function paginate(int $limit, int $offset): array
     {
-        $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where() . " LIMIT ? OFFSET ?";
-        $this->bindings[] = $limit;
-        $this->bindings[] = $offset;
+        $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where() . " LIMIT $limit OFFSET $offset";
 
         return $this->stmt($query, true)->fetchAll(PDO::FETCH_ASSOC);
     }
