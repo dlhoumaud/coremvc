@@ -3,26 +3,26 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 15:24:42
- * @ Description: Auto-chargements des classes
+ * @ Modified time: 2024-12-01 14:41:56
+ * @ Description: Classe AutolOader responsable du chargement automatique des classes en fonction de leur chemin de fichier.
  */
 
 namespace App\Core;
 
 /**
- * Autoloader class responsible for automatically loading classes based on their file path.
+ * Classe AutolOader responsable du chargement automatique des classes en fonction de leur chemin de fichier.
  *
- * This class registers an autoload function with the SPL autoload registry, which is called
- * whenever a class is referenced that has not been defined yet. The autoload function
- * attempts to load the class from the appropriate file path, first checking the core
- * directory, then the controllers directory, and finally the models directory.
+ * Cette classe enregistre une fonction Autoload avec le registre SPL Autoload, qui est appelé
+ * Chaque fois qu'une classe est référencée qui n'a pas encore été définie.La fonction automatique
+ * tente de charger la classe à partir du chemin de fichier approprié, vérifiant d'abord le noyau
+ * Répertoire, puis le répertoire des contrôleurs, et enfin le répertoire des modèles.
  */
 class Autoloader
 {
     /**
-     * Registers the autoload function with the SPL autoload registry.
-     * This allows the Autoloader class to automatically load classes
-     * as they are referenced throughout the application.
+     * Enregistre la fonction Autoload avec le registre SPL Autoload.
+     * Cela permet à la classe AutolOader de charger automatiquement les classes
+     * Comme ils sont référencés tout au long de la demande.
      */
     public static function register()
     {
@@ -30,12 +30,12 @@ class Autoloader
     }
 
     /**
-     * Autoloads a class by attempting to load it from the appropriate file path.
+     * Autoloads une classe en essayant de le charger à partir du chemin de fichier approprié.
      *
-     * This method is called by the SPL autoload registry whenever a class is referenced
-     * that has not been defined yet. It checks the appropriate directory based on the class namespace.
+     * Cette méthode est appelée par le registre SPL Autoload chaque fois qu'une classe est référencée
+     * Cela n'a pas encore été défini.Il vérifie le répertoire approprié en fonction de l'espace de noms de classe.
      *
-     * @param string $class The name of the class to be autoloaded.
+     * @param string $class Le nom de la classe à être automatiquement.
      */
     public static function autoload($class)
     {
@@ -63,6 +63,17 @@ class Autoloader
         }
     }
 
+    /**
+     * Recherche une classe dans les répertoires spécifiés et le charge si elle est trouvée.
+     *
+     * Cette méthode est une fonction d'assistance pour la méthode Autoload.Il itére à travers
+     * Les répertoires fournis, vérifient si la classe est dans l'espace de noms et tente
+     * Pour charger la classe à partir du chemin de fichier correspondant.
+     *
+     * @param string $class Le nom de la classe à rechercher et à charger.
+     * @param array $directories Un tableau associatif d'espace de noms => mappages de répertoires.
+     * @return bool Vrai si la classe a été trouvée et chargée, fausse autrement.
+     */
     private static function searchClass($class, $directories) {
         foreach ($directories as $namespace => $directory) {
             if (strpos($class, $namespace) === 0) {  // Check if the class is in the namespace
@@ -79,6 +90,14 @@ class Autoloader
         return false;
     }
 
+    /**
+     * Obtient l'espace de noms de la classe donnée.
+     *
+     * Cette méthode extrait l'espace de noms du nom de classe entièrement qualifié.
+     *
+     * @param string $class Le nom de classe entièrement qualifié.
+     * @return string L'espace de noms de la classe.
+     */
     private static function getNamespace($class) {
         $namespace = explode('\\', $class);
         return $namespace[0];

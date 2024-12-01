@@ -3,8 +3,8 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:24
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-29 13:09:34
- * @ Description: Class responsible for handling routing and URL parsing.
+ * @ Modified time: 2024-12-01 14:43:00
+ * @ Description: Classe responsable de la gestion du routage et de l'analyse d'URL.
  */
 
 namespace App\Core;
@@ -20,6 +20,13 @@ class Router
         $this->loadRoutes();
     }
 
+    /**
+     * Charge les routes de l'application à partir d'un fichier JSON et les cache dans un fichier PHP.
+     *
+     * Cette méthode vérifie d'abord si une version en cache des routes existe et est à jour.
+     * Si le cache est valide, il charge les itinéraires à partir du fichier mis en cache.Sinon, c'est
+     * Charge les routes à partir du fichier JSON, puis génère un nouveau fichier de cache.
+     */
     private function loadRoutes()
     {
         $jsonFile = '../config/routes.json';
@@ -38,6 +45,14 @@ class Router
         }
     }
 
+    /**
+     * Génère un fichier de cache contenant les itinéraires de l'application.
+     *
+     * Cette méthode écrit le tableau $ this-> routes vers un fichier PHP, qui peut être chargé
+     * Plus efficacement que l'analyse du fichier JSON d'origine.
+     *
+     * @param string $cacheFile Le chemin d'accès au fichier de cache à générer.
+     */
     private function generateCache($cacheFile)
     {
         $content = '<?php return ' . var_export($this->routes, true) . ';';
@@ -45,9 +60,9 @@ class Router
     }
 
     /**
-     * Dispatches the requested URI to the appropriate controller and action.
+     * Envoie l'URI demandé au contrôleur et à l'action appropriés.
      *
-     * @param string $uri The requested URI.
+     * @param string $uri L'URI demandé.
      */
     public function dispatch($uri)
     {
