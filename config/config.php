@@ -3,10 +3,19 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-30 16:01:36
+ * @ Modified time: 2024-12-01 14:49:21
  * @ Description: Script de fonctionnalités
  */
 
+ /**
+  * Charge les variables d'environnement à partir d'un fichier .env, en cachant le résultat pour améliorer les performances.
+  *
+  * Si le fichier .env a été modifié depuis la dernière génération du fichier de cache, le cache est invalidé
+  * Et les variables d'environnement sont rechargées à partir du fichier .env.
+  *
+  * @param string $envPath   The path to the .env file.
+  * @param string $cachePath The path to the cache file.
+  */
  function loadEnvWithCache($envPath, $cachePath)
  {
     // Si le cache est périmé ou n'existe pas, charger depuis le fichier .env
@@ -87,7 +96,7 @@ function encryptFile($inputFile, $outputFile, $key)
  *
  * @param string $inputFile Le chemin du fichier chiffré à déchiffrer.
  * @param string $key       La clé de déchiffrement (doit être de 32 caractères pour AES-256-CBC).
- * @return string           Les données déchiffrées.
+ * @return void
  */
 function decryptFile($inputFile, $outputFile, $key)
 {
@@ -163,8 +172,14 @@ function runMigration($db, string $file, string $type = 'up', bool $is_seed = fa
     }
 }
 
-// Fonction pour scanner un dossier et filtrer les fichiers/dossiers spéciaux
-function scanDirectory($directory)
+/**
+ * Analyse le répertoire spécifié et renvoie un tableau de fichiers / répertoires.
+ *
+ * @param string $directory The directory to scan.
+ * @return array An array of files/directories in the specified directory, excluding "." and "..".
+ * @throws Exception If the specified directory does not exist.
+ */
+function scanDirectory($directory): array
 {
     // Vérifie si le dossier existe
     if (!is_dir($directory)) {
@@ -180,7 +195,15 @@ function scanDirectory($directory)
     return $files; // Renvoie le tableau de fichiers/dossiers
 }
 
-function inject($filename, $data=[]) {
+/**
+ * Injecte le contenu d'un fichier PHP et renvoie la sortie.
+ *
+ * @param string $filename The path to the PHP file to include.
+ * @param array $data An optional array of data to extract and make available in the included file.
+ * @return string The output of the included file.
+ */
+function inject($filename, $data=[]): string
+{
     if (!file_exists($filename)) return '';
     if (!empty($data)) extract($data); // Récupère les données à injecter
     ob_start(); // Démarre la capture de sortie
@@ -188,7 +211,15 @@ function inject($filename, $data=[]) {
     return ob_get_clean(); // Capture et nettoie le tampon
 }
 
-function injectJS($filename, $data=[]) {
+/**
+ * Injecte le contenu d'un fichier JS et renvoie la sortie.
+ *
+ * @param string $filename The path to the JS file to include.
+ * @param array $data An optional array of data to extract and make available in the included file.
+ * @return string The output of the included file.
+ */
+function injectJS($filename, $data=[]): string
+{
     if (!file_exists($filename)) return '';
     $content = ''; 
     foreach ($data as $key => $value) {

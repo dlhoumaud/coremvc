@@ -2,8 +2,8 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:46:30
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-30 13:30:22
- * @ Description: Scripts for the application Vue.js
+ * @ Modified time: 2024-12-01 14:45:31
+ * @ Description: Scripts pour l'application vue.js
  */
 
 for (const method in window.vueMethods) {
@@ -12,7 +12,11 @@ for (const method in window.vueMethods) {
   }
 }
 
-// Définition de l'élément HTML où sera montée l'application Vue.js
+/**
+ * Crée une nouvelle instance d'application Vue.js avec les données et méthodes spécifiées.
+ * Les données sont récupérées de l'objet mondial de fenêtre.vuedatas »et les méthodes
+ * sont récupérés de l'objet mondial `window.vueMethods '.
+ */
 const app = Vue.createApp({
     data() {
         return window.vueDatas;
