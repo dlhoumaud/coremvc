@@ -3,8 +3,8 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:38
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-29 13:10:49
- * @ Description: Controller class for handling HTTP requests and rendering views.
+ * @ Modified time: 2024-12-01 14:42:15
+ * @ Description: Classe de contrôleur pour gérer les demandes HTTP et rendre les vues.
  */
 
  namespace App\Core;
@@ -12,12 +12,12 @@
 class Controller
 {
     /**
-     * Loads a view file and renders it with the provided data.
+     * Charge un fichier d'affichage et le rend avec les données fournies.
      *
-     * This method is responsible for loading the necessary view files, including the head, header, and footer, and rendering the main content of the view.
+     * Cette méthode est responsable du chargement des fichiers de vue nécessaires, y compris la tête, l'en-tête et le pied de page, et de rendre le contenu principal de la vue.
      *
-     * @param string $view The name of the view file to load, without the .php extension.
-     * @param array $data An optional array of data to pass to the view.
+     * @param string $view Le nom du fichier Affichage à charger, sans l'extension .php.
+     * @param array $data Un tableau de données facultatif à passer à la vue.
      */
     static protected function view($view, $data = [])
     {
