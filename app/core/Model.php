@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:30:22
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 19:30:41
+ * @ Modified time: 2024-12-01 23:45:30
  * @ Description: Classe de base pour les modèles
  */
 
@@ -232,16 +232,18 @@ class Model extends Database
      * @param int $index L'indice de l'enregistrement à récupérer, ou -1 pour récupérer tous les enregistrements.
      * @return array Un éventail de tableaux associatifs représentant les dossiers récupérés.
      */
-    public function get(int $index=-1): array
+    public function get(int $index = -1): array
     {
-        // Construction de la requête SELECT avec les clauses et jointures
         $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where();
+
         if ($index >= 0) {
-            // Si l'index est fourni, ajouter un LIMIT pour récupérer l'enregistrement à l'index donné
             $query .= " LIMIT 1 OFFSET $index";
-            return $this->stmt($query, true)->fetch(PDO::FETCH_ASSOC);
+            $result = $this->stmt($query, true)?->fetch(PDO::FETCH_ASSOC);
+            return $result ?: [];
         }
-        return $this->stmt($query, true)->fetchAll(PDO::FETCH_ASSOC);
+
+        $results = $this->stmt($query, true)?->fetchAll(PDO::FETCH_ASSOC);
+        return $results ?: [];
     }
 
     /**
@@ -397,18 +399,20 @@ class Model extends Database
      * @param bool $return_stmt Whether to return the PDOStatement object instead of the result.
      * @return bool|PDOStatement The result of the query or the PDOStatement object.
      */
-    private function stmt(string $query, bool $return_stmt = false): bool|PDOStatement
+    private function stmt(string $query, bool $single = false): ?PDOStatement
     {
         try {
             $stmt = $this->pdo->prepare($query);
-            $result = $stmt->execute($this->bindings);
-            $this->reset();
-            return ($return_stmt ? $stmt : $result);
-        } catch (\PDOException $e) {
-            // Log l'erreur ou lever une exception personnalisée
-            throw new \Exception("Erreur dans la requête SQL : " . $e->getMessage());
+            if (!$stmt->execute($this->bindings)) {
+                throw new Exception("Erreur lors de l'exécution de la requête : " . implode(", ", $stmt->errorInfo()));
+            }
+            return $stmt;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return null;
         }
     }
+
 
     /**
      * Réinitialise l'état interne de l'instance du modèle.

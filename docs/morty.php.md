@@ -377,6 +377,14 @@ Le controller n'est pas spécifié.
 - **Suffixe `Controller` automatique** : Vous n'avez pas besoin d’inclure `Controller` dans le nom du contrôleur.
 - **Action par défaut** : Si l'action n'est pas précisée, elle sera définie sur `show`.
 
+## Créer d'une vues
+
+### Utilisation
+Pour créer une vue, utilisez la commande suivante :
+```bash
+php script.php -v "nom_de_la_vue"
+```
+cette commande crée un fichier dans le répertoire `./app/views` avec le nom spécifié.
 
 ## Gestion des erreurs
 Le script vérifie la validité des options passées en argument et renvoie des messages d'erreur en cas de problème, par exemple si un fichier n'existe pas pour les opérations de chiffrement ou déchiffrement, ou si le répertoire `./public` est manquant lors du lancement du serveur.
