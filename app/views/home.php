@@ -4,25 +4,25 @@
     <div class="carousel-inner">
         <carousel-item
             imgsrc="/assets/images/slides/000.png"
-            imgalt="Bienvenue sur CoreMVC"
-            title="Bienvenue sur CoreMVC"
-            text="Un framework pour tous.."
+            imgalt="<?= l('welcome') ?>"
+            title="<?= l('welcome') ?>"
+            text="<?= l('framework_for_all') ?>"
             interval="10000"
             :active="true">
         </carousel-item>
         <carousel-item
             imgsrc="/assets/images/slides/001.png"
-            imgalt="Framework MVC en PHP"
-            title="Framework MVC en PHP"
-            text="Développer facilement."
+            imgalt="<?= l('framework_mvc_php') ?>"
+            title="<?= l('framework_mvc_php') ?>"
+            text="<?= l('easy_dev') ?>"
             interval="10000"
             :active="false">
         </carousel-item>
         <carousel-item
             imgsrc="/assets/images/slides/002.png"
-            imgalt="Un framework sans dépendance"
-            title="Un framework sans dépendance"
-            text="Aucun contrainte lié à composer"
+            imgalt="<?= l('framework_no_deps') ?>"
+            title="<?= l('framework_no_deps') ?>"
+            text="<?= l('no_composer') ?>"
             interval="10000"
             :active="false">
         </carousel-item>
@@ -44,9 +44,9 @@
             <card-img-top
                 imgsrc='/assets/images/bg.png'
                 imgalt='Image de la carte'
-                title='CoreMVC'
-                text="Est un framework PHP facile d'utilisation."
-                btntext='Voir plus'
+                title='<?= l('name_site') ?>'
+                text="<?= l('easy_usage') ?>"
+                btntext='<?= l('view_more') ?>'
                 btnlink='#'
                 btnclass='btn-primary'>
             </card-img-top>
@@ -56,12 +56,11 @@
                 imgsrc='/assets/images/bg.png'
                 imgalt='Image de la carte'
                 title='Objectifs'
-                btntext='Voir plus'
+                btntext='<?= l('view_more') ?>'
                 btnlink='#'
                 btnclass='btn-primary'>
                 <template #text>
-                    <p>Développer facilement</p>
-                    <p>Développer proprement</p>
+                    <?= l('easy_dev_text') ?>
                 </template>
             </card-img-top>
         </div>
@@ -71,7 +70,7 @@
                 imgalt='Image de la carte'
                 title='Titre carte'
                 text='Petit exemple de contenu pour la carte.'
-                btntext='Voir plus'
+                btntext='<?= l('view_more') ?>'
                 btnlink='#'
                 btnclass='btn-primary'>
             </card-img-top>
@@ -81,7 +80,7 @@
                 imgsrc='/assets/images/bg.png'
                 imgalt='Image de la carte'
                 title='Titre carte'
-                btntext='Voir plus'
+                btntext='<?= l('view_more') ?>'
                 btnlink='#'
                 btnclass='btn-primary'>
                 <template #text>

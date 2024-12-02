@@ -4,16 +4,16 @@ export default (app) => {
         template: `<div v-if="showBanner" class="cookie-banner bg-light p-3 fixed-bottom shadow-top">
         <div class="d-flex justify-content-between align-items-center">
             <p class="mb-0">
-                Nous utilisons des cookies pour améliorer votre expérience. Consultez notre <a href="/privacy-policy">Politique de Confidentialité</a>.
+                ${window.vueDatas.ccl.cookies_consent_text}
             </p>
             <div>
-                <button class="btn btn-link btn-sm" @click="showPreferences = true">Personnaliser</button>
-                <button class="btn btn-primary btn-sm me-2" @click="acceptCookies">Accepter</button>
-                <button class="btn btn-secondary btn-sm" @click="declineCookies">Refuser</button>
+                <button class="btn btn-link btn-sm" @click="showPreferences = true">${window.vueDatas.ccl.customize}</button>
+                <button class="btn btn-primary btn-sm me-2" @click="acceptCookies">${window.vueDatas.ccl.accept}</button>
+                <button class="btn btn-secondary btn-sm" @click="declineCookies">${window.vueDatas.ccl.denied}</button>
             </div>
         </div>
         <div v-if="showPreferences" class="cookie-preferences mt-3 p-3 border rounded bg-white">
-        <h5>Préférences des cookies</h5>
+        <h5>${window.vueDatas.ccl.cookies_consent_preferences}</h5>
         <div v-for="(type, key) in cookieTypes" :key="key" class="form-check">
             <input
             type="checkbox"
@@ -24,7 +24,7 @@ export default (app) => {
             />
             <label :for="key" class="form-check-label">{{ type }}</label>
         </div>
-        <button class="btn btn-success btn-sm mt-3" @click="savePreferences">Enregistrer mes choix</button>
+        <button class="btn btn-success btn-sm mt-3" @click="savePreferences">${window.vueDatas.ccl.choices_record}</button>
         </div>
     </div>`,
     data() {
@@ -37,9 +37,9 @@ export default (app) => {
             ads: false
             },
             cookieTypes: {
-            essential: 'Cookies essentiels',
-            analytics: 'Cookies analytiques',
-            ads: 'Cookies publicitaires'
+                essential: window.vueDatas.ccl.cookies_essential,
+                analytics: window.vueDatas.ccl.cookies_analytics,
+                ads: window.vueDatas.ccl.cookies_ads
             }
         };
         },
