@@ -2,7 +2,7 @@
     <div class="col-md-6 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold text-primary">{{ firstname }} {{ lastname }}</h1>
         <h3 class="fw-normal text-muted mb-3">{{ email }}</h3>
-        <p class="lead text-dark">Développeur passionné, toujours à la recherche de nouvelles opportunités pour améliorer et partager mes connaissances.</p>
+        <p class="lead text-dark"><?= l('user_text') ?></p>
     </div>
 </div>
 
@@ -11,10 +11,10 @@
         cardclass='shadow-lg'
         cardstyle='width:18rem;'
         imgsrc='/assets/images/CoreMVC.png'
-        imgalt='À propos de moi'
-        title='À propos de moi'
-        text="Je suis un développeur Web passionné par la création d'applications et de solutions logicielles. Mon expertise inclut le développement front-end et back-end, ainsi que la conception de frameworks MVC comme CoreMVC."
-        btntext='Voir plus'
+        imgalt='<?= l('user_about') ?>'
+        title='<?= l('user_about') ?>'
+        text="<?= l('user_card_text') ?>"
+        btntext='<?= l('view_more') ?>'
         btnclass='btn-primary w-100'
         :btnclick='click'
         :btnmouseenter='mouseEnter'

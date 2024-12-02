@@ -29,11 +29,11 @@
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#HomeCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <span class="visually-hidden"><?= l('previous') ?></span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#HomeCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <span class="visually-hidden"><?= l('next') ?></span>
     </button>
 </div>
 <!-- END CARROUSEL-->
@@ -43,7 +43,7 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
             <card-img-top
                 imgsrc='/assets/images/bg.png'
-                imgalt='Image de la carte'
+                imgalt='<?= l('card_image') ?>'
                 title='<?= l('name_site') ?>'
                 text="<?= l('easy_usage') ?>"
                 btntext='<?= l('view_more') ?>'
@@ -54,8 +54,8 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
             <card-img-top
                 imgsrc='/assets/images/bg.png'
-                imgalt='Image de la carte'
-                title='Objectifs'
+                imgalt='<?= l('card_image') ?>'
+                title='<?= l('card_title_goals') ?>'
                 btntext='<?= l('view_more') ?>'
                 btnlink='#'
                 btnclass='btn-primary'>
@@ -67,9 +67,9 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
             <card-img-top
                 imgsrc='/assets/images/bg.png'
-                imgalt='Image de la carte'
-                title='Titre carte'
-                text='Petit exemple de contenu pour la carte.'
+                imgalt='<?= l('card_image') ?>'
+                title='<?= l('card_title') ?>'
+                text='<?= l('card_text') ?>'
                 btntext='<?= l('view_more') ?>'
                 btnlink='#'
                 btnclass='btn-primary'>
@@ -78,13 +78,13 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
             <card-img-top
                 imgsrc='/assets/images/bg.png'
-                imgalt='Image de la carte'
-                title='Titre carte'
+                imgalt='<?= l('card_image') ?>'
+                title='<?= l('card_title') ?>'
                 btntext='<?= l('view_more') ?>'
                 btnlink='#'
                 btnclass='btn-primary'>
                 <template #text>
-                    <hello-coremvc></hello-coremvc>
+                    <hello-coremvc text='<?= l('welcome') ?>'></hello-coremvc>
                 </template>
             </card-img-top>
         </div>

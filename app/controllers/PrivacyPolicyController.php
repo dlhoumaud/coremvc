@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-29 13:11:57
+ * @ Modified time: 2024-12-02 13:28:20
  * @ Description: Controller pour la politique de confidentialité
  */
 namespace App\Controllers;
@@ -14,7 +14,7 @@ class PrivacyPolicyController extends Controller
 {
     public function show() {
         $data = [
-            'head_title' => "Politique de confidentialité"
+            'head_title' => l('title')
         ];
         self::view('privacy-policy', $data);
     }

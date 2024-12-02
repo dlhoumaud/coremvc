@@ -13,22 +13,22 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Informations
+                    <?= l('infos') ?>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/user/1">Utilisateur</a></li>
+                        <li><a class="dropdown-item" href="/user/1"><?= l('user') ?></a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/login">Connexion</a></li>
+                        <li><a class="dropdown-item" href="/login"><?= l('login') ?></a></li>
                         <li><a class="dropdown-item" href="/about"><?= l('about') ?></a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item disabled" href="/contact" aria-disabled="true"><?= l('contact') ?></a></li>
+                        <li><a class="dropdown-item disabled" href="/contact" aria-disabled="true"><?= l('contact-us') ?></a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/about"><?= l('about') ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact"><?= l('contact') ?></a>
+                    <a class="nav-link" href="/contact"><?= l('contact-us') ?></a>
                 </li>
                 </ul>
                 <form class="d-flex align-items-center" role="search" method="POST">
@@ -36,8 +36,8 @@
                         <input 
                             class="form-control shadow-sm" 
                             type="search" 
-                            placeholder="Recherche..." 
-                            aria-label="Search">
+                            placeholder="<?= l('search_placeholder') ?>" 
+                            aria-label="<?= l('search') ?>">
                         <button 
                             class="btn btn-success shadow-sm" 
                             type="submit">
