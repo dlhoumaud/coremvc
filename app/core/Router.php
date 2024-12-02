@@ -3,12 +3,13 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:24
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 14:43:00
+ * @ Modified time: 2024-12-02 01:12:44
  * @ Description: Classe responsable de la gestion du routage et de l'analyse d'URL.
  */
 
 namespace App\Core;
 
+use App\Core\Language;
 use App\Controllers\ErrorController as Error;
 
 class Router
@@ -17,6 +18,7 @@ class Router
 
     public function __construct()
     {
+        Language::set_language();
         $this->loadRoutes();
     }
 
@@ -71,8 +73,9 @@ class Router
         // Vérifier si la route existe
         if (array_key_exists($uri, $this->routes)) {
             $controllerName = 'App\Controllers\\'.$this->routes[$uri]['controller'];
+            $_SESSION['controller']=preg_replace('/Controller$/','',$this->routes[$uri]['controller']);
+            Language::load_language();
             $actionName = $this->routes[$uri]['action'];
-
             // Instancier le contrôleur et appeler l'action
             $controller = new $controllerName();
             $controller->$actionName();
@@ -86,6 +89,8 @@ class Router
                     // Extraire les paramètres
                     $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                     $controllerName = 'App\Controllers\\' . $routeInfo['controller'];
+                    $_SESSION['controller']=preg_replace('/Controller$/','',$routeInfo['controller']);
+                    Language::load_language();
                     $actionName = $routeInfo['action'];
 
                     // Instancier le contrôleur et appeler l'action avec les paramètres
@@ -97,4 +102,6 @@ class Router
         }
         Error::e404();
     }
+
+    
 }

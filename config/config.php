@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 22:28:45
+ * @ Modified time: 2024-12-02 01:14:31
  * @ Description: Script de fonctionnalités
  */
 
@@ -326,4 +326,20 @@ class ".ucfirst($name)." extends Model
     protected \$table = '".strtolower($name)."';
 }";
     file_put_contents('app/models/'.ucfirst($name).'.php', $content);
+}
+
+
+
+/**
+ * Récupère le texte localisé pour la clé donnée.
+ *
+ * @param string $text La clé du texte localisé à récupérer.
+ * @return string Le texte localisé ou le texte d'origine si aucune localisation n'est disponible.
+ */
+function l($text) {
+    return ($_SESSION['lang_controller'][$text] ?? ($_SESSION['lang_global'][$text] ?? $text));
+}
+
+function __($text) { 
+     return l($text); 
 }
