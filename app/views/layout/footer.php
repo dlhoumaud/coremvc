@@ -3,7 +3,7 @@
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
-                <span>Retrouvez-nous sur les réseaux sociaux:</span>
+                <span><?= l('social_networks') ?></span>
                 </div>
                 <!-- Left -->
 
@@ -29,11 +29,10 @@
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"></i>CoreMVC
+                        <i class="fas fa-gem me-3"></i><?= l('name_site') ?>
                     </h6>
                     <p>
-                        CoreMVC est un framework PHP MVC basé sur le modèle MVC (Model-View-Controller) pour la création d'applications web. 
-                        Il est conçu pour simplifier le développement d'applications web en séparant les responsabilités entre le modèle, la vue et le contrôleur.
+                        <?= l('description_site') ?>
                     </p>
                     </div>
                     <!-- Grid column -->
@@ -42,7 +41,7 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        Technologies
+                        <?= l('technologies') ?>
                     </h6>
                     <p>
                         <a href="#!" class="text-reset">HTML5</a>
@@ -63,19 +62,19 @@
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        Liens utiles
+                        <?= l('useful-links') ?>
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Prix</a>
+                        <a href="#!" class="text-reset"><?= l('price') ?></a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Paramètres</a>
+                        <a href="#!" class="text-reset"><?= l('parameters') ?></a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Commande</a>
+                        <a href="#!" class="text-reset"><?= l('order') ?></a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Aide</a>
+                        <a href="#!" class="text-reset"><?= l('help') ?></a>
                     </p>
                     </div>
                     <!-- Grid column -->
@@ -83,7 +82,7 @@
                     <!-- Grid column -->
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <h6 class="text-uppercase fw-bold mb-4"><?= l('contact') ?></h6>
                     <p><i class="fas fa-home me-3"></i> Toulouse, 31000, FR</p>
                     <p>
                         <i class="fas fa-envelope me-3"></i>
