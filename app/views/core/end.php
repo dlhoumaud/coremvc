@@ -1,6 +1,17 @@
         <cookies-consent></cookies-consent>
         <script>
             window.vueDatas = <?= !empty($vue_datas)?json_encode($vue_datas):'{}'; ?>;
+            window.vueDatas['ccl'] = {
+                cookies_consent_text : '<?= l('cookies_consent_text') ?>',
+                cookies_consent_preferences : '<?= l('cookies_consent_preferences') ?>',
+                choices_record: '<?= l('choices_record') ?>',
+                customize: '<?= l('customize') ?>',
+                accept: '<?= l('accept') ?>',
+                denied: '<?= l('denied') ?>',
+                cookies_essential: '<?= l('cookies_essential') ?>',
+                cookies_analytics: '<?= l('cookies_analytics') ?>',
+                cookies_ads: '<?= l('cookies_ads') ?>'
+            };
             window.vueMethods = <?= !empty($vue_methods)?json_encode($vue_methods):'{}'; ?>;
             window.vueComponents = <?= !empty($vue_components)?json_encode($vue_components):'[]'; ?>;
         </script>

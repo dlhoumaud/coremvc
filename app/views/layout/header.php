@@ -19,16 +19,16 @@
                         <li><a class="dropdown-item" href="/user/1">Utilisateur</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/login">Connexion</a></li>
-                        <li><a class="dropdown-item" href="/about">À propos</a></li>
+                        <li><a class="dropdown-item" href="/about"><?= l('about') ?></a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item disabled" href="/contact" aria-disabled="true">Contactez-nou</a></li>
+                        <li><a class="dropdown-item disabled" href="/contact" aria-disabled="true"><?= l('contact') ?></a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">À propos</a>
+                    <a class="nav-link" href="/about"><?= l('about') ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contactez-nous</a>
+                    <a class="nav-link" href="/contact"><?= l('contact') ?></a>
                 </li>
                 </ul>
                 <form class="d-flex align-items-center" role="search" method="POST">

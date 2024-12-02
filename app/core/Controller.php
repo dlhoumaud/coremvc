@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:38
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 14:42:15
+ * @ Modified time: 2024-12-02 00:37:03
  * @ Description: Classe de contrôleur pour gérer les demandes HTTP et rendre les vues.
  */
 
@@ -36,4 +36,5 @@ class Controller
         if (!isset($end_view_core)) $end_view_core = 'end';
         require_once "../app/views/core/$end_view_core.php";
     }
+
 }
