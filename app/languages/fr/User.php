@@ -1,0 +1,20 @@
+<?php return [
+    'user_not_found' => 'Utilisateur introuvable',
+    'unknown'   => 'Inconnu',
+    'message_user_id_not_found' => 'L\'utilisateur avec l\'ID :user_id n\'existe pas.',
+    'user_text' => 'Développeur passionné, toujours à la recherche de nouvelles opportunités pour améliorer et partager mes connaissances.',
+    'user_card_text' => 'Je suis un développeur Web passionné par la création d\'applications et de solutions logicielles. Mon expertise inclut le développement front-end et back-end, ainsi que la conception de frameworks MVC comme CoreMVC.',
+    'user_about'=> 'À propos de moi',
+
+    'login_head_title' => 'Connexion à CoreMVC',
+    'login_signin' => 'Veuillez vous connecter',
+    'login_email_address' => 'Adresse e-mail',
+    'login_password' => 'Mot de passe',
+    'login_signin_btn' => 'Se connecter',
+    'login_signup_btn' => 'S\'inscrire',
+    'login_signup_here' => 'S\'inscrire ici',
+    'login_forgot_password' => 'Mot de passe oublié ?',
+    'login_signup_text' => 'Pas encore de compte ?',
+    'login_remender_me' => 'Se souvenir de moi',
+    'login_error' => 'Adresse mail ou mot de passe incorrect',
+];

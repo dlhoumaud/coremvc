@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 23:40:59
+ * @ Modified time: 2024-12-02 13:34:36
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -43,8 +43,8 @@ class UserService
         if ($user) {
             // Si l'utilisateur existe, transmettre les données à la vue
             return [
-                'head_title' => 'Utilisateur ' . $user['firstname'] . ' ' . $user['lastname'],
-                'title' => 'Utilisateur ' . $user['firstname'] . ' ' . $user['lastname'],
+                'head_title' => l('user').' ' . $user['firstname'] . ' ' . $user['lastname'],
+                'title' => l('user').' ' . $user['firstname'] . ' ' . $user['lastname'],
                 'vue_datas' => [
                     'firstname' => $user['firstname'],
                     'lastname'  => $user['lastname'],
@@ -60,12 +60,12 @@ class UserService
         } 
         // Si l'utilisateur n'existe pas, afficher une erreur ou rediriger
         return [
-            'head_title' => 'Utilisateur introuvable',
-            'title' => 'Utilisateur introuvable',
-            'message' => 'L\'utilisateur avec l\'ID ' . $id . ' n\'existe pas.',
+            'head_title' => l('user_not_found'),
+            'title' => l('user_not_found'),
+            'message' => str_replace(':user_id', $id, l('message_user_id_not_found')),
             'vue_datas' => [
-                'firstname' => 'Utilisateur',
-                'lastname' => 'Inconnu',
+                'firstname' => l('user'),
+                'lastname' => l('unknown'),
                 'email' => 'utilisateur@inconnu.com'
             ]
         ];

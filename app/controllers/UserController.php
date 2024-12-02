@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 23:40:13
+ * @ Modified time: 2024-12-02 13:54:59
  * @ Description: Classe pour gérer les utilisateurs
  */
 
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function login()
     {
         $data = [
-            'head_title' => 'Connexion à CoreMVC', 
+            'head_title' => l('login_head_title'), 
             'main_attributes' => 'class="form-signin col-8 col-sm-6 col-md-4 col-lg-3 m-auto"'
         ];
 
@@ -39,7 +39,7 @@ class UserController extends Controller
                 header('Location: /dashboard');
                 exit;
             } else {
-                $data['error'] = 'Nom d\'utilisateur ou mot de passe incorrect';
+                $data['error'] = l('login_error');
             }
         }
 
