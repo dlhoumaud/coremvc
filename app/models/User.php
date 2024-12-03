@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:20:49
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 13:55:18
+ * @ Modified time: 2024-12-02 15:31:24
  * @ Description: Modele pour les utilisateurs
  */
 namespace App\Models;
@@ -27,6 +27,10 @@ class User extends Model
     public function deleteUser($id)
     {
         return $this->where('id', '=', $id)->delete();
+    }
+
+    public function findUserByEmail($email) {
+        return $this->where('email', '=', $email)->get(0);
     }
 
 }

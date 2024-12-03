@@ -2,7 +2,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-25 16:36:08
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-25 22:30:52
+ * @ Modified time: 2024-12-03 00:43:48
  * @ Description: Librairie RickJS
  */
 
@@ -103,6 +103,46 @@ class Rick {
         this.elements.forEach(el => el.classList.toggle(className));
         return this; // Chainage
     }
+
+    value(value) {
+        if (value !== undefined) {
+            this.elements.forEach(el => el.value = value);
+            return this; // Chainage
+        }
+        return this.elements[0]?.value || null;
+    }
+
+    id(id) {
+        if (id !== undefined) {
+            this.elements.forEach(el => el.id = id);
+            return this; // Chainage
+        }
+        return this.elements[0]?.id || null;
+    }
+
+    href(href) {
+        if (href !== undefined) {
+            this.elements.forEach(el => el.setAttribute('href', href));
+            return this; // Chainage
+        }
+        return this.elements[0]?.getAttribute('href') || null;
+    }
+
+    action(action) {
+        if (action !== undefined) {
+            this.elements.forEach(el => el.setAttribute('action', action));
+            return this; // Chainage
+        }
+        return this.elements[0]?.getAttribute('action') || null;
+    }
+
+    method(method) {
+        if (method !== undefined) {
+            this.elements.forEach(el => el.setAttribute('method', method));
+            return this; // Chainage
+        }
+        return this.elements[0]?.getAttribute('method') || null;
+    }
 }
 
 // QuerySelector
@@ -117,6 +157,7 @@ function $(selector) {
 
 // Prototype pour le click
 Rick.prototype.click = function(callback) {
+    console.log('aaa');
     this.elements.forEach(el => el.addEventListener('click', callback));
     return this;
 };

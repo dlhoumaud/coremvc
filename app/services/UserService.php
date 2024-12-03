@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-02 13:34:36
+ * @ Modified time: 2024-12-02 15:35:36
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -19,10 +19,9 @@ class UserService
         $this->userModel = new User();
     }
 
-    public function authenticate($username, $password)
+    public function authenticate($email, $password)
     {
-        $user = $this->userModel->findUserByUsername($username);
-
+        $user = $this->userModel->findUserByEmail($email);
         if ($user && password_verify($password, $user['password'])) {
             return $user;
         }
