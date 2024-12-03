@@ -46,5 +46,16 @@
     'social_networks' => 'Find us on social networks:',
     'next' => 'Next',
     'previous' => 'Previous',
+    'profile'                       => 'profile',
+    'user_profile'                  => 'User profile',
+    'my_profil'                     => 'monProfile',
+    'dashboard'                     => 'Dashboard',
+
+    'email_address'                 => 'E-mail address',
+    'password'                      => 'Password',
+    'firstname'                     => 'Firstname',
+    'lastname'                      => 'Name',
+    'username'                      => 'Username',
+    'modify'                        => 'Modify',
 
 ];
