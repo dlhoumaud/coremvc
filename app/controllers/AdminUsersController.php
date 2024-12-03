@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-12-02 19:10:10
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-03 09:00:32
+ * @ Modified time: 2024-12-03 10:12:39
  * @ Description: 
  */
 namespace App\Controllers;
@@ -31,6 +31,7 @@ class AdminUsersController extends Controller
             'vue_components' => [
                 'modal/form.min',
                 'modal/confirm.min',
+                'input/floating.min',
             ]
         ];
         self::view('admin/users', $data);

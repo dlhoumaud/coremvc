@@ -7,8 +7,8 @@ export default (app) => {
                 ${window.vueDatas.ccl.cookies_consent_text}
             </p>
             <div>
-                <button class="btn btn-link btn-sm" @click="showPreferences = true">${window.vueDatas.ccl.customize}</button>
-                <button class="btn btn-primary btn-sm me-2" @click="acceptCookies">${window.vueDatas.ccl.accept}</button>
+                <button class="btn btn-link btn-sm me-2" @click="showPreferences = true">${window.vueDatas.ccl.customize}</button>
+                <button class="btn btn-primary btn-sm me-2" @click="acceptAllCookies">${window.vueDatas.ccl.accept}</button>
                 <button class="btn btn-secondary btn-sm" @click="declineCookies">${window.vueDatas.ccl.denied}</button>
             </div>
         </div>
@@ -46,22 +46,22 @@ export default (app) => {
         methods: {
         acceptAllCookies() {
             for (let key in this.cookiePreferences) {
-            this.cookiePreferences[key] = true;
+                this.cookiePreferences[key] = true;
             }
             this.savePreferences();
         },
         declineCookies() {
             for (let key in this.cookiePreferences) {
-            if (key !== 'essential') {
-                this.cookiePreferences[key] = false;
-            }
+                if (key !== 'essential') {
+                    this.cookiePreferences[key] = false;
+                }
             }
             this.savePreferences();
         },
         savePreferences() {
             const consentData = {
-            preferences: this.cookiePreferences,
-            timestamp: new Date().toISOString()
+                preferences: this.cookiePreferences,
+                timestamp: new Date().toISOString()
             };
             this.setCookie('cookie_consent', JSON.stringify(consentData), 365);
             this.showBanner = false;
@@ -89,7 +89,7 @@ export default (app) => {
         }
         },
         mounted() {
-        this.checkCookieConsent();
+            this.checkCookieConsent();
         }
     });
 }
