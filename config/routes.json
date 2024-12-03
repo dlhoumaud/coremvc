@@ -30,5 +30,29 @@
     "/contact": {
         "controller": "ContactController",
         "action": "show"
+    },
+    "/admin/dashboard": {
+        "controller": "AdminDashboardController",
+        "action": "show"
+    },
+    "/logout": {
+        "controller": "UserController",
+        "action": "logout"
+    },
+    "/admin/users": {
+        "controller": "AdminUsersController",
+        "action": "list"
+    },
+    "/admin/user/{id}/edit": {
+        "controller": "AdminUsersController",
+        "action": "user_edit"
+    },
+    "/admin/user/{id}/delete": {
+        "controller": "AdminUsersController",
+        "action": "user_delete"
+    },
+    "/admin/user/add": {
+        "controller": "AdminUsersController",
+        "action": "user_add"
     }
 }

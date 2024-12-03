@@ -45,4 +45,8 @@
     'social_networks'               => "Finden Sie uns in sozialen Netzwerken:",
     'next'                          => 'Nächste',
     'previous'                      => 'Vorherige',
+    'profile'                       => 'profile',
+    'user_profile'                  => 'User profile',
+    'my_profil'                     => 'monProfile',
+    'dashboard'                     => 'Dashboard',
 ];

@@ -28,6 +28,6 @@
         <?php endif; ?>
         <script src="/js/frameworks/vue.global.prod.js?v=<?= getenv('VERSION') ?>"></script>
         <script src="/js/frameworks/bootstrap.bundle.min.js?v=<?= getenv('VERSION') ?>" defer></script>
-        <script src="/js/frameworks/rick.min.js?v=<?= getenv('VERSION') ?>" defer></script>
+        <script src="/js/frameworks/rick.min.js?v=<?= getenv('VERSION') ?>"></script>
     </head>
     <body id="app">

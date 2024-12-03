@@ -45,5 +45,9 @@
     'social_networks'               => 'Encuéntrenos en las redes sociales:',
     'next'                          => 'Próxima',
     'previous'                      => 'Previa',
+    'profile'                       => 'profile',
+    'user_profile'                  => 'User profile',
+    'my_profil'                     => 'monProfile',
+    'dashboard'                     => 'Dashboard',
 
 ];

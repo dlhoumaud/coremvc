@@ -16,6 +16,33 @@
 body {
     >header {
         >nav {
+            .nav-link{
+                >i {
+                    color:rgba(0, 0, 0, 0.8);
+                }
+            }
+            .dropdown-toggle::after {
+                border:0;
+            }
+            .dropdown-menu a {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                text-decoration: none;
+                color: inherit;
+                white-space: nowrap;
+            }
+        
+            .dropdown-menu i {
+                margin-right: 8px; /* Espacement entre l'icône et le texte */
+                font-size: 1.2em; /* Ajuster la taille de l'icône pour correspondre au texte */
+                width: 1.5em;
+            }
+        
+            .dropdown-divider {
+                margin: 0.5rem 0;
+                border-color: #ddd;
+            }
             form {
                 .form-control {
                     border: none;

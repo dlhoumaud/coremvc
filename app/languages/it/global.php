@@ -45,5 +45,9 @@
     'social_networks'               => "Trovaci sui social network:",
     'next'                          => 'Prossima',
     'previous'                      => 'Precedente',
+    'profile'                       => 'profile',
+    'user_profile'                  => 'User profile',
+    'my_profil'                     => 'monProfile',
+    'dashboard'                     => 'Dashboard',
 
 ];

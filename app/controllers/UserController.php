@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-02 13:54:59
+ * @ Modified time: 2024-12-02 15:43:49
  * @ Description: Classe pour gérer les utilisateurs
  */
 
@@ -29,21 +29,30 @@ class UserController extends Controller
         ];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
 
-            $user = $this->userService->authenticate($username, $password);
+            $user = $this->userService->authenticate($email, $password);
 
             if ($user) {
                 $_SESSION['user'] = $user;
-                header('Location: /dashboard');
+                $_SESSION['is_logged'] = true;
+                header('Location: /admin/dashboard');
                 exit;
             } else {
                 $data['error'] = l('login_error');
+                $_SESSION['is_logged'] = false;
             }
         }
 
         self::view('login', $data);
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        unset($_SESSION['is_logged']);
+        header('Location: /');
     }
 
     public function show($id)
