@@ -73,6 +73,7 @@
     title="<?= l('modify') ?>"
     titlecolor="text-primary"
     action=""
+    formid="form-modify"
     method="post"
     okid="modal-modify-btn"
     okicon="fa-check"
@@ -81,26 +82,16 @@
     cancelicon="fa-cancel"
     cancelcolor="btn-secondary">
     <template #form>
-        <div class="form-floating mb-1">
-            <input type="text" class="form-control" name="firstname" id="floatingFirstname" placeholder="<?= l('firstname') ?>" value="" required>
-            <label for="floatingFirstname"><?= l('firstname') ?></label>
-        </div>
-        <div class="form-floating mb-1">
-            <input type="text" class="form-control" name="lastname" id="floatingName" placeholder="<?= l('lastname') ?>" value="" required>
-            <label for="floatingName"><?= l('lastname') ?></label>
-        </div>
-        <div class="form-floating mb-1">
-            <input type="text" class="form-control" name="username" id="floatingUsername" placeholder="<?= l('username') ?>" value="" required>
-            <label for="floatingUsername"><?= l('username') ?></label>
-        </div>
-        <div class="form-floating mb-1">
-            <input type="email" class="form-control" name="email" id="floatingEmail" placeholder="<?= l('email_address') ?>" value="" required>
-            <label for="floatingEmail"><?= l('email_address') ?></label>
-        </div>
-        <div class="form-floating mb-1">
-            <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="<?= l('password') ?>" value="">
-            <label for="floatingPassword"><?= l('password') ?></label>
-        </div>
+        <input-floating
+        mb="mb-1"
+        :fields="[
+            {name: 'firstname', id: 'floatingFirstname', type: 'text', value: '', placeholder: '<?= l("firstname") ?>', required: true},
+            {name: 'lastname', id: 'floatingLastname', type: 'text', value: '', placeholder: '<?= l("lastname") ?>', required: true},
+            {name: 'username', id: 'floatingUsername', type: 'text', value: '', placeholder: '<?= str_replace("'","\\'", l("username")) ?>', required: true},
+            {name: 'email', id: 'floatingEmail', type: 'email', value: '', placeholder: '<?= l("email") ?>', required: true},
+            {name: 'password', id: 'floatingPassword', type: 'password', value: '', placeholder: '<?= l("password") ?>', required: false}
+        ]"
+        ></input-floating>
     </template>
 </modal-form>
 
@@ -126,7 +117,7 @@
     function modifyUser(id, obj) {
         $('#form-modify').action(`/admin/user/${id}/edit`);
         $('#floatingFirstname').value(obj.firstname);
-        $('#floatingName').value(obj.lastname);
+        $('#floatingLastname').value(obj.lastname);
         $('#floatingUsername').value(obj.username);
         $('#floatingEmail').value(obj.email);
     }
