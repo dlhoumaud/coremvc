@@ -1,8 +1,9 @@
 <div class="position-relative overflow-hidden p-3 pt-md-5 mt-md-3 text-center bg-body-tertiary">
-    <div class="col-md-6 p-lg-5 mx-auto my-5">
+    <div class="col-md-6 p-lg-5 mx-auto">
         <h1 class="display-3 fw-bold text-primary">{{ firstname }} {{ lastname }}</h1>
-        <h3 class="fw-normal text-muted mb-3">{{ email }}</h3>
-        <p class="lead text-dark"><?= l('user_text') ?></p>
+        <h3 class="fw-normal text-muted">{{ email }}</h3>
+        <p class="lead fw-small text-muted">{{ role }}</p>
+        <p class="lead fw-small text-muted">{{ birthdate }}</p>
     </div>
 </div>
 
@@ -10,10 +11,10 @@
     <card-img-top
         cardclass='shadow-lg'
         cardstyle='width:18rem;'
-        imgsrc='/assets/images/CoreMVC.png'
+        :imgsrc='avatar'
         imgalt='<?= l('user_about') ?>'
         title='<?= l('user_about') ?>'
-        text="<?= l('user_card_text') ?>"
+        :text="bio"
         btntext='<?= l('view_more') ?>'
         btnclass='btn-primary w-100'
         :btnclick='click'

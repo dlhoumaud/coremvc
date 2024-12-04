@@ -102,10 +102,15 @@ Vous pouvez cloner ce projet dans votre répertoire local :
 git clone https://github.com/dlhoumaud/coremvc.git
 ```
 
-création de la base de données :
+création de la base de données et initialisation des tables :
 
 ```sql
 CREATE DATABASE IF NOT EXISTS `core_mvc`
+```
+
+```bash	
+php bin/morty.php -M up
+php bin/morty.php -S up
 ```
 
 ### 2. Configurer le fichier de configuration

@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:30:22
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 23:45:30
+ * @ Modified time: 2024-12-04 11:09:10
  * @ Description: Classe de base pour les modèles
  */
 
@@ -357,6 +357,25 @@ class Model extends Database
         return $relatedModelInstance
             ->where($foreignKey, '=', $this->$localKey)
             ->get();
+    }
+
+    /**
+     * Récupère l'instance d'un modèle connexe qui correspond à la clé étrangère spécifiée.
+     *
+     * @param string $relatedModel Le nom de classe du modèle connexe.
+     * @param string $foreignKey Le nom de la colonne de clé étrangère dans le modèle connexe.
+     * @param string $localKey Le nom de la colonne de clé locale dans le modèle actuel (par défaut est «id»).
+     * @return array Un tableau contenant l'instance du modèle connexe.
+     */
+    public function hasOne(string $relatedModel, string $foreignKey, string $localKey = 'id'): array
+    {
+        // Charger l'instance du modèle associé (par exemple "Post")
+        $relatedModelInstance = new $relatedModel();
+
+        // Requête pour récupérer toutes les instances de l'autre modèle avec la condition de clé étrangère
+        return $relatedModelInstance
+            ->where($foreignKey, '=', $this->$localKey)
+            ->get(0);
     }
 
     /**
