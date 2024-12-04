@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-14 09:12:03
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 14:42:25
+ * @ Modified time: 2024-12-03 13:52:48
  * @ Description: Classe de base de données pour gérer la connexion à la base de données.
  */
 
@@ -69,5 +69,5 @@ class Database
 
     // Interdire le clonage et la sérialisation
     private function __clone() {}
-    private function __wakeup() {}
+    public function __wakeup() {}
 }

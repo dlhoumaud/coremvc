@@ -50,8 +50,11 @@
     'user_profile'                  => 'User profile',
     'my_profil'                     => 'monProfile',
     'dashboard'                     => 'Dashboard',
+    'report'                        => 'Report',
 
+    'delete'                        => 'Delete',
     'email_address'                 => 'E-mail address',
+    'email'                         => 'Email',
     'password'                      => 'Password',
     'firstname'                     => 'Firstname',
     'lastname'                      => 'Name',

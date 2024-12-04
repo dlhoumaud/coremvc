@@ -3,14 +3,14 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 23:49:30
+ * @ Modified time: 2024-12-03 13:45:31
  * @ Description: outil de développement
  */
 namespace App\Bin;
 
 use App\Core\Autoloader;
 use App\Core\Router;
-use App\Core\Database;
+use App\Core\Model;
 use App\Helpers\Log;
 use App\Helpers\LogTerminal;
 
@@ -134,15 +134,11 @@ if ((isset($options['M']) || isset($options['migrate'])) || (isset($options['S']
     }
     
     try {
-        // Instance de la classe Database
-        $db = new Database();
-        
-
         $files = scanDirectory($migrationDir);
         foreach ($files as $file) {
             if (!is_dir($migrationDir.$file)) {
                 // Exécution de la migration 'up' pour créer la table
-                runMigration($db, $migrationDir.$file, $action, $is_seed);
+                runMigration(new Model(), $migrationDir.$file, $action, $is_seed);
             }
         }
         
