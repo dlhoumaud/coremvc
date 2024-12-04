@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-02 15:35:36
+ * @ Modified time: 2024-12-03 15:51:47
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
@@ -38,7 +38,7 @@ class UserService
     {
         // Récupérer l'utilisateur avec l'ID donné depuis le modèle User
         $user = $this->userModel->getUser($id);
-    
+        $profile = $this->userModel->profile();
         if ($user) {
             // Si l'utilisateur existe, transmettre les données à la vue
             return [
@@ -47,7 +47,12 @@ class UserService
                 'vue_datas' => [
                     'firstname' => $user['firstname'],
                     'lastname'  => $user['lastname'],
-                    'email'     => $user['email']
+                    'email'     => $user['email'],
+                    'role'      => $user['role'],
+                    'birthdate' => $user['birthdate'],
+                    'bio'       => $profile['bio'],
+                    'avatar'    => $profile['avatar'],
+                    'role'      => $user['role'],
                 ],
                 'vue_methods' => [
                     'mouseEnter' => inject('js/methods/user/btn-card.js', ['user' => $user, 'hover'   => true ]),

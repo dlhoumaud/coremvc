@@ -36,10 +36,10 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Nom d'utilisateur</th>
-                    <th scope="col">Email</th>
+                    <th scope="col"><?= l("firstname") ?></th>
+                    <th scope="col"><?= l("lastname") ?></th>
+                    <th scope="col"><?= l("username") ?></th>
+                    <th scope="col"><?= l("email") ?></th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>

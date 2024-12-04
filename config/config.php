@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-02 01:14:31
+ * @ Modified time: 2024-12-04 11:13:43
  * @ Description: Script de fonctionnalités
  */
 
@@ -128,7 +128,7 @@ function decryptFile($inputFile, $outputFile, $key)
  * @return void
  * @throws Exception       Lance une exception si le type est incorrect ou en cas d'erreur SQL.
  */
-function runMigration($db, string $file, string $type = 'up', bool $is_seed = false)
+function runMigration($pdo, string $file, string $type = 'up', bool $is_seed = false)
 {
 
     if (file_exists('storage/cache/'.$file) && $type=='up') {
@@ -158,8 +158,7 @@ function runMigration($db, string $file, string $type = 'up', bool $is_seed = fa
     // Exécute la requête de migration
     try {
         if (!file_exists('storage/cache/'.$file) && $type=='down') return;
-        $pdo = $db->getConnection();
-        $pdo->exec($query);
+        $pdo->raw($query);
         echo ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.\n";
         if ($type == 'up') {
             file_put_contents('storage/cache/'.$file, '', FILE_APPEND);
@@ -168,7 +167,7 @@ function runMigration($db, string $file, string $type = 'up', bool $is_seed = fa
         }
         if (getEnv('APP_DEBUG')) file_put_contents('storage/logs/database-'.($is_seed?'seed':'migrate').'.log', date("d-m-Y H:i:s")."\t".ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.\n", FILE_APPEND);
     } catch (PDOException $e) {
-        throw new Exception("Erreur lors de l'exécution de la $type_file : " . $e->getMessage());
+        // throw new Exception("Erreur lors de l'exécution de la $type_file : " . $e->getMessage());
     }
 }
 
@@ -319,11 +318,23 @@ function createModel($name) {
  * @ Modified time: ".date("Y-m-d H:i:s")."
  * @ Description:
  */
-use App\Core\Model;
+namespace App\Models;
 
 class ".ucfirst($name)." extends Model
 {
     protected \$table = '".strtolower($name)."';
+    protected \$id;
+
+    public function getAll".ucfirst($name)."()
+    {
+        return \$this->get();
+    }
+
+    public function get".ucfirst($name)."(\$id)
+    {
+        \$this->id = \$id;
+        return \$this->where('id', '=', \$id)->get(0);
+    }
 }";
     file_put_contents('app/models/'.ucfirst($name).'.php', $content);
 }

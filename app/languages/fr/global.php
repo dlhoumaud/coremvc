@@ -50,8 +50,11 @@
     'user_profile'                  => 'Profile de l\'utilisateur',
     'my_profil'                     => 'Mon profile',
     'dashboard'                     => 'Tableau de bord',
+    'reports'                       => 'Rapports',
 
+    'delete'                        => 'Supprimer',
     'email_address'                 => 'Adresse e-mail',
+    'email'                         => 'Email',
     'password'                      => 'Mot de passe',
     'firstname'                     => 'Prénom',
     'lastname'                      => 'Nom',

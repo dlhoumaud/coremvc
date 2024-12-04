@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:24
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-02 01:12:44
+ * @ Modified time: 2024-12-04 10:38:20
  * @ Description: Classe responsable de la gestion du routage et de l'analyse d'URL.
  */
 
@@ -80,24 +80,24 @@ class Router
             $controller = new $controllerName();
             $controller->$actionName();
             return;
-        } else {
-            // Vérifier les routes avec paramètres
-            foreach ($this->routes as $route => $routeInfo) {
-                // Utiliser une expression régulière pour vérifier si la route correspond
-                $pattern = preg_replace('/\{(\w+)\}/', '(?P<$1>[^/]+)', $route);
-                if (preg_match('#^' . $pattern . '$#', $uri, $matches)) {
-                    // Extraire les paramètres
-                    $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                    $controllerName = 'App\Controllers\\' . $routeInfo['controller'];
-                    $_SESSION['controller']=preg_replace('/Controller$/','',$routeInfo['controller']);
-                    Language::load_language();
-                    $actionName = $routeInfo['action'];
+        } 
+        // Vérifier les routes avec paramètres
+        foreach ($this->routes as $route => $routeInfo) {
+            // Convertir la route en expression régulière, y compris les extensions
+            $pattern = preg_replace('/\{(\w+)\}/', '(?P<$1>[^/]+)', $route);
+            $pattern = '#^' . $pattern . '$#';
 
-                    // Instancier le contrôleur et appeler l'action avec les paramètres
-                    $controller = new $controllerName();
-                    call_user_func_array([$controller, $actionName], $params);
-                    return;
-                }
+            if (preg_match($pattern, $uri, $matches)) {
+                // Extraire les paramètres
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+                $controllerName = 'App\Controllers\\' . $routeInfo['controller'];
+                $_SESSION['controller']=preg_replace('/Controller$/','',$routeInfo['controller']);
+                Language::load_language();
+                $actionName = $routeInfo['action'];
+                // Instancier le contrôleur et appeler l'action avec les paramètres
+                $controller = new $controllerName();
+                call_user_func_array([$controller, $actionName], $params);
+                return;
             }
         }
         Error::e404();
