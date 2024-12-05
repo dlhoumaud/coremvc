@@ -54,5 +54,17 @@
     "/admin/user/add": {
         "controller": "AdminUsersController",
         "action": "user_add"
+    },
+    "/admin/user/{id}/articles": {
+        "controller": "AdminUsersController",
+        "action": "show_articles"
+    },
+    "/admin/user/{id}/article/{idArticle}": {
+        "controller": "AdminUsersController",
+        "action": "show_article"
+    },
+    "/admin/articles": {
+        "controller": "AdminArticlesController",
+        "action": "show"
     }
 }
