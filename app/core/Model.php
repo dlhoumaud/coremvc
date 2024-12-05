@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:30:22
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-04 11:09:10
+ * @ Modified time: 2024-12-05 16:08:54
  * @ Description: Classe de base pour les modèles
  */
 
@@ -84,7 +84,7 @@ class Model extends Database
      */
     public function and(string $column, string $operator, $value): self
     {
-        return $this->where_and_or('AND ', $column, $operator, $value);
+        return $this->where_and_or(' AND ', $column, $operator, $value);
     }
 
     /**
@@ -97,7 +97,7 @@ class Model extends Database
      */
     public function or(string $column, string $operator, $value): self
     {
-        return $this->where_and_or('OR ', $column, $operator, $value);
+        return $this->where_and_or(' OR ', $column, $operator, $value);
     }
 
     /**
@@ -147,7 +147,7 @@ class Model extends Database
      */
     public function andGroup(callable $callback): self
     {
-        return $this->groupCallback('AND ', $callback);
+        return $this->groupCallback(' AND ', $callback);
     }
 
     /**
@@ -163,7 +163,7 @@ class Model extends Database
      */
     public function orGroup(callable $callback): self
     {
-        return $this->groupCallback('OR ', $callback);
+        return $this->groupCallback(' OR ', $callback);
     }
 
     /**
@@ -302,7 +302,7 @@ class Model extends Database
     {
         if (!empty($this->where)) {
             // Exemple d'ajout de parenthèses dans les conditions
-            return ' WHERE ' . implode(' AND ', $this->where);
+            return ' WHERE ' . implode(' ', $this->where);
         }
         return '';
     }
@@ -375,6 +375,27 @@ class Model extends Database
         // Requête pour récupérer toutes les instances de l'autre modèle avec la condition de clé étrangère
         return $relatedModelInstance
             ->where($foreignKey, '=', $this->$localKey)
+            ->get(0);
+    }
+
+    /**
+     * Récupère l'instance d'un modèle connexe qui correspond à l'ID spécifié.
+     *
+     * @param string $relatedModel Le nom de classe du modèle connexe.
+     * @param int $id L'ID de l'instance du modèle connexe à récupérer.
+     * @param string $foreignKey Le nom de la colonne de clé étrangère dans le modèle connexe.
+     * @param string $localKey Le nom de la colonne de clé locale dans le modèle actuel (par défaut est «id»).
+     * @return array Un tableau contenant l'instance du modèle connexe.
+     */
+    public function hasOneAndWhere(string $relatedModel, string $foreignKey, string $localKey = 'id', string $andForeignKey = 'id', $value): array
+    {
+        // Charger l'instance du modèle associé (par exemple "Post")
+        $relatedModelInstance = new $relatedModel();
+
+        // Requête pour récupérer toutes les instances de l'autre modèle avec la condition de clé étrangère
+        return $relatedModelInstance
+            ->where($foreignKey, '=', $this->$localKey)
+            ->and($andForeignKey, '=', $value)
             ->get(0);
     }
 
