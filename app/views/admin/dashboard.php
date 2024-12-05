@@ -11,10 +11,10 @@
             <a class="nav-link" href="/admin/users"><?= l('users') ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><?= l('settings') ?></a>
+            <a class="nav-link" href="/admin/settings"><?= l('settings') ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><?= l('reports') ?></a>
+            <a class="nav-link" href="/admin/reports"><?= l('reports') ?></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/logout"><?= l('logout') ?></a>
@@ -32,34 +32,46 @@
         </nav>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column justify-content-between">
-                <h5 class="card-title"><?= l('users') ?></h5>
-                <i class="fa-solid fa-users fa-3x text-primary mb-3 text-center"></i>
-                <p class="card-text"><?= l('users_description') ?></p>
-                <a class="btn btn-primary" href="/admin/users"><?= l('configure') ?></a>
-              </div>
-            </div>
+            <card-title-icon-top
+                    icon='fa-users'
+                    iconcolor='text-primary'
+                    iconsize='fa-3x'
+                    title='<?= l('users') ?>'
+                    btntext='<?= l('configure') ?>'
+                    btnlink='/admin/users'
+                    btnclass='btn-primary'>
+                    <template #text>
+                        <?= l('users_description') ?>
+                    </template>
+            </card-title-icon-top>
           </div>
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column justify-content-between">
-                <h5 class="card-title"><?= l('settings') ?></h5>
-                <i class="fa-solid fa-gears fa-3x text-primary mb-3 text-center"></i>
-                <p class="card-text"><?= l('settings_description') ?></p>
-                <a class="btn btn-primary" href="#"><?= l('configure') ?></a>
-              </div>
-            </div>
+            <card-title-icon-top
+                    icon='fa-gears'
+                    iconcolor='text-primary'
+                    iconsize='fa-3x'
+                    title='<?= l('settings') ?>'
+                    btntext='<?= l('configure') ?>'
+                    btnlink='/admin/settings'
+                    btnclass='btn-primary'>
+                    <template #text>
+                        <?= l('settings_description') ?>
+                    </template>
+            </card-title-icon-top>
           </div>
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column justify-content-between">
-                <h5 class="card-title"><?= l('reports') ?></h5>
-                <i class="fa-solid fa-file-contract fa-3x text-primary mb-3 text-center"></i>
-                <p class="card-text"><?= l('reports_description') ?></p>
-                <a class="btn btn-primary" href="#"><?= l('configure') ?></a>
-              </div>
-            </div>
+            <card-title-icon-top
+                    icon='fa-file-contract'
+                    iconcolor='text-primary'
+                    iconsize='fa-3x'
+                    title='<?= l('reports') ?>'
+                    btntext='<?= l('configure') ?>'
+                    btnlink='/admin/reports'
+                    btnclass='btn-primary'>
+                    <template #text>
+                        <?= l('reports_description') ?>
+                    </template>
+            </card-title-icon-top>
           </div>
         </div>
       </div>
