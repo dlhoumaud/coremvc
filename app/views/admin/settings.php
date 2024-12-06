@@ -6,12 +6,13 @@
       <!-- Main Content -->
       <div class="col-md-9 col-lg-10 content">
         <h1 class="text-center my-5"><?= l('welcome_dashboard') ?></h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/"><i class="fa-solid fa-house text-primary"></i></a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?= l('dashboard') ?></li>
-            </ol>
-        </nav>
+        <breadcrumb
+            :fields="[
+                {link: '/', icon: 'fa-house', iconcolor: 'text-primary'},
+                {link: '/admin/dashbord', text: '<?= l('dashboard') ?>'},
+                {class: 'active', text: '<?= l('settings') ?>'}
+            ]"
+        ></breadcrumb>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
