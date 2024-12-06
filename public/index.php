@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-19 16:00:02
+ * @ Modified time: 2024-12-06 10:38:56
  * @ Description: Script de démarrage de l'application
  */
 
@@ -12,9 +12,9 @@ use App\Core\Router;
 use App\Helpers\Session;
 session_start();
 
-require_once '../config/config.php'; // Configurations de l'application
+require_once '../app/core/Functions.php'; // Functions globales
 
-loadEnvWithCache('../.env', '../storage/cache/env.php');
+loadEnvWithCache('../settings/.env', '../storage/cache/env.php');
 
 // Charger l'autoloader personnalisé
 require_once '../app/core/Autoloader.php';

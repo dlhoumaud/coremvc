@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-03 13:45:31
+ * @ Modified time: 2024-12-06 10:38:44
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -14,10 +14,11 @@ use App\Core\Model;
 use App\Helpers\Log;
 use App\Helpers\LogTerminal;
 
+include_once 'bin/includes/functions.php'; // Fonctions Spécifique à morty
 // Inclure les fichiers nécessaires
-include_once 'config/config.php'; // Configurations de l'application
+include_once 'app/core/Functions.php'; // Fonctions globales
 
-loadEnvWithCache('.env', 'storage/cache/env.php');
+loadEnvWithCache('settings/.env', 'storage/cache/env.php');
 
 // Charger l'autoloader personnalisé
 require_once 'app/core/Autoloader.php';
