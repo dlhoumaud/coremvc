@@ -66,5 +66,13 @@
     "/admin/articles": {
         "controller": "AdminArticlesController",
         "action": "show"
+    },
+    "/admin/settings": {
+        "controller": "AdminSettingsController",
+        "action": "show"
+    },
+    "/admin/reports": {
+        "controller": "AdminReportsController",
+        "action": "show"
     }
 }

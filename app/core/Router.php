@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:24
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-04 10:38:20
+ * @ Modified time: 2024-12-06 10:39:24
  * @ Description: Classe responsable de la gestion du routage et de l'analyse d'URL.
  */
 
@@ -31,7 +31,7 @@ class Router
      */
     private function loadRoutes()
     {
-        $jsonFile = '../config/routes.json';
+        $jsonFile = '../settings/routes.json';
         $cacheFile =  '../storage/cache/routes.php';
 
         // Vérifier si le fichier de cache existe et est à jour
