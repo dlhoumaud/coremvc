@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-12-02 19:10:10
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-05 16:09:22
+ * @ Modified time: 2024-12-06 11:42:43
  * @ Description: 
  */
 namespace App\Controllers;
@@ -32,6 +32,7 @@ class AdminUsersController extends Controller
                 'modal/form.min',
                 'modal/confirm.min',
                 'input/floating.min',
+                'breadcrumb.min'
             ]
         ];
         self::view('admin/users', $data);
@@ -64,6 +65,7 @@ class AdminUsersController extends Controller
                 'modal/form.min',
                 'modal/confirm.min',
                 'input/floating.min',
+                'breadcrumb.min'
             ]
         ];
         self::view('admin/user/articles', $data);
@@ -79,6 +81,7 @@ class AdminUsersController extends Controller
                 'modal/form.min',
                 'modal/confirm.min',
                 'input/floating.min',
+                'breadcrumb.min'
             ]
         ];
         self::view('admin/user/article', $data);

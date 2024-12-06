@@ -9,7 +9,8 @@
         <breadcrumb
             :fields="[
                 {link: '/', icon: 'fa-house', iconcolor: 'text-primary'},
-                {class: 'active', text: '<?= l('dashboard') ?>'}
+                {link: '/admin/dashbord', text: '<?= l('dashboard') ?>'},
+                {class: 'active', text: '<?= l('settings') ?>'}
             ]"
         ></breadcrumb>
         <div class="row">

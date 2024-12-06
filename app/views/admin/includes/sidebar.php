@@ -1,0 +1,19 @@
+<div class="col-md-3 col-lg-2 p-3 my-5 sidebar">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/dashboard"><?= l('dashboard') ?></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/users"><?= l('users') ?></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/settings"><?= l('settings') ?></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/reports"><?= l('reports') ?></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout"><?= l('logout') ?></a>
+        </li>
+    </ul>
+</div>
