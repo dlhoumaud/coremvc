@@ -5,54 +5,54 @@
       <?= view('admin/includes/sidebar'); ?>
       <!-- Main Content -->
       <div class="col-md-9 col-lg-10 content">
-        <h1 class="text-center my-5"><?= l('welcome_dashboard') ?></h1>
+        <h1 class="text-center my-5"><?= l('settings') ?></h1>
         <breadcrumb
             :fields="[
                 {link: '/', icon: 'fa-house', iconcolor: 'text-primary'},
-                {link: '/admin/dashbord', text: '<?= l('dashboard') ?>'},
+                {link: '/admin/dashboard', text: '<?= l('dashboard') ?>'},
                 {class: 'active', text: '<?= l('settings') ?>'}
             ]"
         ></breadcrumb>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
-                    icon='fa-users'
+                    icon='fa-route'
                     iconcolor='text-primary'
                     iconsize='fa-3x'
-                    title='<?= l('users') ?>'
+                    title='<?= l('routes') ?>'
                     btntext='<?= l('configure') ?>'
-                    btnlink='/admin/users'
+                    btnlink='/admin/routes'
                     btnclass='btn-primary'>
                     <template #text>
-                        <?= l('users_description') ?>
+                        <?= l('routes_description') ?>
                     </template>
             </card-title-icon-top>
           </div>
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
-                    icon='fa-gears'
+                    icon='fa-language'
                     iconcolor='text-primary'
                     iconsize='fa-3x'
-                    title='<?= l('settings') ?>'
+                    title='<?= l('languages') ?>'
                     btntext='<?= l('configure') ?>'
-                    btnlink='/admin/settings'
+                    btnlink='/admin/languages'
                     btnclass='btn-primary'>
                     <template #text>
-                        <?= l('settings_description') ?>
+                        <?= l('languages_description') ?>
                     </template>
             </card-title-icon-top>
           </div>
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
-                    icon='fa-file-contract'
+                    icon='fa-eye'
                     iconcolor='text-primary'
                     iconsize='fa-3x'
-                    title='<?= l('reports') ?>'
+                    title='<?= l('views') ?>'
                     btntext='<?= l('configure') ?>'
-                    btnlink='/admin/reports'
+                    btnlink='/admin/views'
                     btnclass='btn-primary'>
                     <template #text>
-                        <?= l('reports_description') ?>
+                        <?= l('views_description') ?>
                     </template>
             </card-title-icon-top>
           </div>

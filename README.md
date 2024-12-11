@@ -127,21 +127,21 @@ DB_PASS=xxx
 APP_ENV=development
 APP_DEBUG=true
 ```
-#### Crypter le fichier `.env`
+#### Crypter le fichier `settings/.env`
 
 ```bash
-php bin/morty.php -e .env -k your_secret_key
+php bin/morty.php -e settings/.env -k your_secret_key -t devel
 ```
 
-#### Décrypter le fichier `.env`
+#### Décrypter le fichier `settings/.env.(devel|local|prod)`
+
+secret key par défaut : `your_secret_key`
 
 ```bash
-php bin/morty.php -d .env -k your_secret_key
+php bin/morty.php -d settings/.env -k your_secret_key -t devel
 ```
 
 ### 3. Lancer le serveur de développement
-
-Vous pouvez lancer un serveur de développement PHP avec le fichier `http.php` inclus dans le projet :
 
 ```bash
 php bin/morty.php -s localhost:8000
@@ -155,6 +155,29 @@ Une fois le serveur lancé, ouvrez votre navigateur et accédez à :
 
 ```
 http://localhost:8000
+```
+
+### 5. Create
+
+#### All
+```bash
+php bin/morty.php -c all -n Test -r /test:@show -v test
+```
+#### Controller, Service or Model
+```bash
+php bin/morty.php -c controller -n Test
+php bin/morty.php -c service -n Test
+php bin/morty.php -c model -n Test
+```
+
+#### Route
+```bash
+php bin/morty.php -r /test:Test@show
+```
+
+#### View
+```bash
+php bin/morty.php -v test
 ```
 
 ## Fonctionnalités principales

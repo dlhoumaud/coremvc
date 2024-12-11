@@ -4,7 +4,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-06 10:53:51
+ * @ Modified time: 2024-12-11 15:52:24
  * @ Description: Script de fonctionnalités
  */
 
@@ -16,7 +16,7 @@
  * @param string $key        La clé de chiffrement (doit être de 32 caractères pour AES-256-CBC).
  * @return void
  */
-function encryptFile($inputFile, $outputFile, $key)
+function encryptFile($inputFile, $outputFile, $key): void
 {
     // Lecture du contenu du fichier .env
     $data = file_get_contents($inputFile);
@@ -43,7 +43,7 @@ function encryptFile($inputFile, $outputFile, $key)
  * @param string $key       La clé de déchiffrement (doit être de 32 caractères pour AES-256-CBC).
  * @return void
  */
-function decryptFile($inputFile, $outputFile, $key)
+function decryptFile($inputFile, $outputFile, $key): void
 {
     // Lecture du contenu du fichier chiffré
     $encryptedFileContent = file_get_contents($inputFile);
@@ -144,8 +144,9 @@ function runMigration($pdo, string $file, string $type = 'up', bool $is_seed = f
  * Crée une nouvelle classe de contrôleur pour l'application.
  *
  * @param string $name Le nom du contrôleur à créer.
+ * @param string $service_commentary mettre en commentaire l'appel du service
  */
-function createController($name) {
+function createController($name, $service_commentary="// ") {
     $content = "<?php
 /**
  * @ Author: 
@@ -157,6 +158,7 @@ function createController($name) {
 namespace App\Controllers;
 
 use App\Core\Controller;
+".$service_commentary."use App\Services\\".ucfirst($name)."Service;
 
 class ".ucfirst($name)."Controller extends Controller
 {
@@ -220,6 +222,8 @@ function createModel($name) {
  * @ Description:
  */
 namespace App\Models;
+
+use App\Core\Model;
 
 class ".ucfirst($name)." extends Model
 {

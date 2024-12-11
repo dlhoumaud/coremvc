@@ -5,20 +5,20 @@
       <?= view('admin/includes/sidebar'); ?>
       <!-- Main Content -->
       <div class="col-md-9 col-lg-10 content">
-        <h1 class="text-center my-5"><?= l('welcome_dashboard') ?></h1>
+        <h1 class="text-center my-5"><?= l('reports') ?></h1>
         <breadcrumb
             :fields="[
                 {link: '/', icon: 'fa-house', iconcolor: 'text-primary'},
-                {link: '/admin/dashbord', text: '<?= l('dashboard') ?>'},
+                {link: '/admin/dashboard', text: '<?= l('dashboard') ?>'},
                 {class: 'active', text: '<?= l('reports') ?>'}
             ]"
         ></breadcrumb>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-4">
-            <card-title-icon-top icon='fa-users' iconcolor='text-primary' iconsize='fa-3x' title='<?= l('users') ?>'
-              btntext='<?= l('configure') ?>' btnlink='/admin/users' btnclass='btn-primary'>
+            <card-title-icon-top icon='fa-file' iconcolor='text-primary' iconsize='fa-3x' title='<?= l('logs') ?>'
+              btntext='<?= l('view') ?>' btnlink='/admin/logs' btnclass='btn-primary'>
               <template #text>
-                <?= l('users_description') ?>
+                <?= l('logs_description') ?>
               </template>
             </card-title-icon-top>
           </div>
