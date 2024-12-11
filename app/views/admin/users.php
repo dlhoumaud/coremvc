@@ -35,7 +35,7 @@
                             <td><?= $user['email'] ?></td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" id="btn-modify" data-bs-target="#modal-modify" onclick="modifyUser(<?= $user['id'] ?>, {firstname:'<?= $user['firstname'] ?>', lastname:'<?= $user['lastname'] ?>', username:'<?= $user['username'] ?>', email:'<?= $user['email'] ?>'})"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" id="btn-modify" data-bs-target="#modal-modify" onclick="modifyUser(<?= $user['id'] ?>, {firstname:'<?= $user['firstname'] ?>', birthdate:'<?= $user['birthdate'] ?>', lastname:'<?= $user['lastname'] ?>', username:'<?= $user['username'] ?>', email:'<?= $user['email'] ?>'})"><i class="fas fa-edit"></i></button>
                                     <button class="btn btn-danger" data-bs-toggle="modal" id="btn-delete" data-bs-target="#modal-delete" onclick="deleteUser(<?= $user['id'] ?>, {firstname:'<?= $user['firstname'] ?>', lastname:'<?= $user['lastname'] ?>'})"><i class="fas fa-eraser"></i></button>
                                 </div>
                             </td>
@@ -68,6 +68,7 @@
         mb="mb-1"
         :fields="[
             {name: 'firstname', id: 'floatingFirstname', type: 'text', value: '', placeholder: '<?= l("firstname") ?>', required: true},
+            {name: 'birthdate', id:'floatingBirthdate', type: 'date', value: '', placeholder: '<?= l("birthdate") ?>', required: true},
             {name: 'lastname', id: 'floatingLastname', type: 'text', value: '', placeholder: '<?= l("lastname") ?>', required: true},
             {name: 'username', id: 'floatingUsername', type: 'text', value: '', placeholder: '<?= str_replace("'","\\'", l("username")) ?>', required: true},
             {name: 'email', id: 'floatingEmail', type: 'email', value: '', placeholder: '<?= l("email") ?>', required: true},
@@ -102,6 +103,7 @@
         $('#floatingLastname').value(obj.lastname);
         $('#floatingUsername').value(obj.username);
         $('#floatingEmail').value(obj.email);
+        $('#floatingBirthdate').value(obj.birthdate);
     }
     function deleteUser(id, obj) {
         $('#modal-delete-fullname').text(`${obj.firstname} ${obj.lastname}`);
