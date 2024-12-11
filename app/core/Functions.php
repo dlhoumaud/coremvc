@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-06 11:03:59
+ * @ Modified time: 2024-12-11 15:54:43
  * @ Description: Script de fonctionnalités globales
  */
 
