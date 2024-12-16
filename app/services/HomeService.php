@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-28 11:13:39
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-11-30 12:48:32
+ * @ Modified time: 2024-12-16 11:13:20
  * @ Description:
  */
 
@@ -14,7 +14,7 @@ class HomeService
     static public function getVueComponents() {
         return [
             'carousel/indicators.min',
-            'carousel/item.min',
+            'carousel/items.min',
             'card/img-top.min',
             'hello-coremvc.min',
         ];
