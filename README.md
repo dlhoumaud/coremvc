@@ -354,8 +354,7 @@ Minifiez les scripts JS :
 ```bash
 terser public/js/app.js -o public/js/app.min.js
 terser public/js/frameworks/rick.js -o public/js/frameworks/rick.min.js
-find public/js/components -type f -name "*.min.js" -exec sh -c 'rm -rf $0' {} \;
-find public/js/components -type f -name "*.js" -exec sh -c 'terser "$0" -o "${0%.js}.min.js"' {} \;
+find public/js/components -type f -name "*.min.js" -exec sh -c 'rm -rf $0' {} \; && find public/js/components -type f -name "*.js" -exec sh -c 'terser "$0" -o "${0%.js}.min.js"' {} \;
 ```
 
 ## Contribution

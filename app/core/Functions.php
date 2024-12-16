@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-11 15:54:43
+ * @ Modified time: 2024-12-16 22:33:41
  * @ Description: Script de fonctionnalités globales
  */
 
@@ -62,6 +62,43 @@
      file_put_contents($cachePath, '<?php return ' . var_export($envVars, true) . ';');
  }
 
+/**
+ * Creates the necessary cache directory for a file path.
+ *
+ * @param string $filePath The path to the file for which to create the cache directory.
+ */
+function createCacheDirectory($filePath) {
+    // Extraire le répertoire parent du fichier
+    $dir = dirname($filePath); // Cela retourne le chemin du répertoire parent
+    
+    // Construire le chemin du répertoire de cache correspondant
+    $cacheDir = '../storage/cache' . $dir; // Le chemin cible dans cache
+
+    // Créer les répertoires nécessaires de manière récursive
+    if (!is_dir($cacheDir)) {
+        mkdir($cacheDir, 0777, true); // true permet de créer tous les répertoires parents
+    }
+}
+
+/**
+ * Creates a cache file for a view based on the provided source path.
+ *
+ * @param string $sourcePath The path to the source file.
+ * @return string The path to the cached file.
+ */
+function createCacheViewFile($sourcePath)
+{
+    $cPath=str_replace(['../app', '.view'], ['../storage/cache', '.php'], $sourcePath);
+    if (file_exists($cPath) && filemtime($cPath) >= filemtime($sourcePath)) {
+        return $cPath;
+    }
+    createCacheDirectory(str_replace('../app', '', $sourcePath));
+    $content = template(file_get_contents($sourcePath));
+    file_put_contents($cPath, $content);
+    return $cPath;
+    
+}
+
 
 /**
  * Injecte le contenu d'un fichier PHP et renvoie la sortie.
@@ -117,13 +154,74 @@ function injectJS($filename, $data=[]): string
  */
 function view($filename, $data=[]): string {
     if (file_exists($filename)) {
-        return inject('../app/views/'.$filename, $data);
+        return inject(createCacheViewFile($filename), $data);
+    } else if (file_exists($filename.'.view')) {
+        return inject(createCacheViewFile($filename.'.view'), $data);
     } else if (file_exists('../app/views/'.$filename)) {
-        return inject('../app/views/'.$filename, $data);
-    } else if (file_exists('../app/views/'.$filename.'.php')) {
-        return inject('../app/views/'.$filename.'.php', $data);
+        return inject(createCacheViewFile('../app/views/'.$filename), $data);
+    } else if (file_exists('../app/views/'.$filename.'.view')) {
+        return inject(createCacheViewFile('../app/views/'.$filename.'.view'), $data);
     }
     return '';
+}
+
+/**
+ * Replaces template tags in the given content with their corresponding PHP code.
+ *
+ * @param string $content The content to be processed.
+ * @return string The processed content with template tags replaced.
+ */
+function template($content){
+    $tmp = str_replace(
+        [
+            '@if',
+            '@endif',
+            '@else',
+            '@elseif',
+            '@while',
+            '@endwhile',
+            '@for',
+            '@endfor',
+            '@foreach',
+            '@endforeach',
+            '@switch',
+            '@endswitch',
+            '<%',
+            '%>',
+            '<@',
+            '@>',
+            ':@',
+            '{@',
+            '@}',
+        ],
+        [
+            '<?php if',
+            '<?php endif; ?>',
+            '<?php else: ?>',
+            '<?php elseif',
+            '<?php while',
+            '<?php endwhile; ?>',
+            '<?php for',
+            '<?php endfor; ?>',
+            '<?php foreach',
+            '<?php endforeach; ?>',
+            '<?php switch',
+            '<?php endswitch; ?>',
+            '<?=',
+            '?>',
+            '<?php',
+            '?>',
+            ': ?>',
+            '{ ?>',
+            '<?php } ?>',
+        ],
+        $content
+    );
+    return preg_replace(
+        ['/%l\((.*?)\)/', '/%lh\((.*?)\)/', '/@include\((.*?)\)/', '/@include_once\((.*?)\)/', '/@view\((.*?)\)/'], 
+        ['<?= l($1) ?>', '<?= lh($1) ?>', '<?php include($1); ?>', '<?php include_once($1); ?>' , '<?php view($1); ?>'], 
+        $tmp
+    );
 }
 
 
@@ -135,6 +233,10 @@ function view($filename, $data=[]): string {
  */
 function l($text) {
     return ($_SESSION['lang_controller'][$text] ?? ($_SESSION['lang_global'][$text] ?? $text));
+}
+
+function lh($text) {
+    return htmlspecialchars(l($text), ENT_QUOTES, 'UTF-8'); 
 }
 
 function __($text) { 

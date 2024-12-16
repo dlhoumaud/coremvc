@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:38
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-02 00:37:03
+ * @ Modified time: 2024-12-16 22:34:59
  * @ Description: Classe de contrôleur pour gérer les demandes HTTP et rendre les vues.
  */
 
@@ -24,17 +24,17 @@ class Controller
         // Extraire les variables de $data
         extract($data);
         if (!isset($head_view_core)) $head_view_core = 'head';
-        require_once "../app/views/core/$head_view_core.php";
+        require_once createCacheViewFile("../app/views/core/$head_view_core.view");
         if (!isset($header_view_layout)) $header_view_layout = 'header';
-        require_once "../app/views/layout/$header_view_layout.php";
+        require_once createCacheViewFile("../app/views/layout/$header_view_layout.view");
         if (!isset($main_attributes)) echo '<main>';
         else echo '<main '.$main_attributes.'>';
-        require_once "../app/views/$view.php";
+        require_once createCacheViewFile("../app/views/$view.view");
         echo '</main>';
         if (!isset($footer_view_layout)) $footer_view_layout = 'footer';
-        require_once "../app/views/layout/$footer_view_layout.php";
+        require_once createCacheViewFile("../app/views/layout/$footer_view_layout.view");
         if (!isset($end_view_core)) $end_view_core = 'end';
-        require_once "../app/views/core/$end_view_core.php";
+        require_once createCacheViewFile("../app/views/core/$end_view_core.view");
     }
 
 }
