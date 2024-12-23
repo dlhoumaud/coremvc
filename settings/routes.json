@@ -74,5 +74,13 @@
     "/admin/reports": {
         "controller": "AdminReportsController",
         "action": "show"
+    },
+    "/api/user/login": {
+        "controller": "APIUserController",
+        "action": "login"
+    },
+    "/api/user/{id}/articles": {
+        "controller": "APIUserController",
+        "action": "articles"
     }
 }

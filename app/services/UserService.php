@@ -3,11 +3,12 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 14:40:04
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-03 15:51:47
+ * @ Modified time: 2024-12-18 15:51:18
  * @ Description: Services pour les utilisateurs
  */
 namespace App\Services;
 
+use App\Core\Error;
 use App\Models\User;
 
 class UserService
@@ -22,11 +23,13 @@ class UserService
     public function authenticate($email, $password)
     {
         $user = $this->userModel->findUserByEmail($email);
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                return $user;
+            }
+            return Error::api(403, 'Mot de passe incorrect');
         }
-
-        return null;
+        return Error::api(403,'Identifiants invalides');
     }
 
     public function getAllUsers()
@@ -44,6 +47,7 @@ class UserService
             return [
                 'head_title' => l('user').' ' . $user['firstname'] . ' ' . $user['lastname'],
                 'title' => l('user').' ' . $user['firstname'] . ' ' . $user['lastname'],
+                'id' => $user['id'],
                 'vue_datas' => [
                     'firstname' => $user['firstname'],
                     'lastname'  => $user['lastname'],

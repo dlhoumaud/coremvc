@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-11 15:55:55
+ * @ Modified time: 2024-12-17 15:25:18
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -18,7 +18,7 @@ include_once 'bin/includes/functions.php'; // Fonctions Spécifique à morty
 // Inclure les fichiers nécessaires
 include_once 'app/core/Functions.php'; // Fonctions globales
 
-// loadEnvWithCache('settings/.env', 'storage/cache/env.php');
+loadEnvWithCache('settings/.env', 'storage/cache/env.php');
 
 // Charger l'autoloader personnalisé
 require_once 'app/core/Autoloader.php';
@@ -213,7 +213,7 @@ if (isset($options['r']) || isset($options['route'])) {
 }
 
 if (isset($options['v']) || isset($options['view'])) {
-    file_put_contents('app/views/'.($options['v'] ?? $options['view']).'.php', '<div class="container my-5">
+    file_put_contents('app/views/'.($options['v'] ?? $options['view']).'.view', '<div class="container my-5">
     
 </div>');
     $is_ok=true;
