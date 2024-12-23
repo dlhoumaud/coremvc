@@ -3,11 +3,13 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:38
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-16 22:34:59
+ * @ Modified time: 2024-12-18 14:18:22
  * @ Description: Classe de contrôleur pour gérer les demandes HTTP et rendre les vues.
  */
 
  namespace App\Core;
+
+ use App\Core\Error;
 
 class Controller
 {
@@ -36,5 +38,21 @@ class Controller
         if (!isset($end_view_core)) $end_view_core = 'end';
         require_once createCacheViewFile("../app/views/core/$end_view_core.view");
     }
+
+    static protected function output($data = [], $code=0, $type='json'): string {
+        Error::header($code);
+        switch ($type) {
+            case 'json':
+                header('Content-Type: application/json');
+                echo json_encode($data);
+                exit($code);
+            default:
+                header('Content-Type: application/json');
+                echo json_encode($data);
+                exit($code);
+        }
+
+    }
+
 
 }

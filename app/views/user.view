@@ -1,10 +1,15 @@
 <div class="position-relative overflow-hidden p-3 pt-md-5 mt-md-3 text-center bg-body-tertiary">
     <div class="col-md-6 p-lg-5 mx-auto">
-        <h1 class="display-3 fw-bold text-primary">{{ firstname }} {{ lastname }}</h1>
+        <h1 class="display-3 fw-bold text-primary" id="fullname"></h1>
         <h3 class="fw-normal text-muted">{{ email }}</h3>
         <p class="lead fw-small text-muted">{{ role }}</p>
-        <p class="lead fw-small text-muted">{{ birthdate }}</p>
+        <p class="lead fw-small text-muted" id="birthdate"></p>
+        <p class="lead fw-small text-muted">Date de création : <span id="created_at"></span></p>
     </div>
+</div>
+
+
+<div id="content">
 </div>
 
 <div class="d-flex justify-content-center mt-2">
@@ -22,3 +27,58 @@
         :btnmouseleave='mouseLeave'>
     </card-img-top>
 </div>
+
+<script> 
+sendRequest({
+    url: "http://localhost:8000/api/user/login",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: "email=<% $vue_datas['email'] %>&password=salut%20le%20monde",
+    callback: (error, response) => {
+        if (error) {
+            console.error("Erreur:", error, response);
+            $("#fullname").html(response.error);
+        } else {
+            if (response.error === undefined) {
+                $("#fullname").html(`${response.firstname} ${response.lastname}`);
+                $("#birthdate").text(response.birthdate);
+                $("#created_at").text(response.created_at);
+            } else {
+                $("#fullname").html(response.error);
+            }
+        }
+    }
+});
+
+sendRequest({
+    url: "http://localhost:8000/api/user/<% $id %>/articles",
+    method: "GET",
+    callback: (error, response) => {
+        if (error) {
+            console.error("Erreur:", error, response);
+        } else {
+            if (response.error === undefined) {
+                $("#content_title").html(response[0].title);
+                $("#content").html(response[0].contents);
+                let articles='';
+                response.forEach(article => {
+                    articles +=`
+                        <article>
+                        <h2>${article.title}</h2>
+                        <h4 class='text-muted'>${article.description}</h4>
+                        <p>${article.contents}</p>
+                        </article>
+                    `;
+                });
+                $("#content").html(articles);
+
+                console.log(response);
+            } else {
+                console.error(response.error);
+            }
+        }
+    }
+});
+</script>
