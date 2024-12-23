@@ -12,10 +12,10 @@
                         <a class="nav-link active" aria-current="page" href="/"><i class="fas fa-house"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about"><?= l('about') ?></a>
+                        <a class="nav-link" href="/about">%l('about')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact"><?= l('contact-us') ?></a>
+                        <a class="nav-link" href="/contact">%l('contact-us')</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -25,17 +25,17 @@
                                 <i class="fas fa-user"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <?php if (!isset($_SESSION['user'])): ?>
+                                @if (!isset($_SESSION['user'])):@
                                     <li class="dropdown-item">
-                                        <a class="nav-link" href="/login"><i class="fas fa-right-to-bracket"></i> <?= l('login') ?></a>
+                                        <a class="nav-link" href="/login"><i class="fas fa-right-to-bracket"></i> %l('login')</a>
                                     </li>
-                                <?php else: ?>
-                                    <li class="dropdown-item"><a class="nav-link" href="/user/<?= $_SESSION['user']['id'] ?>"><i class="fas fa-address-card"></i> <?= l('my_profil') ?></a></li>
+                                @else
+                                    <li class="dropdown-item"><a class="nav-link" href="/user/<% $_SESSION['user']['id'] %>"><i class="fas fa-address-card"></i> %l('my_profil')</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li class="dropdown-item"><a class="nav-link" href="/admin/dashboard"><i class="fas fa-chart-line"></i> <?= l('dashboard') ?></a></li>
+                                    <li class="dropdown-item"><a class="nav-link" href="/admin/dashboard"><i class="fas fa-chart-line"></i> %l('dashboard')</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li class="dropdown-item"><a class="nav-link" href="/logout"><i class="fas fa-right-from-bracket"></i></i> <?= l('logout') ?></a></li>
-                                <?php endif; ?>
+                                    <li class="dropdown-item"><a class="nav-link" href="/logout"><i class="fas fa-right-from-bracket"></i></i> %l('logout')</a></li>
+                                @endif
                             </ul>
                         </li>
                     </ul>
@@ -44,8 +44,8 @@
                             <input 
                                 class="form-control shadow-sm" 
                                 type="search" 
-                                placeholder="<?= l('search_placeholder') ?>" 
-                                aria-label="<?= l('search') ?>">
+                                placeholder="%l('search_placeholder')" 
+                                aria-label="%l('search')">
                             <button 
                                 class="btn btn-success shadow-sm" 
                                 type="submit">

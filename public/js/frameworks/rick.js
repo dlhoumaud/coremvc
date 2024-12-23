@@ -2,7 +2,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-25 16:36:08
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-03 00:43:48
+ * @ Modified time: 2024-12-18 13:54:41
  * @ Description: Librairie RickJS
  */
 
@@ -272,3 +272,137 @@ Rick.prototype.isUndefined = function() {
 Rick.prototype.isExist = function() {
     return this.elements.length > 0;
 };
+
+
+/**
+ * Sends an HTTP request and handles the response.
+ *
+ * @param {object} options - The request options.
+ * @param {string} options.url - The URL to send the request to.
+ * @param {string} [options.method='GET'] - The HTTP method to use for the request.
+ * @param {object} [options.headers={}] - The headers to include in the request.
+ * @param {any} [options.data=null] - The data to include in the request body.
+ * @param {string} [options.responseType='json'] - The expected response type, either 'json' or the raw response.
+ * @param {function} [options.callback=null] - The callback function to call when the request is complete.
+ */
+function sendRequest({ url, method = "GET", headers = {}, data = null, timeout=10000, responseType = "json", callback = null }) {
+    const xhr = new XMLHttpRequest();
+
+    // Configure la requête
+    xhr.open(method, url, true);
+
+    // Ajoute les headers fournis
+    for (const key in headers) {
+        if (headers.hasOwnProperty(key)) {
+            xhr.setRequestHeader(key, headers[key]);
+        }
+    }
+
+    // Gestion de l'état de la requête
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === XMLHttpRequest.DONE) {
+            if (this.status >= 200 && this.status < 300) {
+                // Requête réussie
+                if (callback) callback(null, responseRequestToJSON(this.responseText, responseType));
+            } else {
+                // Gestion des erreurs HTTP
+                if (callback) callback({ status: this.status, statusText: this.statusText}, responseRequestToJSON(this.responseText, responseType));
+            }
+        }
+    });
+
+    xhr.onerror = function () {
+        if (callback) callback({ error: "Network error" }, null);
+    };
+
+    xhr.timeout = timeout; // Timeout de 10 secondes
+    xhr.ontimeout = function () {
+        if (callback) callback({ error: "Request timed out" }, null);
+    };
+
+    // Envoie les données (si présentes)
+    xhr.withCredentials = true; // Optionnel : à activer si nécessaire
+    xhr.send(data ? (typeof data === "string" ? data : JSON.stringify(data)) : null);
+}
+
+/**
+ * Parses the response from an HTTP request and returns the data as a JavaScript object.
+ *
+ * @param {string} response - The response text from the HTTP request.
+ * @param {string} [responseType='json'] - The expected response type, either 'json' or the raw response.
+ * @returns {object} - The parsed response data, or an object with an 'error' property if the response is invalid JSON.
+ */
+function responseRequestToJSON(response, responseType='json') {
+    try {
+        return responseType === "json" ? JSON.parse(response) : response;
+    } catch (error) {
+        return { error: "Invalid JSON response" };
+    }
+}
+
+/**
+ sendRequest({
+    url: "http://localhost:8000/api/user/login",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: "email=xxxxxx%40example.com&password=***********",
+    callback: (error, response) => {
+        if (error) {
+            console.error("Erreur:", error);
+        } else {
+            const APIElement = document.getElementById("API");
+            if (response.error === undefined) {
+                APIElement.innerHTML = `${response.firstname} ${response.lastname}`;
+            } else {
+                APIElement.innerHTML = response.error;
+            }
+        }
+    }
+});
+
+sendRequest({
+    url: "http://localhost:8000/api/user/info",
+    method: "GET",
+    callback: (error, response) => {
+        if (error) {
+            console.error("Erreur:", error);
+        } else {
+            console.log("User Info:", response);
+        }
+    }
+});
+
+
+sendRequest({
+    url: "http://localhost:8000/api/user/update",
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    data: { firstname: "John", lastname: "Doe" },
+    callback: (error, response) => {
+        if (error) {
+            console.error("Erreur:", error);
+        } else {
+            console.log("Mise à jour réussie:", response);
+        }
+    }
+});
+
+
+sendRequest({
+    url: "http://localhost:8000/api/user/delete",
+    method: "DELETE",
+    callback: (error, response) => {
+        if (error) {
+            console.error("Erreur:", error);
+        } else {
+            console.log("Suppression réussie:", response);
+        }
+    }
+});
+
+
+ */
