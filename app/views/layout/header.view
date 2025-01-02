@@ -47,7 +47,7 @@
                                 placeholder="%l('search_placeholder')" 
                                 aria-label="%l('search')">
                             <button 
-                                class="btn btn-success shadow-sm" 
+                                class="btn btn-warning shadow-sm" 
                                 type="submit">
                                 <i class="fas fa-search"></i>
                             </button>

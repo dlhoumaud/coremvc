@@ -4,7 +4,7 @@
             <form>
                 <div class="text-center mb-4">
                     <img class="mb-4" src="assets/images/logo-min.png" alt="Logo" width="72" height="57">
-                    <h1 class="h3 mb-3 fw-normal text-primary"><?= l('contact-us') ?></h1>
+                    <h1 class="h3 mb-3 fw-normal text-warning"><?= l('contact-us') ?></h1>
                     <p class="text-muted"><?= l('introduction') ?></p>
                 </div>
 
@@ -23,7 +23,7 @@
                     <label for="floatingMessage"><?= l('message') ?></label>
                 </div>
 
-                <button class="btn btn-primary w-100 py-2" type="submit"><i class="fa-regular fa-paper-plane"></i> <?= l('send') ?></button>
+                <button class="btn btn-warning w-100 py-2" type="submit"><i class="fa-regular fa-paper-plane"></i> <?= l('send') ?></button>
 
                 <p class="mt-4 mb-0 text-center text-muted">
                     <small><?= l('outro') ?></small>

@@ -8,7 +8,7 @@
         <h1 class="text-center my-5"><?= l('welcome_dashboard') ?></h1>
         <breadcrumb
             :fields="[
-                {link: '/', icon: 'fa-house', iconcolor: 'text-primary'},
+                {link: '/', icon: 'fa-house', iconcolor: 'text-warning'},
                 {class: 'active', text: '<?= l('dashboard') ?>'}
             ]"
         ></breadcrumb>
@@ -16,12 +16,12 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
                     icon='fa-users'
-                    iconcolor='text-primary'
+                    iconcolor='text-warning'
                     iconsize='fa-3x'
                     title='<?= l('users') ?>'
                     btntext='<?= l('configure') ?>'
                     btnlink='/admin/users'
-                    btnclass='btn-primary'>
+                    btnclass='btn-warning'>
                     <template #text>
                         <?= l('users_description') ?>
                     </template>
@@ -30,12 +30,12 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
                     icon='fa-gears'
-                    iconcolor='text-primary'
+                    iconcolor='text-warning'
                     iconsize='fa-3x'
                     title='<?= l('settings') ?>'
                     btntext='<?= l('configure') ?>'
                     btnlink='/admin/settings'
-                    btnclass='btn-primary'>
+                    btnclass='btn-warning'>
                     <template #text>
                         <?= l('settings_description') ?>
                     </template>
@@ -44,12 +44,12 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
                     icon='fa-file-contract'
-                    iconcolor='text-primary'
+                    iconcolor='text-warning'
                     iconsize='fa-3x'
                     title='<?= l('reports') ?>'
                     btntext='<?= l('configure') ?>'
                     btnlink='/admin/reports'
-                    btnclass='btn-primary'>
+                    btnclass='btn-warning'>
                     <template #text>
                         <?= l('reports_description') ?>
                     </template>
