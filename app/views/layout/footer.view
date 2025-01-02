@@ -2,19 +2,19 @@
     <!-- Section: Social media -->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <!-- Left -->
-        <div class="me-5 d-none d-lg-block">
+        <div class="text-warning me-5 d-none d-lg-block">
             <span>%l('social_networks')</span>
         </div>
         <!-- Left -->
 
         <!-- Right -->
         <div>
-            <a href="" class="me-4 text-reset"><i class="fab fa-facebook-f"></i></a>
-            <a href="" class="me-4 text-reset"><i class="fab fa-twitter"></i></a>
-            <a href="" class="me-4 text-reset"><i class="fab fa-google"></i></a>
-            <a href="" class="me-4 text-reset"><i class="fab fa-instagram"></i></a>
-            <a href="" class="me-4 text-reset"><i class="fab fa-linkedin"></i></a>
-            <a href="" class="me-4 text-reset"><i class="fab fa-github"></i></a>
+            <a href="" class="me-4 text-warning"><i class="fab fa-facebook-f"></i></a>
+            <a href="" class="me-4 text-warning"><i class="fab fa-twitter"></i></a>
+            <a href="" class="me-4 text-warning"><i class="fab fa-google"></i></a>
+            <a href="" class="me-4 text-warning"><i class="fab fa-instagram"></i></a>
+            <a href="" class="me-4 text-warning"><i class="fab fa-linkedin"></i></a>
+            <a href="" class="me-4 text-warning"><i class="fab fa-github"></i></a>
         </div>
         <!-- Right -->
     </section>
@@ -26,7 +26,7 @@
             <!-- Grid row -->
             <div class="row mt-3">
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <div class="text-warning col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mb-4">
                         <i class="fas fa-gem me-3"></i>%l('name_site')
@@ -40,20 +40,20 @@
                 <!-- Grid column -->
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
+                    <h6 class="text-warning text-uppercase fw-bold mb-4">
                         %l('technologies')
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">HTML5</a>
+                        <a href="#!" class="text-warning">HTML5</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">CSS3</a>
+                        <a href="#!" class="text-warning">CSS3</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Javascript</a>
+                        <a href="#!" class="text-warning">Javascript</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">PHP/SQL</a>
+                        <a href="#!" class="text-warning">PHP/SQL</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -61,20 +61,20 @@
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
+                    <h6 class="text-warning text-uppercase fw-bold mb-4">
                         %l('useful-links')
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">%l('price')</a>
+                        <a href="#!" class="text-warning">%l('price')</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">%l('parameters')</a>
+                        <a href="#!" class="text-warning">%l('parameters')</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">%l('order')</a>
+                        <a href="#!" class="text-warning">%l('order')</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">%l('help')</a>
+                        <a href="#!" class="text-warning">%l('help')</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -82,13 +82,13 @@
                 <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">%l('contact')</h6>
-                    <p><i class="fas fa-home me-3"></i> Toulouse, 31000, FR</p>
-                    <p>
+                    <h6 class="text-warning text-uppercase fw-bold mb-4">%l('contact')</h6>
+                    <p class="text-warning"><i class="fas fa-home me-3"></i> Toulouse, 31000, FR</p>
+                    <p class="text-warning">
                         <i class="fas fa-envelope me-3"></i>
                         name@domain.com
                     </p>
-                    <p><i class="fas fa-phone me-3"></i> +33 6xx xxx xxx</p>
+                    <p class="text-warning"><i class="fas fa-phone me-3"></i> +33 6xx xxx xxx</p>
                 </div>
                 <!-- Grid column -->
             </div>
@@ -97,8 +97,8 @@
     </section>
     <!-- Section: Links  -->
     <!-- Copyright -->
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        © <% date('Y') %> Copyright : <a class="text-reset fw-bold" href="https://github.com/dlhoumaud/coremvc">coremvc.github</a>
+    <div class="text-warning text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        ©&nbsp;<% date('Y') %>&nbsp;Copyright&nbsp;:&nbsp;<a class="text-warning fw-bold" href="https://github.com/dlhoumaud/coremvc">coremvc.github</a>
     </div>
     <!-- Copyright -->
 </footer>

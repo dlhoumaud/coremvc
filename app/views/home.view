@@ -32,7 +32,7 @@
                 text="%l('easy_usage')"
                 btntext='%l('view_more')'
                 btnlink='#'
-                btnclass='btn-primary'>
+                btnclass='btn-warning'>
             </card-img-top>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
@@ -42,7 +42,7 @@
                 title='%l('card_title_goals')'
                 btntext='%l('view_more')'
                 btnlink='#'
-                btnclass='btn-primary'>
+                btnclass='btn-warning'>
                 <template #text>
                     %l('easy_dev_text')
                 </template>
@@ -56,7 +56,7 @@
                 text='%l('card_text')'
                 btntext='%l('view_more')'
                 btnlink='#'
-                btnclass='btn-primary'>
+                btnclass='btn-warning'>
             </card-img-top> -->
             <card-carousel
                 carouselid='homsecarousel2'
@@ -64,7 +64,7 @@
                 text='%l('card_text')'
                 btntext='%l('view_more')'
                 btnlink='#'
-                btnclass='btn-primary'>
+                btnclass='btn-warning'>
                 <template #carousel>
                     <carousel-items
                         :fields='[
@@ -84,7 +84,7 @@
                 title='%l('card_title')'
                 btntext='%l('view_more')'
                 btnlink='#'
-                btnclass='btn-primary'>
+                btnclass='btn-warning'>
                 <template #text>
                     <hello-coremvc text='%l('welcome')'></hello-coremvc>
                 </template>

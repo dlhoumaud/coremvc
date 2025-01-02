@@ -21,7 +21,7 @@
         title='<?= l('user_about') ?>'
         :text="bio"
         btntext='<?= l('view_more') ?>'
-        btnclass='btn-primary w-100'
+        btnclass='btn-warning w-100'
         :btnclick='click'
         :btnmouseenter='mouseEnter'
         :btnmouseleave='mouseLeave'>

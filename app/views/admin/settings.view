@@ -8,7 +8,7 @@
         <h1 class="text-center my-5"><?= l('settings') ?></h1>
         <breadcrumb
             :fields="[
-                {link: '/', icon: 'fa-house', iconcolor: 'text-primary'},
+                {link: '/', icon: 'fa-house', iconcolor: 'text-warning'},
                 {link: '/admin/dashboard', text: '<?= l('dashboard') ?>'},
                 {class: 'active', text: '<?= l('settings') ?>'}
             ]"
@@ -17,12 +17,12 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
                     icon='fa-route'
-                    iconcolor='text-primary'
+                    iconcolor='text-warning'
                     iconsize='fa-3x'
                     title='<?= l('routes') ?>'
                     btntext='<?= l('configure') ?>'
                     btnlink='/admin/routes'
-                    btnclass='btn-primary'>
+                    btnclass='btn-warning'>
                     <template #text>
                         <?= l('routes_description') ?>
                     </template>
@@ -31,12 +31,12 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
                     icon='fa-language'
-                    iconcolor='text-primary'
+                    iconcolor='text-warning'
                     iconsize='fa-3x'
                     title='<?= l('languages') ?>'
                     btntext='<?= l('configure') ?>'
                     btnlink='/admin/languages'
-                    btnclass='btn-primary'>
+                    btnclass='btn-warning'>
                     <template #text>
                         <?= l('languages_description') ?>
                     </template>
@@ -45,12 +45,12 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <card-title-icon-top
                     icon='fa-eye'
-                    iconcolor='text-primary'
+                    iconcolor='text-warning'
                     iconsize='fa-3x'
                     title='<?= l('views') ?>'
                     btntext='<?= l('configure') ?>'
                     btnlink='/admin/views'
-                    btnclass='btn-primary'>
+                    btnclass='btn-warning'>
                     <template #text>
                         <?= l('views_description') ?>
                     </template>
