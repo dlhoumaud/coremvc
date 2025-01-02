@@ -49,7 +49,7 @@
             </card-img-top>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
-            <card-img-top
+            <!-- <card-img-top
                 imgsrc='/assets/images/bg.png'
                 imgalt='%l('card_image')'
                 title='%l('card_title')'
@@ -57,7 +57,25 @@
                 btntext='%l('view_more')'
                 btnlink='#'
                 btnclass='btn-primary'>
-            </card-img-top>
+            </card-img-top> -->
+            <card-carousel
+                carouselid='homsecarousel2'
+                title='%l('card_title')'
+                text='%l('card_text')'
+                btntext='%l('view_more')'
+                btnlink='#'
+                btnclass='btn-primary'>
+                <template #carousel>
+                    <carousel-items
+                        :fields='[
+                            {id: 1, title: "%lh('welcome')", text: "%lh('framework_for_all')", interval: "10000", active: true, imgsrc: "/assets/images/bg.png", imgalt: "%lh('welcome')"},
+                            {id: 2, title: "%lh('framework_mvc_php')", text: "%lh('easy_dev')", interval: "10000", active: false, imgsrc: "/assets/images/bg.png", imgalt: "%lh('framework_mvc_php')"},
+                            {id: 3, title: "%lh('framework_no_deps')", text: "%lh('no_composer')", interval: "10000", active: false, imgsrc: "/assets/images/bg.png", imgalt: "%lh('framework_no_deps')"},
+                        ]'
+                    >
+                    </carousel-items> 
+                </template>
+            </card-carousel>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
             <card-img-top

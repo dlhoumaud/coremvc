@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-16 22:33:41
+ * @ Modified time: 2024-12-24 11:27:08
  * @ Description: Script de fonctionnalités globales
  */
 
@@ -176,14 +176,14 @@ function template($content){
         [
             '@if',
             '@endif',
-            '@else',
             '@elseif',
+            '@else',
             '@while',
             '@endwhile',
-            '@for',
-            '@endfor',
             '@foreach',
             '@endforeach',
+            '@for',
+            '@endfor',
             '@switch',
             '@endswitch',
             '<%',
@@ -197,14 +197,14 @@ function template($content){
         [
             '<?php if',
             '<?php endif; ?>',
-            '<?php else: ?>',
             '<?php elseif',
+            '<?php else: ?>',
             '<?php while',
             '<?php endwhile; ?>',
-            '<?php for',
-            '<?php endfor; ?>',
             '<?php foreach',
             '<?php endforeach; ?>',
+            '<?php for',
+            '<?php endfor; ?>',
             '<?php switch',
             '<?php endswitch; ?>',
             '<?=',
@@ -217,11 +217,31 @@ function template($content){
         ],
         $content
     );
-    return preg_replace(
-        ['/%l\((.*?)\)/', '/%lh\((.*?)\)/', '/@include\((.*?)\)/', '/@include_once\((.*?)\)/', '/@view\((.*?)\)/'], 
-        ['<?= l($1) ?>', '<?= lh($1) ?>', '<?php include($1); ?>', '<?php include_once($1); ?>' , '<?php view($1); ?>'], 
+    return minifyHTML(preg_replace(
+        ['/%l\((.*?)\)/', '/%lh\((.*?)\)/', '/@include\((.*?)\)/', '/@include_once\((.*?)\)/', '/%view\((.*?)\)/'], 
+        ['<?= l($1) ?>', '<?= lh($1) ?>', '<?php include($1); ?>', '<?php include_once($1); ?>' , '<?= view($1); ?>'], 
         $tmp
-    );
+    ));
+}
+
+/**
+ * Minifies the given HTML content by removing unnecessary whitespace and comments.
+ *
+ * @param string $html The HTML content to be minified.
+ * @return string The minified HTML content.
+ */
+function minifyHTML($html) {
+    // Supprimer les commentaires HTML
+    $html = preg_replace('/<!--.*?-->/s', '', $html);
+
+    // Supprimer les espaces inutiles entre les balises
+    $html = preg_replace('/\s+</', '<', $html);
+    $html = preg_replace('/>\s+/', '>', $html);
+
+    // Supprimer les retours à la ligne et les espaces multiples
+    $html = preg_replace('/\s{2,}/', ' ', $html);
+    
+    return trim($html);
 }
 
 

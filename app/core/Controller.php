@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:28:38
  * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-18 14:18:22
+ * @ Modified time: 2024-12-24 11:29:48
  * @ Description: Classe de contrôleur pour gérer les demandes HTTP et rendre les vues.
  */
 
