@@ -2,8 +2,8 @@
 /**
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
- * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-17 15:25:18
+ * @ Modified by: GloomShade
+ * @ Modified time: 2025-01-08 08:35:31
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -18,7 +18,9 @@ include_once 'bin/includes/functions.php'; // Fonctions Spécifique à morty
 // Inclure les fichiers nécessaires
 include_once 'app/core/Functions.php'; // Fonctions globales
 
-loadEnvWithCache('settings/.env', 'storage/cache/env.php');
+if (file_exists('settings/.env')){
+    loadEnvWithCache('settings/.env', 'storage/cache/env.php');
+}
 
 // Charger l'autoloader personnalisé
 require_once 'app/core/Autoloader.php';
