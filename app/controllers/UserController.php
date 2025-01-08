@@ -2,8 +2,8 @@
 /**
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
- * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-04 11:01:24
+ * @ Modified by: GloomShade
+ * @ Modified time: 2025-01-08 09:07:27
  * @ Description: Classe pour gérer les utilisateurs
  */
 
@@ -34,13 +34,13 @@ class UserController extends Controller
 
             $user = $this->userService->authenticate($email, $password);
 
-            if ($user) {
+            if (!isset($user['error'])) {
                 $_SESSION['user'] = $user;
                 $_SESSION['is_logged'] = true;
                 header('Location: /admin/dashboard');
                 exit;
             } else {
-                $data['error'] = l('login_error');
+                $data['error'] = $user['error'];
                 $_SESSION['is_logged'] = false;
             }
         }
