@@ -102,15 +102,18 @@ Vous pouvez cloner ce projet dans votre répertoire local :
 git clone https://github.com/dlhoumaud/coremvc.git
 ```
 
-création de la base de données et initialisation des tables :
+création de la base de données et l'utilisateur :
 
 ```sql
-CREATE DATABASE IF NOT EXISTS `core_mvc`
-```
+CREATE DATABASE IF NOT EXISTS `core_mvc`;
 
-```bash	
-php bin/morty.php -M up
-php bin/morty.php -S up
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'xxx';
+
+GRANT ALL PRIVILEGES ON * . * TO 'user'@'localhost';
+
+FLUSH PRIVILEGES;
+
+exit;
 ```
 
 ### 2. Configurer le fichier de configuration
@@ -139,6 +142,13 @@ secret key par défaut : `your_secret_key`
 
 ```bash
 php bin/morty.php -d settings/.env -k your_secret_key -t devel
+```
+
+#### Intégrer les données de base de migration
+
+```bash	
+php bin/morty.php -M up
+php bin/morty.php -S up
 ```
 
 ### 3. Lancer le serveur de développement
