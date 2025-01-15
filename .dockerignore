@@ -1,0 +1,9 @@
+.git
+src/storage/views
+src/senv.php
+src/routes.php
+*.log
+*.tmp
+node_modules/
+*.bak
+*.swp

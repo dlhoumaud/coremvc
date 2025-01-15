@@ -1,0 +1,42 @@
+services:
+  core_mvc_web:
+    build:
+      context: .
+      dockerfile: ./configs/Dockerfile
+    container_name: php_web_server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - core_mvc_storage:/var/www/html/storage 
+      - ./configs/php.ini:/usr/local/etc/php/php.ini
+      - ./configs/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    networks:
+      - core_mvc_network
+    depends_on:
+      - core_mvc_db
+
+  core_mvc_db:
+    image: mariadb:latest
+    container_name: mariadb_server
+    ports:
+      - "7000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "*"
+      MYSQL_DATABASE: core_mvc
+      MYSQL_USER: core_mvc_user
+      MYSQL_PASSWORD: "*"
+    volumes:
+      - core_mvc_db_data:/var/lib/mysql
+      - ./configs/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - core_mvc_network
+
+volumes:
+  core_mvc_db_data:
+  core_mvc_storage:
+
+networks:
+  core_mvc_network:
+    driver: bridge 
+  
