@@ -1,7 +1,7 @@
-storage/cache/*.php
-storage/cache/views
-storage/cache/database/migrate/*.php
-storage/cache/database/seeders/*.php
-storage/logs/*.log
-settings/.env
+src/storage/cache/*.php
+src/storage/cache/views
+src/storage/cache/database/migrate/*.php
+src/storage/cache/database/seeders/*.php
+src/storage/logs/*.log
+src/settings/.env
 *.zip
