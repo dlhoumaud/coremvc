@@ -167,7 +167,13 @@ Une fois le serveur lancé, ouvrez votre navigateur et accédez à :
 http://localhost:8000
 ```
 
-### 5. Create
+### 5. Utrilisation avec Docker
+
+```bash
+docker-compose up --build
+```
+
+### Morty Create Classes
 
 #### All
 ```bash
