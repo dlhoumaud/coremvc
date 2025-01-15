@@ -1,6 +1,6 @@
 # CoreMVC
 
-![Logo de l'application](public/assets/images/CoreMVC.png)
+![Logo de l'application](src/public/assets/images/CoreMVC.png)
 
 Ce projet est un modèle de base pour une architecture MVC (Modèle-Vue-Contrôleur) en PHP, conçu pour être simple, léger et facile à personnaliser. Il inclut un routeur, une structure de contrôleur et de modèle, ainsi qu'un système de vue pour afficher les données. Ce template peut être utilisé comme point de départ pour construire des applications PHP avec la structure MVC.
 
