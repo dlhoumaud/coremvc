@@ -8,6 +8,7 @@ until nc -zv core_mvc_db 3306; do
   echo "En attente de MariaDB..."
   sleep 1
 done
+
 php bin/morty.php -M up
 php bin/morty.php -S up
 

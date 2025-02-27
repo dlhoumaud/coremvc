@@ -2,15 +2,15 @@ services:
   core_mvc_web:
     build:
       context: .
-      dockerfile: ./configs/Dockerfile
+      dockerfile: ./docker/Dockerfile
     container_name: php_web_server
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./src:/var/www/html
       - core_mvc_storage:/var/www/html/storage 
-      - ./configs/php.ini:/usr/local/etc/php/php.ini
-      - ./configs/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      # - ./docker/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/000-default.conf:/etc/apache2/sites-available/000-default.conf
     networks:
       - core_mvc_network
     depends_on:
@@ -28,7 +28,7 @@ services:
       MYSQL_PASSWORD: "*"
     volumes:
       - core_mvc_db_data:/var/lib/mysql
-      - ./configs/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - core_mvc_network
 
