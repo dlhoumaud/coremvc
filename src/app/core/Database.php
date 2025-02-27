@@ -2,8 +2,8 @@
 /**
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-14 09:12:03
- * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-03 13:52:48
+ * @ Modified by: GloomShade
+ * @ Modified time: 2025-02-27 11:57:38
  * @ Description: Classe de base de données pour gérer la connexion à la base de données.
  */
 
@@ -38,6 +38,8 @@ class Database
         try {
             // Créer l'instance PDO unique
             self::$pdoInstance = new PDO($dsn, $user, $password);
+            self::$pdoInstance->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            self::$pdoInstance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             self::$pdoInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die("Erreur de connexion : " . $e->getMessage());

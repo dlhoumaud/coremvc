@@ -3,8 +3,8 @@
 /**
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
- * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-11 15:52:24
+ * @ Modified by: GloomShade
+ * @ Modified time: 2025-02-27 12:58:34
  * @ Description: Script de fonctionnalités
  */
 
@@ -136,7 +136,7 @@ function runMigration($pdo, string $file, string $type = 'up', bool $is_seed = f
         }
         if (getEnv('APP_DEBUG')) file_put_contents('storage/logs/database-'.($is_seed?'seed':'migrate').'.log', date("d-m-Y H:i:s")."\t".ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.\n", FILE_APPEND);
     } catch (PDOException $e) {
-        // throw new Exception("Erreur lors de l'exécution de la $type_file : " . $e->getMessage());
+        throw new Exception("Erreur lors de l'exécution de la $type_file : " . $e->getMessage());
     }
 }
 

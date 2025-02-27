@@ -82,5 +82,9 @@
     "/api/user/{id}/articles": {
         "controller": "APIUserController",
         "action": "articles"
+    },
+    "/configurations": {
+        "controller": "ConfigurationController",
+        "action": "show"
     }
 }

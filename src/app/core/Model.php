@@ -2,13 +2,14 @@
 /**
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:30:22
- * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-05 16:08:54
+ * @ Modified by: GloomShade
+ * @ Modified time: 2025-02-27 13:16:36
  * @ Description: Classe de base pour les modèles
  */
 
 namespace App\Core;
 
+use Exception;
 use PDO;
 use PDOStatement;
 
@@ -113,7 +114,7 @@ class Model extends Database
      */
     private function where_and_or(string $is, string $column, string $operator, $value): self
     {
-        $this->where[] = "$is$column $operator ?";
+        $this->where[] = "$is`$column` $operator ?";
         $this->bindings[] = $value;
         return $this;
     }
@@ -121,7 +122,7 @@ class Model extends Database
     /**
      * Encapsuler un groupe de conditions avec un opérateur logique (e.g. AND, OR).
      *
-     * Cette méthode vous permet de regrouper plusieurs conditions ensemble en utilisant une logique
+     * Cette méthode vous permet de regrouper plusieurs conditions ensemble en utilisant une l`ogique
      * opérateur.La fonction de rappel transmise à cette méthode sera exécutée pour
      * Ajoutez les conditions à l'intérieur du groupe.
      *
@@ -237,7 +238,7 @@ class Model extends Database
         $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where();
 
         if ($index >= 0) {
-            $query .= " LIMIT 1 OFFSET $index";
+            $query .= " LIMIT 1".($index>0?" OFFSET $index":'');
             $result = $this->stmt($query, true)?->fetch(PDO::FETCH_ASSOC);
             return $result ?: [];
         }
@@ -387,7 +388,7 @@ class Model extends Database
      * @param string $localKey Le nom de la colonne de clé locale dans le modèle actuel (par défaut est «id»).
      * @return array Un tableau contenant l'instance du modèle connexe.
      */
-    public function hasOneAndWhere(string $relatedModel, string $foreignKey, string $localKey = 'id', string $andForeignKey = 'id', $value): array
+    public function hasOneAndWhere(string $relatedModel, string $foreignKey, string $localKey = 'id', string $andForeignKey = 'id', $value=''): array
     {
         // Charger l'instance du modèle associé (par exemple "Post")
         $relatedModelInstance = new $relatedModel();
@@ -442,13 +443,15 @@ class Model extends Database
     private function stmt(string $query, bool $single = false): ?PDOStatement
     {
         try {
-            $stmt = $this->pdo->prepare($query);
+            $stmt = $this->pdo->prepare(trim($query));
             if (!$stmt->execute($this->bindings)) {
                 throw new Exception("Erreur lors de l'exécution de la requête : " . implode(", ", $stmt->errorInfo()));
             }
+            $this->reset();
             return $stmt;
         } catch (Exception $e) {
             error_log($e->getMessage());
+            $this->reset();
             return null;
         }
     }
@@ -460,6 +463,7 @@ class Model extends Database
      */
     private function reset(): void
     {
+        $this->query = 'SELECT * FROM ' . $this->table;
         $this->select = '*';
         $this->where = [];
         $this->joins = [];

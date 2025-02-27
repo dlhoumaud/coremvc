@@ -15,14 +15,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copier la configuration personnalisée
-# COPY configs/000-default.conf /etc/apache2/sites-available/000-default.conf
+# COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Activer mod_rewrite pour le routage MVC
 RUN a2enmod rewrite
 
 COPY src/storage /var/www/html/storage
 
-COPY configs/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN dos2unix /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 # Définir le script comme point d'entrée
