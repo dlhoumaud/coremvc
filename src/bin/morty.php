@@ -3,10 +3,12 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-01-08 08:35:31
+ * @ Modified time: 2025-03-06 16:56:26
  * @ Description: outil de développement
  */
 namespace App\Bin;
+
+use Exception;
 
 use App\Core\Autoloader;
 use App\Core\Router;
@@ -31,7 +33,7 @@ Autoloader::register();
 $terminal = new LogTerminal('cmd');
 
 // Définition des options
-$options = getopt("s:e:d:k:t:M:S:c:n:r:v:h", ["server:", "encrypt:", "decrypt:", "key:", "type:", "migrate:", "seed:", "create:", "name:", "route:","view:", "help"]);
+$options = getopt("s:e:d:k:t:M:S:c:n:r:v:C:h", ["server:", "encrypt:", "decrypt:", "key:", "type:", "migrate:", "seed:", "create:", "name:", "route:","view:", "cache", "help"]);
 
 // Affichage de l'aide si l'option -h ou --help est utilisée
 if (isset($options['h']) || isset($options['help'])) {
@@ -53,6 +55,7 @@ under certain conditions.\n\n"
     . "  -n, --name [classname]                      : Nom de la classe.\n"
     . "  -r, --route [/path:controller@action]       : Ajoute une route.\n"
     . "  -v, --view [path view]                      : Ajoute une vue.\n"
+    . "  -C, --cache [all|views|logs|routes|env]     : Nettoyage des caches.\n"
     . "  -h, --help                                  : Affiche ce message d'aide.\n";
     exit(0);
 }
@@ -73,8 +76,7 @@ if (isset($options['s']) || isset($options['server'])) {
 
     // Vérifiez si le répertoire public existe avant de démarrer le serveur
     if (!is_dir($documentRoot)) {
-        $terminal->error("Le répertoire '$documentRoot' n'existe pas.");
-        echo "Erreur : Le répertoire '$documentRoot' n'existe pas.\n";
+        $terminal->e("Le répertoire '$documentRoot' n'existe pas.");
         exit(1);
     }
 
@@ -218,6 +220,73 @@ if (isset($options['v']) || isset($options['view'])) {
     file_put_contents('app/views/'.($options['v'] ?? $options['view']).'.view', '<div class="container my-5">
     
 </div>');
+    $is_ok=true;
+}
+
+if (isset($options['C']) || isset($options['cache'])) {
+    switch ($options['C'] ?? $options['cache']) {
+        case 'all':
+            $cacheDir = 'cache/views/';
+            if (is_dir($cacheDir)) {
+                $files = scandir($cacheDir);
+                foreach ($files as $file) {
+                    if ($file != '.' && $file != '..') {
+                        unlink($cacheDir . $file);
+                    }
+                }
+                $terminal->o("Le cache des vus a été vidé avec succès.");
+            } 
+            $cacheDir = 'cache/logs/';
+            if (is_dir($cacheDir)) {
+                $files = scandir($cacheDir);
+                foreach ($files as $file) {
+                    if ($file != '.' && $file != '..') {
+                        unlink($cacheDir . $file);
+                    }
+                }
+                $terminal->o("Le cache des logs a été vidé avec succès.");
+            } 
+            unlink('cache/routes.php');
+            $terminal->o("Le cache des routes a été vidé avec succès.");
+            unlink('cache/env.php');
+            $terminal->o("Le cache de l'environement a été vidé avec succès.");
+        break;
+        case 'views':
+            $cacheDir = 'cache/views/';
+            if (is_dir($cacheDir)) {
+                $files = scandir($cacheDir);
+                foreach ($files as $file) {
+                    if ($file != '.' && $file != '..') {
+                        unlink($cacheDir . $file);
+                    }
+                }
+                $terminal->o("Le cache des vus a été vidé avec succès.");
+            } 
+        break;
+        case 'logs':
+            $cacheDir = 'cache/logs/';
+            if (is_dir($cacheDir)) {
+                $files = scandir($cacheDir);
+                foreach ($files as $file) {
+                    if ($file != '.' && $file != '..') {
+                        unlink($cacheDir . $file);
+                    }
+                }
+                $terminal->o("Le cache des logs a été vidé avec succès.");
+            }
+        break;
+        case 'routes':
+            unlink('cache/routes.php');
+            $terminal->o("Le cache des routes a été vidé avec succès.");
+        break;
+        case 'env':
+            unlink('cache/env.php');
+            $terminal->o("Le cache de l'environement a été vidé avec succès.");
+        break;
+        default:
+            $terminal->e("Option de cache non valide.");
+            exit(1);
+    }
     $is_ok=true;
 }
 
