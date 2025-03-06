@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-01-15 13:16:19
+ * @ Modified time: 2025-03-06 16:40:29
  * @ Description: Script de fonctionnalités globales
  */
 
@@ -237,6 +237,7 @@ function template($content){
  * @return string The minified HTML content.
  */
 function minifyHTML($html) {
+    if (getenv('APP_DEBUG')) return $html;
     // Supprimer les commentaires HTML
     $html = preg_replace('/<!--.*?-->/s', '', $html);
 

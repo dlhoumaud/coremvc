@@ -1,8 +1,8 @@
 /**
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-25 16:36:08
- * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-18 13:54:41
+ * @ Modified by: GloomShade
+ * @ Modified time: 2025-03-06 16:53:35
  * @ Description: Librairie RickJS
  */
 
@@ -157,7 +157,6 @@ function $(selector) {
 
 // Prototype pour le click
 Rick.prototype.click = function(callback) {
-    console.log('aaa');
     this.elements.forEach(el => el.addEventListener('click', callback));
     return this;
 };
