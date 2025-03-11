@@ -4,7 +4,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-02-27 12:58:34
+ * @ Modified time: 2025-03-11 13:08:56
  * @ Description: Script de fonctionnalités
  */
 
@@ -235,10 +235,26 @@ class ".ucfirst($name)." extends Model
         return \$this->get();
     }
 
-    public function get".ucfirst($name)."(\$id)
+    public function id(\$id)
     {
         \$this->id = \$id;
+    }
+
+    public function getAll".ucfirst($name)."()
+    {
+        return \$this->get();
+    }
+
+    public function get".ucfirst($name)."(\$id)
+    {
+        \$this->id(\$id);
         return \$this->where('id', '=', \$id)->get(0);
+    }
+
+    // ajouter autant de paramètre que d'objets liers à belongTo pour la foreignKey
+    public function setIDs(\$id)
+    {
+        \$this->id = \$id;
     }
 }";
     file_put_contents('app/models/'.ucfirst($name).'.php', $content);
