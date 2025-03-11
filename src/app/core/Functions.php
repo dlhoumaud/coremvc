@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-06 16:40:29
+ * @ Modified time: 2025-03-11 13:30:08
  * @ Description: Script de fonctionnalités globales
  */
 
@@ -172,10 +172,10 @@ function view($filename, $data=[]): string {
 }
 
 /**
- * Replaces template tags in the given content with their corresponding PHP code.
+ * Remplace les balises de modèle dans le contenu donné par leur code PHP correspondant.
  *
- * @param string $content The content to be processed.
- * @return string The processed content with template tags replaced.
+ * @param string $content Le contenu à traiter.
+ * @return string Le contenu traité avec des balises de modèle remplacés.
  */
 function template($content){
     $tmp = str_replace(
@@ -224,14 +224,30 @@ function template($content){
         $content
     );
     return minifyHTML(preg_replace(
-        ['/%l\((.*?)\)/', '/%lh\((.*?)\)/', '/@include\((.*?)\)/', '/@include_once\((.*?)\)/', '/%view\((.*?)\)/'], 
-        ['<?= l($1) ?>', '<?= lh($1) ?>', '<?php include($1); ?>', '<?php include_once($1); ?>' , '<?= view($1); ?>'], 
+        [
+            '/%l\((.*?)\)/',
+            '/%lh\((.*?)\)/',
+            '/@include\((.*?)\)/',
+            '/@include_once\((.*?)\)/',
+            '/%view\((.*?)\)/',
+            '/@dump\((.*?)\)/',
+            '/@dbg\((.*?)\)/'
+        ], 
+        [
+            '<?= l($1) ?>',
+            '<?= lh($1) ?>',
+            '<?php include($1); ?>',
+            '<?php include_once($1); ?>',
+            '<?= view($1); ?>',
+            '<?php dump($1); ?>',
+            '<?php dbg($1); ?>'
+        ], 
         $tmp
     ));
 }
 
 /**
- * Minifies the given HTML content by removing unnecessary whitespace and comments.
+ * Minifie le contenu HTML donné en supprimant les espaces blancs et commentaires inutiles.
  *
  * @param string $html The HTML content to be minified.
  * @return string The minified HTML content.
@@ -268,4 +284,28 @@ function lh($text) {
 
 function __($text) { 
      return l($text); 
+}
+
+/**
+ * Affiche les arguments donnés si l'application est en mode débogage.
+ *
+ * @param mixed ...$args The arguments to be dumped.
+ */
+function dump(...$args) {
+    if (!getenv('APP_DEBUG')) return;
+    foreach ($args as $arg) {
+        echo '<pre>';
+        var_dump($arg);
+        echo '</pre>';
+    }
+}
+
+function dbg(...$args) {
+    dump(...$args);
+}
+
+function dd(...$args) {
+    if (!getenv('APP_DEBUG')) return;
+    dump(...$args);
+    die();
 }
