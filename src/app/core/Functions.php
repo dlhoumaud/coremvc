@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-11 13:30:08
+ * @ Modified time: 2025-03-11 23:06:00
  * @ Description: Script de fonctionnalités globales
  */
 
@@ -178,72 +178,95 @@ function view($filename, $data=[]): string {
  * @return string Le contenu traité avec des balises de modèle remplacés.
  */
 function template($content){
-    $tmp = str_replace(
-        [
-            '@if',
-            '@endif',
-            '@elseif',
-            '@else',
-            '@while',
-            '@endwhile',
-            '@foreach',
-            '@endforeach',
-            '@for',
-            '@endfor',
-            '@switch',
-            '@endswitch',
-            '<%',
-            '%>',
-            '<@',
-            '@>',
-            ':@',
-            '{@',
-            '@}',
-        ],
-        [
-            '<?php if',
-            '<?php endif; ?>',
-            '<?php elseif',
-            '<?php else: ?>',
-            '<?php while',
-            '<?php endwhile; ?>',
-            '<?php foreach',
-            '<?php endforeach; ?>',
-            '<?php for',
-            '<?php endfor; ?>',
-            '<?php switch',
-            '<?php endswitch; ?>',
-            '<?=',
-            '?>',
-            '<?php',
-            '?>',
-            ': ?>',
-            '{ ?>',
-            '<?php } ?>',
-        ],
-        $content
+    return minifyHTML(
+        str_replace(
+            [
+                '@if',
+                '@endif',
+                '@elseif',
+                '@else',
+                '@while',
+                '@endwhile',
+                '@foreach',
+                '@endforeach',
+                '@for',
+                '@endfor',
+                '@switch',
+                '@endswitch',
+                '<%',
+                '%>',
+                '<@',
+                '@>',
+                ':@',
+                '{@',
+                '@}',
+            ],
+            [
+                '<?php if',
+                '<?php endif; ?>',
+                '<?php elseif',
+                '<?php else: ?>',
+                '<?php while',
+                '<?php endwhile; ?>',
+                '<?php foreach',
+                '<?php endforeach; ?>',
+                '<?php for',
+                '<?php endfor; ?>',
+                '<?php switch',
+                '<?php endswitch; ?>',
+                '<?=',
+                '?>',
+                '<?php',
+                '?>',
+                ': ?>',
+                '{ ?>',
+                '<?php } ?>',
+            ],
+            preg_replace(
+                [
+                    '/%l\((.*?)\)/',
+                    '/%lh\((.*?)\)/',
+                    '/@include\((.*?)\)/',
+                    '/@include_once\((.*?)\)/',
+                    '/%view\((.*?)\)/',
+                    '/@dump\((.*?)\)/',
+                    '/@dbg\((.*?)\)/',
+                    '/%(.*?)%/',
+                    '/\{\{(.*?)\}\}/',
+                    '/@if (.*?)/',
+                    '/@elseif (.*?)\)/',
+                    '/@foreach (.*?)\)/',
+                    '/@for (.*?)\)/',
+                    '/@while (.*?)\)/',
+                    '/@switch (.*?)\)/',
+                    '/@case (.*?)\)/',
+                    '/@default\)/',
+                    '/@break/',
+                ], 
+                [
+                    '<?= l($1) ?>',
+                    '<?= lh($1) ?>',
+                    '<?php include($1); ?>',
+                    '<?php include_once($1); ?>',
+                    '<?= view($1); ?>',
+                    '<?php dump($1); ?>',
+                    '<?php dbg($1); ?>',
+                    '<?= $($1) ?>',
+                    '<?= $($1) ?>',
+                    '<?php if ($1): ?>',
+                    '<?php elseif ($1): ?>',
+                    '<?php foreach ($1): ?>',
+                    '<?php for ($1): ?>',
+                    '<?php while ($1): ?>',
+                    '<?php switch ($1): ?>',
+                    '<?php case ($1): ?>',
+                    '<?php default: ?>',
+                    '<?php break; ?>',
+                ], 
+                $content
+            )
+        )
     );
-    return minifyHTML(preg_replace(
-        [
-            '/%l\((.*?)\)/',
-            '/%lh\((.*?)\)/',
-            '/@include\((.*?)\)/',
-            '/@include_once\((.*?)\)/',
-            '/%view\((.*?)\)/',
-            '/@dump\((.*?)\)/',
-            '/@dbg\((.*?)\)/'
-        ], 
-        [
-            '<?= l($1) ?>',
-            '<?= lh($1) ?>',
-            '<?php include($1); ?>',
-            '<?php include_once($1); ?>',
-            '<?= view($1); ?>',
-            '<?php dump($1); ?>',
-            '<?php dbg($1); ?>'
-        ], 
-        $tmp
-    ));
 }
 
 /**
@@ -256,13 +279,17 @@ function minifyHTML($html) {
     if (getenv('APP_DEBUG')) return $html;
     // Supprimer les commentaires HTML
     $html = preg_replace('/<!--.*?-->/s', '', $html);
+    // Supprimer les commentaire linaires PHP et JS
+    $html = preg_replace('/\/\/.*?/s', '', $html);
 
     // Supprimer les espaces inutiles entre les balises
-    $html = preg_replace('/\s+</', '<', $html);
-    $html = preg_replace('/>\s+/', '>', $html);
+    $html = preg_replace('/\s+</', ' <', $html);
+    $html = preg_replace('/>\s+/', '> ', $html);
 
     // Supprimer les retours à la ligne et les espaces multiples
     $html = preg_replace('/\s{2,}/', ' ', $html);
+    // Supprimer les commentaire de bloc PHP et JS
+    $html = preg_replace('/\/\*.*?\*\//s', '', $html);
     
     return trim($html);
 }
@@ -300,10 +327,20 @@ function dump(...$args) {
     }
 }
 
+/**
+ * Affiche les arguments donnés si l'application est en mode débogage.
+ *
+ * @param mixed ...$args The arguments to be dumped.
+ */
 function dbg(...$args) {
     dump(...$args);
 }
 
+/**
+ * Affiche les arguments donnés si l'application est en mode débogage.
+ *
+ * @param mixed ...$args The arguments to be dumped.
+ */
 function dd(...$args) {
     if (!getenv('APP_DEBUG')) return;
     dump(...$args);

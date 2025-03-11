@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:30:22
  * @ Modified by: GloomShade
- * @ Modified time: 2025-02-27 13:16:36
+ * @ Modified time: 2025-03-11 23:34:50
  * @ Description: Classe de base pour les modèles
  */
 
@@ -18,6 +18,10 @@ class Model extends Database
     protected PDO $pdo;
     protected $query;
     protected $select = '*';
+    protected $orderBy = '';
+    protected $groupBy = '';
+    protected $limit = '';
+    protected $offset = '';
     protected $where = [];
     protected $joins = [];
     protected $bindings = [];
@@ -222,7 +226,7 @@ class Model extends Database
     public function count(): int
     {
         // Construction de la requête de comptage avec les conditions de jointure et de filtrage
-        $query = "SELECT COUNT(*) FROM {$this->table}" . $this->has_joins() . $this->has_where();
+        $query = "SELECT COUNT(*) FROM {$this->table}" . $this->has_joins() . $this->has_where() . $this->has_groupBy() . $this->has_orderBy() . $this->has_limit() . $this->has_offset();
 
         return (int) $this->stmt($query, true)->fetchColumn();
     }
@@ -235,16 +239,71 @@ class Model extends Database
      */
     public function get(int $index = -1): array
     {
-        $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where();
+        $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where() . $this->has_groupBy() . $this->has_orderBy();
 
         if ($index >= 0) {
             $query .= " LIMIT 1".($index>0?" OFFSET $index":'');
             $result = $this->stmt($query, true)?->fetch(PDO::FETCH_ASSOC);
             return $result ?: [];
+        } else {
+            $query .= $this->has_limit() . $this->has_offset();
         }
 
         $results = $this->stmt($query, true)?->fetchAll(PDO::FETCH_ASSOC);
         return $results ?: [];
+    }
+
+    /**
+     * Récupère le premier enregistrement de la base de données en fonction des conditions de requête actuelles.
+     *
+     * @return array Un tableau associatif représentant le premier record récupéré.
+     */
+    public function first(): array
+    {
+        return $this->get(0);
+    }
+
+    /**
+     * Récupère le dernier enregistrement de la base de données en fonction des conditions de requête actuelles.
+     *
+     * @return array Un tableau associatif représentant le dernier record récupéré.
+     */
+    public function last(): array
+    {
+        $result = $this->get();
+        return end($result);
+    }
+
+    /**
+     * Récupère un enregistrement ou un ensemble d'enregistrements de la base de données.
+     *
+     * @param int $index L'indice de l'enregistrement à récupérer, ou -1 pour récupérer tous les enregistrements.
+     * @return array Un éventail de tableaux associatifs représentant les dossiers récupérés.
+     */
+    public function item(int $index): array
+    {
+        return $this->get($index);
+    }
+
+    /**
+     * Récupère un enregistrement de la base de données en fonction de son ID.
+     *
+     * @param int $id L'ID de l'enregistrement à récupérer.
+     * @param string $key La colonne à utiliser pour la recherche, par défaut 'id'.
+     * @param int $index L'indice de l'enregistrement à récupérer, ou -1 pour récupérer tous les enregistrements correspondants.
+     * @return mixed Un tableau associatif représentant l'enregistrement récupéré, ou un tableau d'enregistrements si $index est -1.
+     */
+    public function find(int $id, $key = 'id', mixed $index=-1): mixed 
+    {
+        $this->where($key, '=', $id);
+        if (!is_null($index)) {
+            if ($index >= 0) {
+                $this->limit(1);
+                $this->offset($index);
+            }
+            return $this->get();
+        }
+        return $this;
     }
 
     /**
@@ -254,11 +313,129 @@ class Model extends Database
      * @param int $offset Le nombre d'enregistrements à sauter depuis le début.
      * @return array Un éventail de tableaux associatifs représentant les dossiers récupérés.
      */
-    public function paginate(int $limit, int $offset): array
+    public function paginate(int $limit, int $offset): self
     {
-        $query = "SELECT {$this->select} FROM {$this->table}" . $this->has_joins() . $this->has_where() . " LIMIT $limit OFFSET $offset";
+        $this->limit($limit);
+        $this->offset($offset);
 
-        return $this->stmt($query, true)->fetchAll(PDO::FETCH_ASSOC);
+        return $this;
+    }
+
+    /**
+     * Définit la clause Order By pour la requête.
+     *
+     * @param mixed $columns La ou les colonnes à commander, peuvent être une chaîne ou un tableau de chaînes.
+     * @param string $order La direction de l'ordre, «ASC» ou «DESC».
+     * @return $this L'instance de modèle actuelle pour le chaînage de méthode.
+     */
+    public function orderBy(mixed $columns, string $order = 'ASC'): self
+    {
+        if (is_array($columns)) {
+            $columns = implode(', ', $columns);
+        }
+        $this->orderBy = "ORDER BY $columns $order";
+        return $this;
+    }
+
+    /**
+     * Définit la clause Order By pour la requête dans ordre ascendant.
+     *
+     * @param mixed $columns La ou les colonnes à commander, peuvent être une chaîne ou un tableau de chaînes.
+     * @return $this L'instance de modèle actuelle pour le chaînage de méthode.
+     */
+    public function orderAsc(mixed $columns): self
+    {
+        return $this->orderBy($columns, 'ASC');
+    }
+
+    /**
+     * Définit la clause Order By pour la requête dans ordre descendant.
+     *
+     * @param mixed $columns La ou les colonnes à commander, peuvent être une chaîne ou un tableau de chaînes.
+     * @return $this L'instance de modèle actuelle pour le chaînage de méthode.
+     */
+    public function orderDesc(mixed $columns): self
+    {
+        return $this->orderBy($columns, 'DESC');
+    }
+
+    /**
+     * Renvoie la clause Order By pour la requête, si elle a été définie.
+     *
+     * @return string La clause Order By, ou une chaîne vide si elle n'a pas été définie.
+     */
+    public function has_orderBy(): string
+    {
+        return $this->orderBy ? " {$this->orderBy}" : '';
+    }
+
+    /**
+     * Définit la clause Group By pour la requête.
+     *
+     * @param mixed $columns La ou les colonnes à grouper, peuvent être une chaîne ou un tableau de chaînes.
+     * @return $this L'instance de modèle actuelle pour le chaînage de méthode.
+     */
+    public function groupBy(mixed $columns): self
+    {
+        if (is_array($columns)) {
+            $columns = implode(', ', $columns);
+        }
+        $this->groupBy = "GROUP BY $columns";
+        return $this;
+    }
+
+    /**
+     * Renvoie la clause Group By pour la requête, si elle a été définie.
+     *
+     * @return string La clause Group By, ou une chaîne vide si elle n'a pas été définie.
+     */
+    public function has_groupBy(): string
+    {
+        return $this->groupBy ? " {$this->groupBy}" : '';
+    }
+
+    /**
+     * Définit la clause limite de la requête.
+     *
+     * @param int $limit Le nombre maximum d'enregistrements à retourner.
+     * @return $this L'instance de modèle actuelle pour le chaînage de méthode.
+     */
+    public function limit(int $limit): self
+    {
+        $this->limit = "LIMIT $limit";
+        return $this;
+    }
+
+    /**
+     * Renvoie la clause limite de la requête, si elle a été définie.
+     *
+     * @return string La clause limite, ou une chaîne vide si elle n'a pas été définie.
+     */
+    public function has_limit(): string
+    {
+        return $this->limit ? " {$this->limit}" : '';
+    }
+
+    /**
+     * Définit le décalage de la requête.
+     *
+     * @param int $offset Le nombre d'enregistrements à sauter avant de retourner les résultats.
+     * @return $this L'instance de modèle actuelle pour le chaînage de méthode.
+     */
+    public function offset(int $offset): self
+    {
+        $this->offset = "OFFSET $offset";
+        return $this;
+    }
+
+    /**
+     * Renvoie la clause de décalage de la requête, si elle a été définie.
+     *
+     * @return string La clause de décalage, ou une chaîne vide si elle n'a pas été définie.
+     */
+    public function has_offset(): string
+    {
+        return $this->offset ? " {$this->offset}" : '';
     }
     
 
@@ -269,7 +446,7 @@ class Model extends Database
      */
     public function delete(): bool
     {
-        $query = "DELETE FROM {$this->table}" . $this->has_where();
+        $query = "DELETE FROM {$this->table}" . $this->has_where() . $this->has_groupBy() . $this->has_orderBy() . $this->has_limit() . $this->has_offset();
         return $this->stmt($query);
     }
 
@@ -286,7 +463,7 @@ class Model extends Database
             $set[] = "$column = ?";
             $this->bindings[] = $value;
         }
-        $query = "UPDATE {$this->table} SET " . implode(', ', $set) . $this->has_where();
+        $query = "UPDATE {$this->table} SET " . implode(', ', $set) . $this->has_where() . $this->has_groupBy() . $this->has_orderBy() . $this->has_limit() . $this->has_offset();
         return $this->stmt($query);
     }
 
@@ -465,6 +642,10 @@ class Model extends Database
     {
         $this->query = 'SELECT * FROM ' . $this->table;
         $this->select = '*';
+        $this->orderBy = '';
+        $this->groupBy = '';
+        $this->limit = '';
+        $this->offset = '';
         $this->where = [];
         $this->joins = [];
         $this->bindings = [];
