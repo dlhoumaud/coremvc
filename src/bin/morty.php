@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-06 16:56:26
+ * @ Modified time: 2025-03-12 10:50:32
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -33,7 +33,7 @@ Autoloader::register();
 $terminal = new LogTerminal('cmd');
 
 // Définition des options
-$options = getopt("s:e:d:k:t:M:S:c:n:r:v:C:h", ["server:", "encrypt:", "decrypt:", "key:", "type:", "migrate:", "seed:", "create:", "name:", "route:","view:", "cache", "help"]);
+$options = getopt("s:e:d:k:t:M:S:c:n:r:v:C:h", ["server:", "encrypt:", "decrypt:", "key:", "type:", "migrate:", "seed:", "create:", "name:", "route:","view:", "cache:", "help"]);
 
 // Affichage de l'aide si l'option -h ou --help est utilisée
 if (isset($options['h']) || isset($options['help'])) {
@@ -226,7 +226,7 @@ if (isset($options['v']) || isset($options['view'])) {
 if (isset($options['C']) || isset($options['cache'])) {
     switch ($options['C'] ?? $options['cache']) {
         case 'all':
-            $cacheDir = 'cache/views/';
+            $cacheDir = 'storage/cache/views/';
             if (is_dir($cacheDir)) {
                 $files = scandir($cacheDir);
                 foreach ($files as $file) {
@@ -236,7 +236,7 @@ if (isset($options['C']) || isset($options['cache'])) {
                 }
                 $terminal->o("Le cache des vus a été vidé avec succès.");
             } 
-            $cacheDir = 'cache/logs/';
+            $cacheDir = 'storage/cache/logs/';
             if (is_dir($cacheDir)) {
                 $files = scandir($cacheDir);
                 foreach ($files as $file) {
@@ -246,13 +246,13 @@ if (isset($options['C']) || isset($options['cache'])) {
                 }
                 $terminal->o("Le cache des logs a été vidé avec succès.");
             } 
-            unlink('cache/routes.php');
+            unlink('storage/cache/routes.php');
             $terminal->o("Le cache des routes a été vidé avec succès.");
-            unlink('cache/env.php');
+            unlink('storage/cache/env.php');
             $terminal->o("Le cache de l'environement a été vidé avec succès.");
         break;
         case 'views':
-            $cacheDir = 'cache/views/';
+            $cacheDir = 'storage/cache/views/';
             if (is_dir($cacheDir)) {
                 $files = scandir($cacheDir);
                 foreach ($files as $file) {
@@ -264,7 +264,7 @@ if (isset($options['C']) || isset($options['cache'])) {
             } 
         break;
         case 'logs':
-            $cacheDir = 'cache/logs/';
+            $cacheDir = 'storage/cache/logs/';
             if (is_dir($cacheDir)) {
                 $files = scandir($cacheDir);
                 foreach ($files as $file) {
@@ -276,11 +276,11 @@ if (isset($options['C']) || isset($options['cache'])) {
             }
         break;
         case 'routes':
-            unlink('cache/routes.php');
+            unlink('storage/cache/routes.php');
             $terminal->o("Le cache des routes a été vidé avec succès.");
         break;
         case 'env':
-            unlink('cache/env.php');
+            unlink('storage/cache/env.php');
             $terminal->o("Le cache de l'environement a été vidé avec succès.");
         break;
         default:

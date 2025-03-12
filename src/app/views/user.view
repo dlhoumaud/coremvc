@@ -17,10 +17,10 @@
         cardclass='shadow-lg'
         cardstyle='width:18rem;'
         :imgsrc='avatar'
-        imgalt='<?= l('user_about') ?>'
-        title='<?= l('user_about') ?>'
+        imgalt='%l('user_about')'
+        title='%l('user_about')'
         :text="bio"
-        btntext='<?= l('view_more') ?>'
+        btntext='%l('view_more')'
         btnclass='btn-warning w-100'
         :btnclick='click'
         :btnmouseenter='mouseEnter'
@@ -30,12 +30,12 @@
 
 <script> 
 sendRequest({
-    url: "<?= getenv('APP_URL') ?>/api/user/login",
+    url: "<% getenv('APP_URL') %>/api/user/login",
     method: "POST",
     headers: {
         "Content-Type": "application/x-www-form-urlencoded"
     },
-    data: "email=<% $vue_datas['email'] %>&password=salut%20le%20monde",
+    data: "email=%vue_datas['email']%&password=salut\%20le\%20monde",
     callback: (error, response) => {
         if (error) {
             console.error("Erreur:", error, response);
