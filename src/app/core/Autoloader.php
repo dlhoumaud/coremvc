@@ -2,8 +2,8 @@
 /**
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
- * @ Modified by: David Lhoumaud
- * @ Modified time: 2024-12-01 14:41:56
+ * @ Modified by: GloomShade
+ * @ Modified time: 2025-03-12 16:37:02
  * @ Description: Classe AutolOader responsable du chargement automatique des classes en fonction de leur chemin de fichier.
  */
 
@@ -45,6 +45,7 @@ class Autoloader
             'App\\Helpers\\'    =>  '../app/helpers/',
             'App\\Models\\'      => '../app/models/',
             'App\\Services\\'    => '../app/services/',
+            'Tests\\'            => '../tests/',
         ];
         if(self::searchClass($class, $directories)) {
             return;
@@ -53,9 +54,10 @@ class Autoloader
         $directories = [
             'App\\Core\\'        => 'app/core/',
             'App\\Controllers\\' => 'app/controllers/',
-            'App\\Helpers\\'    =>  'app/helpers/',
+            'App\\Helpers\\'     => 'app/helpers/',
             'App\\Models\\'      => 'app/models/',
             'App\\Services\\'    => 'app/services/',
+            'Tests\\'            => 'tests/',
         ];
 
         if(!self::searchClass($class, $directories)) {

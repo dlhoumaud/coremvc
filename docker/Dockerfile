@@ -30,4 +30,4 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 RUN apt-get purge -y dos2unix && apt-get clean
 
-CMD ["apache2-foreground"]
+# CMD ["apache2-foreground"]
