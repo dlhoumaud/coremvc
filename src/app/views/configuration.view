@@ -4,19 +4,19 @@
 
     <div class="row">
         <h2>Nom du site</h2>
-        <p><% $site_name %></p>
+        <p>%site_name%</p>
         <h2>Description</h2>
-        <p><% $articles_numbers_by_page %></p>
+        <p>%articles_numbers_by_page%</p>
     </div>
-    @foreach ($articles as $article):@
+    @foreach $articles as $article :
         <div class="row">
-            <h2><% $article['title'] %></h2>
-            <p><% $article['description'] %></p>
-            <img src="<% $article['image'] %>" alt="<% $article['title'] %>">
+            <h2>% article['title'] %</h2>
+            <p>%article['description']%</p>
+            <img src="%article['image']%" alt="%article['title']%">
         </div>
     @endforeach
-    <a href="?page=<% $paginate['previous'] %>">Retour</a>&nbsp;
-    <a href="?page=<% $paginate['current'] %>"><% $paginate['current'] %></a>&nbsp;
-    <a href="?page=<% $paginate['next'] %>">Suivante</a>
-    <p>Offset en court <% $paginate['offset'] %></p>
+    <a href="?page=%paginate['previous']%">Retour</a>&nbsp;
+    <a href="?page=%paginate['current']%">%paginate['current']%</a>&nbsp;
+    <a href="?page=%paginate['next']%">Suivante</a>
+    <p>Offset en court %paginate['offset']%</p> 
 </div>
