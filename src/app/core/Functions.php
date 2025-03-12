@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-11 23:06:00
+ * @ Modified time: 2025-03-12 11:31:43
  * @ Description: Script de fonctionnalités globales
  */
 
@@ -200,6 +200,7 @@ function template($content){
                 ':@',
                 '{@',
                 '@}',
+                "\\%",
             ],
             [
                 '<?php if',
@@ -221,6 +222,7 @@ function template($content){
                 ': ?>',
                 '{ ?>',
                 '<?php } ?>',
+                '%',
             ],
             preg_replace(
                 [
@@ -231,16 +233,15 @@ function template($content){
                     '/%view\((.*?)\)/',
                     '/@dump\((.*?)\)/',
                     '/@dbg\((.*?)\)/',
-                    '/%(.*?)%/',
-                    '/\{\{(.*?)\}\}/',
-                    '/@if (.*?)/',
-                    '/@elseif (.*?)\)/',
-                    '/@foreach (.*?)\)/',
-                    '/@for (.*?)\)/',
-                    '/@while (.*?)\)/',
-                    '/@switch (.*?)\)/',
-                    '/@case (.*?)\)/',
-                    '/@default\)/',
+                    '/(?<![<\\\\])%\s*(.+?)\s*(?<![\\\\])%/',
+                    '/@if (.*?)\s*:/',
+                    '/@elseif (.*?)\s*:/',
+                    '/@foreach (.*?)\s*:/',
+                    '/@for (.*?)\s*:/',
+                    '/@while (.*?)\s*:/',
+                    '/@switch (.*?)\s*:/',
+                    '/@case (.*?)\s*:/',
+                    '/@default/',
                     '/@break/',
                 ], 
                 [
@@ -251,8 +252,7 @@ function template($content){
                     '<?= view($1); ?>',
                     '<?php dump($1); ?>',
                     '<?php dbg($1); ?>',
-                    '<?= $($1) ?>',
-                    '<?= $($1) ?>',
+                    '<?= $\1 ?>',
                     '<?php if ($1): ?>',
                     '<?php elseif ($1): ?>',
                     '<?php foreach ($1): ?>',

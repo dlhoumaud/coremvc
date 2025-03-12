@@ -26,21 +26,21 @@ CoreMVC fournit une syntaxe simplifiée pour certaines structures PHP :
 
 | Balise Template | Équivalent PHP |
 |-----------------|---------------|
-| `@if(condition):@` | `<?php if(condition): ?>` |
-| `@elseif(condition):@` | `<?php elseif(condition): ?>` |
+| `@if condition:` | `<?php if(condition): ?>` |
+| `@elseif condition:` | `<?php elseif(condition): ?>` |
 | `@else` | `<?php else: ?>` |
 | `@endif` | `<?php endif; ?>` |
-| `@foreach($items as $item):@` | `<?php foreach($items as $item): ?>` |
+| `@foreach $items as $item:` | `<?php foreach($items as $item): ?>` |
 | `@endforeach` | `<?php endforeach; ?>` |
-| `@for($i = 0; $i < 10; $i++):@` | `<?php for($i = 0; $i < 10; $i++): ?>` |
+| `@for $i = 0; $i < 10; $i++:` | `<?php for($i = 0; $i < 10; $i++): ?>` |
 | `@endfor` | `<?php endfor; ?>` |
-| `@while(condition):@` | `<?php while(condition): ?>` |
+| `@while condition:` | `<?php while(condition): ?>` |
 | `@endwhile` | `<?php endwhile; ?>` |
 
 ### **Exemple :**
 ```php
-@if($user):@
-    <p>Bienvenue, <% $user['name'] %></p>
+@if $user:
+    <p>Bienvenue, %user['name']%</p>
 @else
     <p>Bienvenue, invité !</p>
 @endif
@@ -68,8 +68,8 @@ Lorsque vous passez un tableau associatif à view() ou %view(), chaque clé prin
 exemple de fichier `sidebar.php` :
 ```php
 <ul>
-    @foreach($menu as $item):@
-        <li><% $item %></li>
+    @foreach $menu as $item:
+        <li>%item%</li>
     @endforeach
 </ul>
 ```
@@ -81,6 +81,7 @@ exemple de fichier `sidebar.php` :
 ### **Syntaxe simplifiée :**
 | Balise | Description |
 |--------|------------|
+| `%variable%` | `<?= variable ?>` |
 | `<% variable %>` | `<?= variable ?>` |
 | `<@` `@>` | `<?php` `?>` |
 | `:@` | `: ?>` |
@@ -90,7 +91,7 @@ exemple de fichier `sidebar.php` :
 
 #### **Exemple :**
 ```php
-<p>Bonjour, <% $nom %> !</p>
+<p>Bonjour, %nom% !</p>
 ```
 Génère :
 ```php
