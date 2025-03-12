@@ -4,7 +4,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-11 13:08:56
+ * @ Modified time: 2025-03-12 18:05:02
  * @ Description: Script de fonctionnalités
  */
 
@@ -97,7 +97,7 @@ function scanDirectory($directory): array
  * @return void
  * @throws Exception       Lance une exception si le type est incorrect ou en cas d'erreur SQL.
  */
-function runMigration($pdo, string $file, string $type = 'up', bool $is_seed = false)
+function runMigration($pdo, $terminal, string $file, string $type = 'up', bool $is_seed = false)
 {
 
     if (file_exists('storage/cache/'.$file) && $type=='up') {
@@ -126,9 +126,10 @@ function runMigration($pdo, string $file, string $type = 'up', bool $is_seed = f
 
     // Exécute la requête de migration
     try {
-        if (!file_exists('storage/cache/'.$file) && $type=='down') return;
+        if (file_exists('storage/cache/'.$file) && $type=='up') return;
+        $terminal->i("Exécution '{$type}' de la $type_file {$file}...");
         $pdo->raw($query);
-        echo ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.\n";
+        $terminal->o(ucfirst($type_file)." '{$type}' de {$file} exécutée avec succès.");
         if ($type == 'up') {
             file_put_contents('storage/cache/'.$file, '', FILE_APPEND);
         } else {
@@ -205,6 +206,32 @@ class ".ucfirst($name)."Service
     }
 }";
     file_put_contents('app/services/'.ucfirst($name).'Service.php', $content);
+}
+
+function createTest($name) {
+    $content = "<?php
+/**
+ * @ Author: 
+ * @ Create Time: ".date("Y-m-d H:i:s")."
+ * @ Modified by: 
+ * @ Modified time: ".date("Y-m-d H:i:s")."
+ * @ Description: 
+ */
+namespace Tests;
+
+use App\Core\TestCase;
+
+class ".ucfirst($name)."Test extends TestCase
+{
+    public function testMethod()
+    {
+        self::assertEquals('John', 'John');
+        self::assertNotEquals('John', 'Jane');
+        self::assertTrue(true);
+        self::assertNotNull('John');
+    }
+}";
+    file_put_contents('tests/'.ucfirst($name).'Test.php', $content);
 }
 
 /**

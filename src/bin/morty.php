@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-12 10:50:32
+ * @ Modified time: 2025-03-12 17:46:45
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -44,19 +44,19 @@ This is free software, and you are welcome to redistribute it
 under certain conditions.\n\n"
     . "Utilisation : php bin/morty.php [options]\n"
     . "Options disponibles :\n"
-    . "  -s, --server [adresse:port]                 : Lance un serveur de développement PHP à l'adresse et au port spécifiés.\n"
-    . "  -e, --encrypt [file]                        : Chiffre un fichier spécifique.\n"
-    . "  -d, --decrypt [file]                        : Déchiffre un fichier spécifique.\n"
-    . "  -k, --key [key]                             : Spécifiez une clé de chiffrement personnalisée.\n"
-    . "  -t, --type [prod|devel|local]               : Spécifiez une extension à ajouter ou à supprimer pour le fichier chiffré.\n"
-    . "  -M, --migrate [up|down|create]              : Exécute les migrations.\n"
-    . "  -S, --seed [up|down|create]                 : Exécute les seeders.\n"
-    . "  -c, --create [controller|model|service|all] : Créer une classe.\n"
-    . "  -n, --name [classname]                      : Nom de la classe.\n"
-    . "  -r, --route [/path:controller@action]       : Ajoute une route.\n"
-    . "  -v, --view [path view]                      : Ajoute une vue.\n"
-    . "  -C, --cache [all|views|logs|routes|env]     : Nettoyage des caches.\n"
-    . "  -h, --help                                  : Affiche ce message d'aide.\n";
+    . "  -s, --server [adresse:port]                      : Lance un serveur de développement PHP à l'adresse et au port spécifiés.\n"
+    . "  -e, --encrypt [file]                             : Chiffre un fichier spécifique.\n"
+    . "  -d, --decrypt [file]                             : Déchiffre un fichier spécifique.\n"
+    . "  -k, --key [key]                                  : Spécifiez une clé de chiffrement personnalisée.\n"
+    . "  -t, --type [prod|devel|local]                    : Spécifiez une extension à ajouter ou à supprimer pour le fichier chiffré.\n"
+    . "  -M, --migrate [up|down|create]                   : Exécute les migrations.\n"
+    . "  -S, --seed [up|down|create]                      : Exécute les seeders.\n"
+    . "  -c, --create [controller|model|service|test|all] : Créer une classe.\n"
+    . "  -n, --name [classname]                           : Nom de la classe.\n"
+    . "  -r, --route [/path:controller@action]            : Ajoute une route.\n"
+    . "  -v, --view [path view]                           : Ajoute une vue.\n"
+    . "  -C, --cache [all|views|logs|routes|env]          : Nettoyage des caches.\n"
+    . "  -h, --help                                       : Affiche ce message d'aide.\n";
     exit(0);
 }
 
@@ -149,18 +149,21 @@ if ((isset($options['M']) || isset($options['migrate'])) || (isset($options['S']
     
     try {
         $files = scanDirectory($migrationDir);
+        if ($action == 'down') {
+            $files = array_reverse($files);
+        }
         foreach ($files as $file) {
             if (!is_dir($migrationDir.$file)) {
                 // Exécution de la migration 'up' pour créer la table
-                runMigration(new Model(), $migrationDir.$file, $action, $is_seed);
+                runMigration(new Model(), $terminal, $migrationDir.$file, $action, $is_seed);
             }
         }
-        
         
         // Exécution de la migration 'down' pour supprimer la table
         // runMigration($db, $migrationFile, 'down');
     } catch (Exception $e) {
         $terminal->e($e->getMessage());
+        exit(1);
     }
     exit(0);
 }
@@ -174,18 +177,56 @@ if ((isset($options['c']) || isset($options['create'])) && (isset($options['n'])
     switch ($type) {
         case 'controller':
             createController($name);
+            if (file_exists('app/controllers/'.ucfirst($name).'Controller.php')) {
+                $terminal->o("Le contrôleur a été créé avec succès.");
+            } else {
+                $terminal->e("Le contrôleur n'a pas été créé.");
+            }
             $create_controller=true;
             break;
         case 'model':
             createModel($name);
+            if (file_exists('app/models/'.ucfirst($name).'.php')) {
+                $terminal->o("Le modèle a été créé avec succès.");
+            } else {
+                $terminal->e("Le modèle n'a pas été créé.");
+            }
             break;
         case 'service':
             createService($name);
+            if (file_exists('app/services/'.ucfirst($name).'Service.php')) {
+                $terminal->o("Le service a été créé avec succès.");
+            } else {
+                $terminal->e("Le service n'a pas été créé.");
+            }
+            break;
+        case 'test':
+            createTest($name);
+            if (file_exists('tests/'.ucfirst($name).'Test.php')) {
+                $terminal->o("Le test a été créé avec succès.");
+            } else {
+                $terminal->e("Le test n'a pas été créé.");
+            }
             break;
         case 'all':
             createController($name, '');
+            if (file_exists('app/controllers/'.ucfirst($name).'Controller.php')) {
+                $terminal->o("Le contrôleur a été créé avec succès.");
+            } else {
+                $terminal->e("Le contrôleur n'a pas été créé.");
+            }
             createService($name);
+            if (file_exists('app/services/'.ucfirst($name).'Service.php')) {
+                $terminal->o("Le service a été créé avec succès.");
+            } else {
+                $terminal->e("Le service n'a pas été créé.");
+            }
             createModel($name);
+            if (file_exists('app/models/'.ucfirst($name).'.php')) {
+                $terminal->o("Le modèle a été créé avec succès.");
+            } else {
+                $terminal->e("Le modèle n'a pas été créé.");
+            }
             $create_controller=true;
             break;
         default:
@@ -208,11 +249,17 @@ if (isset($options['r']) || isset($options['route'])) {
         exit(1);
     }
     $routes = json_decode(file_get_contents('settings/routes.json'), true);
+    unlink('settings/routes.json');
     $routes[$pc[0]] = [
         'controller' => $pc[1].'Controller',
         'action' => $route[1]??'show',
     ];
     file_put_contents('settings/routes.json', json_encode($routes, JSON_PRETTY_PRINT| JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    if (file_exists('settings/routes.json')) {
+        $terminal->o("La route a été ajoutée avec succès.");
+    } else {
+        $terminal->e("La route n'a pas été ajoutée.");
+    }
     $is_ok=true;
 }
 
@@ -220,6 +267,11 @@ if (isset($options['v']) || isset($options['view'])) {
     file_put_contents('app/views/'.($options['v'] ?? $options['view']).'.view', '<div class="container my-5">
     
 </div>');
+    if (file_exists('app/views/'.($options['v'] ?? $options['view']).'.view')) {
+        $terminal->o("La vue a été créée avec succès.");
+    } else {
+        $terminal->e("La vue n'a pas été créée.");
+    }
     $is_ok=true;
 }
 

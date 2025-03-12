@@ -4,88 +4,6 @@
 
 Ce projet est un modèle de base pour une architecture MVC (Modèle-Vue-Contrôleur) en PHP, conçu pour être simple, léger et facile à personnaliser. Il inclut un routeur, une structure de contrôleur et de modèle, ainsi qu'un système de vue pour afficher les données. Ce template peut être utilisé comme point de départ pour construire des applications PHP avec la structure MVC.
 
-## Structure du projet
-
-Voici un aperçu de la structure du répertoire du projet :
-
-```
-/my-mvc-app
-    /app
-        /controllers
-            HomeController.php      # Contrôleur de la page d'accueil
-        /models
-            User.php                # Exemple de modèle
-        /views
-            /core
-                head.php            # Vue de base pour <head>
-                end.php             # Vue de base de cloture </html>
-            /layout
-                header.php          # Entête du site
-                footer.php          # Pied de page
-            home.php                # Vue de l'accueil
-        /core
-            Autoloader              # Classe de chargement des classes
-            Router.php              # Classe de routage
-            Controller.php          # Classe de base pour les contrôleurs
-            Database.php            # Classe de base pour la base de données
-            Model.php               # Classe de base pour les modèles
-        /services
-            HomeService.php         # Service de l'accueil
-            UserService.php         # Service de l'utilisateur
-    /config
-        config.php                  # Configuration de l'application
-        routes.json                 # Configurations des routes
-    /database
-        /migrate                    # Scripts de migration
-        /seeders                    # Scripts de seeders
-    /docs                           # Documentations du projet
-    /public
-        /assets
-            /images
-            /movies
-            /sounds
-        /css
-            /frameworks
-                /bootstrap
-                /fontawesome
-            /views
-                home.css
-            normalize.min.css           # CSS de normalisation
-            style.min.css               # Fuille de style du site
-            zoning.min.css              # CSS de zoning pour le developpement
-        /fonts
-        /js
-            /components
-                /card
-                    img-top.js
-                /carousel
-                    indicators.js
-                    item.js
-            /frameworks
-                vue.js
-                rick.min.js
-            /methods
-                /user
-                    alert.js
-            app.js                  # Fichier JavaScript
-        /scss
-            _colors.scss
-            _extends.scss
-            _mixins.scss
-            _typo.scss
-            _variables.scss
-            zoning.scss             # SCSS de zoning pour le developpement
-            normalize.scss          # CSS de normalisation
-            style.scss              # style global SCSS
-        index.php                   # Point d'entrée de l'application
-    /storage
-        /cache
-            /database
-                /migrate
-                /seeders
-        /logs                       # Dossier pour les logs
-    .htaccess                       # Configuration Apache pour réécriture d'URL
-```
 
 ## Prérequis
 
@@ -167,7 +85,7 @@ Une fois le serveur lancé, ouvrez votre navigateur et accédez à :
 http://localhost:8000
 ```
 
-### 5. Utrilisation avec Docker
+### 5. Utilisation avec Docker
 
 ```bash
 docker-compose up --build
@@ -179,11 +97,12 @@ docker-compose up --build
 ```bash
 php bin/morty.php -c all -n Test -r /test:@show -v test
 ```
-#### Controller, Service or Model
+#### Controller, Service, Model, or Test
 ```bash
 php bin/morty.php -c controller -n Test
 php bin/morty.php -c service -n Test
 php bin/morty.php -c model -n Test
+php bin/morty.php -c test -n Example
 ```
 
 #### Route
@@ -206,6 +125,7 @@ Le modèle, la vue et le contrôleur sont organisés comme suit :
 - **Vue (`app/views`)** : Gère l'affichage des informations à l'utilisateur.
 - **Contrôleur (`app/controllers`)** : Gère la logique de traitement et redirige l'utilisateur vers la vue appropriée.
 - **Helpers (`app/helpers`)** : Contient des fonctions utilitaires.
+- **Tests (`tests`)** : Contient des tests unitaires pour les classes.
 
 ### 2. Routeur
 
@@ -308,7 +228,13 @@ Une vue simple `home.php` qui est affichée lors de l'accès à la page d'accuei
 
 ```php
     <h1>Bienvenue sur la page d'accueil</h1>
-    <p><?= $title ?></p>
+    <p>%title%</p>
+    @if $users:
+        <p>Il y a des utilisateurs.</p>
+        @foreach $users as $user:
+            <p>%user['name']%</p>
+        @endforeach
+    @endif
 ```
 
 ## Fichier `.htaccess`
@@ -371,6 +297,13 @@ Minifiez les scripts JS :
 terser public/js/app.js -o public/js/app.min.js
 terser public/js/frameworks/rick.js -o public/js/frameworks/rick.min.js
 find public/js/components -type f -name "*.min.js" -exec sh -c 'rm -rf $0' {} \; && find public/js/components -type f -name "*.js" -exec sh -c 'terser "$0" -o "${0%.js}.min.js"' {} \;
+```
+
+## Tests unitaires
+
+Les tests unitaires sont effectués avec le script `bin/tests.php`.
+```bash
+php bin/test.php
 ```
 
 ## Contribution
