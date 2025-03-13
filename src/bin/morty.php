@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-12 17:46:45
+ * @ Modified time: 2025-03-13 01:12:45
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -22,6 +22,16 @@ include_once 'app/core/Functions.php'; // Fonctions globales
 
 if (file_exists('settings/.env')){
     loadEnvWithCache('settings/.env', 'storage/cache/env.php');
+}
+
+if (getenv('APP_DEBUG')) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+} else {
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    error_reporting(0);
 }
 
 // Charger l'autoloader personnalisé
