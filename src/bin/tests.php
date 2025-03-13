@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-12 17:28:12
+ * @ Modified time: 2025-03-13 01:19:05
  * @ Description: outil de développement
  */
 namespace App\Bin;
@@ -12,8 +12,25 @@ use Exception;
 
 use App\Core\Autoloader;
 use App\Helpers\LogTerminal;
+session_start();
 
 include_once 'app/core/Functions.php'; // Fonctions globales
+
+if (file_exists('settings/.env')){
+    loadEnvWithCache('settings/.env', 'storage/cache/env.php');
+}
+
+
+if (getenv('APP_DEBUG')) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+} else {
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    error_reporting(0);
+}
+
 // Charger l'autoloader personnalisé
 require_once 'app/core/Autoloader.php';
 
@@ -37,6 +54,7 @@ function runTests($dir)
             $className = 'Tests\\' . str_replace('/', '\\', substr($path, 6, -4));
             $terminal->i("Running $className");
             $testClass = new $className();
+            $testClass->setUp();
             foreach (get_class_methods($testClass) as $method) {
                 if (strpos($method, 'test') === 0) {
                     try {
@@ -48,6 +66,7 @@ function runTests($dir)
                     }
                 }
             }
+            $testClass->tearDown();
         }
     }
 }
