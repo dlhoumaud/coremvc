@@ -3,7 +3,7 @@
  * @ Author: David Lhoumaud
  * @ Create Time: 2024-11-12 10:27:58
  * @ Modified by: GloomShade
- * @ Modified time: 2025-03-12 11:31:43
+ * @ Modified time: 2025-03-13 01:28:25
  * @ Description: Script de fonctionnalités globales
  */
 
@@ -28,8 +28,13 @@
          // Charger les variables depuis le fichier de cache
          $cachedEnv = include $cachePath;
          foreach ($cachedEnv as $key => $value) {
-             putenv("$key=$value");
-             $_ENV[$key] = $value;  // Optionnel, mais permet d'utiliser $_ENV aussi
+            if ($value === 'true') {
+                $value = true;
+            }elseif ($value === 'false') {
+                $value = false;
+            }
+            putenv("$key=$value");
+            $_ENV[$key] = $value;  // Optionnel, mais permet d'utiliser $_ENV aussi
          }
          return;
      }
@@ -50,6 +55,12 @@
          if (count($parts) == 2) {
             $key = trim($parts[0]);
             $value = trim($parts[1]).($key=='VERSION'?'.'.time():'');
+
+            if ($value === 'true') {
+                $value = true;
+            }elseif ($value === 'false') {
+                $value = false;
+            }
 
             // Définir la variable d'environnement
             putenv("$key=$value");
@@ -103,6 +114,14 @@ function createCacheViewFile($sourcePath)
     file_put_contents($cPath, $content);
     return $cPath;
     
+}
+
+function buffer(callable $callback): mixed
+{
+    ob_start();
+    $callback();
+    $output = ob_get_clean();
+    return $output;
 }
 
 
